@@ -1411,3 +1411,187 @@ address{font-style:normal}
   .header-cta{font-size:.6rem;letter-spacing:.1rem;padding:.6em 1em}
   .mobile-menu{padding:24px}
 }
+
+
+/* ===================================================================
+   §17  REVISÃO DE DESIGN — 04/08/2026
+   Ponto a ponto da lista do cliente (AJUSTES-PENDENTES.md).
+   Fica no fim do arquivo de propósito: sobrescreve o que veio antes
+   sem reescrever o §14, para o histórico continuar legível.
+=================================================================== */
+
+/* ---- S-3 / S-8 · listas deixam de ser bullet seco --------------
+   O travessão pendurado não era design, era ausência dele. Cada item
+   vira uma placa com marcador em azul da marca. E o <strong> que o
+   texto já usava passa a ser o rótulo do item — resolve o negrito que
+   não combinava com a serifada sem tocar no HTML. */
+.checklist{display:grid;gap:.75rem}
+.checklist li{
+  position:relative;
+  margin:0;
+  padding:1rem 1.1rem 1rem 2.9rem;
+  line-height:1.6;
+  background:var(--quaternary);
+  border:1px solid var(--cor-borda);
+  border-left:3px solid var(--secondary);
+  transition:border-color .3s;
+}
+.checklist li::before{
+  content:"";
+  position:absolute;
+  left:1.15rem;top:1.5em;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--secondary);
+  margin:0;line-height:1;
+}
+.checklist li strong{
+  display:block;
+  margin-bottom:.3rem;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  font-weight:500;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  color:var(--secondary);
+}
+.checklist--2col{columns:auto;grid-template-columns:repeat(2,1fr);gap:.75rem}
+
+/* Em faixa escura ou sobre foto, a placa branca cegaria. */
+.band-dark .checklist li,.cover .checklist li{
+  background:rgb(255 255 255 / .07);
+  border-color:rgb(231 232 234 / .3);
+  border-left-color:var(--tertiary);
+}
+.band-dark .checklist li::before,.cover .checklist li::before{background:var(--tertiary)}
+.band-dark .checklist li strong,.cover .checklist li strong{color:var(--tertiary)}
+
+/* ---- S-3 · alinhamento -------------------------------------------
+   O texto de apoio e o botão estavam centrados enquanto a seção
+   inteira corre à esquerda. Passam a acompanhar a seção. */
+#voce-se-reconhece .wrap-narrow{margin-inline:0;text-align:left}
+#voce-se-reconhece .btn-row{justify-content:flex-start}
+
+/* ---- S-4 · cor na borda do card + equilíbrio do grid -------------- */
+.card{border-top:3px solid var(--secondary)}
+.card--link:hover{border-color:var(--cor-borda);border-top-color:var(--senary)}
+.band-dark .card{border-top-color:var(--tertiary)}
+/* A coluna da imagem ocupava 55% e engolia o texto ao lado. 46% dá
+   à foto o mesmo peso dos cards da fileira de cima. */
+.split .col-img,.office-grid .col-img{flex:0 0 46%}
+.split .col-copy,.office-grid .col-copy{flex:1 1 54%}
+
+/* ---- S-5b · etapas ------------------------------------------------
+   Numeral maior e em azul, mais respiro entre as colunas, título da
+   etapa no mesmo degrau dos demais h3. */
+.steps{gap:2.75rem var(--gap-columns)}
+.steps li::before{
+  font-size:var(--fs-large);
+  font-weight:500;
+  letter-spacing:2px;
+  color:var(--secondary);
+  padding-bottom:12px;
+  margin-bottom:18px;
+}
+.steps h3,.steps h4{font-size:var(--fs-large);margin-bottom:.75rem}
+.steps p{line-height:1.75}
+
+/* ---- S-6 · sobre o cirurgião -------------------------------------
+   Nome em azul, respiro menor entre os parágrafos (o excesso empurrava
+   o botão para longe do texto) e o link do Instagram deixa de ficar
+   solto: vira rótulo alinhado ao resto da coluna. */
+#sobre h2{color:var(--secondary)}
+#sobre .col-copy{gap:1rem}
+#sobre .col-copy p{margin-bottom:.35em}
+#sobre .btn-row{margin-top:.75rem}
+#sobre .col-copy .eyebrow{margin-top:.5rem}
+
+/* ---- G-2 · quem conduz o seu caso --------------------------------
+   Tudo centrado e na mesma altura: o card estica, o botão encosta na
+   base, e os três terminam alinhados. */
+#equipe .grid-3{align-items:stretch}
+#equipe .media-card{
+  height:100%;
+  align-items:center;text-align:center;
+  border:1px solid var(--cor-borda);
+  border-top:3px solid var(--secondary);
+  padding:0 0 1.75rem;
+  background:var(--quaternary);
+}
+#equipe .media-card .slot{margin-bottom:1.25rem}
+#equipe .media-card h3,#equipe .media-card .role,#equipe .media-card p{
+  padding-inline:1.4rem;
+}
+#equipe .media-card p{flex:1 1 auto}
+#equipe .media-card .btn-row{margin-top:auto;padding-top:1.25rem;justify-content:center}
+
+/* ---- G-3 · a estrutura -------------------------------------------
+   Era imagem + parágrafos soltos. Ganha rótulo, régua e o mesmo
+   tratamento de placa das demais seções. */
+#estrutura .col-copy{gap:1.1rem}
+#estrutura .col-copy p{margin-bottom:.25em}
+#estrutura h2{color:var(--secondary)}
+
+/* ---- S-11 · próximo passo ----------------------------------------
+   O mapa e a coluna de dados não partiam da mesma linha. */
+.location-grid{align-items:stretch}
+.location-grid .col-copy{justify-content:center}
+.contact-list{gap:.15rem}
+.contact-list .eyebrow{margin-top:1.4rem}
+.contact-list a,.contact-list span{min-height:0;line-height:1.7}
+.location-grid .col-copy .btn-row{margin-top:2rem}
+
+/* ---- S-12 · rodapé ------------------------------------------------
+   O menu do rodapé listava os três cirurgiões soltos, diferente do
+   menu do topo, e os elementos ficavam longe demais uns dos outros. */
+.footer-bar{
+  flex-direction:column;
+  gap:1.25rem;
+  padding:24px 20px;
+}
+.footer-bar .main-nav > ul{flex-wrap:wrap;justify-content:center;gap:clamp(16px,2.4vw,28px)}
+.footer-social{gap:clamp(16px,2.4vw,28px)}
+.footer-mark hr{margin:1.1em 0}
+.footer-rt{padding-bottom:16px;line-height:1.85}
+.footer-legal{padding:12px 20px}
+.site-footer .cover{min-height:0}
+
+/* ---- T-1 · hierarquia: título de seção nunca do tamanho do h3 ----- */
+.section-head h2,.split h2,.office-grid h2,.procedures h2{font-size:var(--fs-x-large)}
+h3{font-size:var(--fs-large)}
+
+/* ---- responsivo dos ajustes acima -------------------------------- */
+@media (max-width:900px){
+  .split .col-img,.office-grid .col-img,
+  .split .col-copy,.office-grid .col-copy{flex:1 1 auto}
+  #voce-se-reconhece .wrap-narrow{text-align:center}
+  #voce-se-reconhece .btn-row{justify-content:center}
+}
+@media (max-width:767px){
+  .checklist--2col{grid-template-columns:1fr}
+  .checklist{text-align:left}
+  .checklist li{padding-left:2.9rem}
+  .checklist li::before{position:absolute;left:1.15rem;top:1.5em;margin:0}
+  .steps{gap:2rem}
+}
+
+/* ---- M-1 · submenu largo (Tratamentos) --------------------------
+   Seis procedimentos com uma linha de explicação cada. A placa
+   estreita do submenu padrão quebraria as descrições em três linhas. */
+.subnav--wide{min-width:420px;max-width:min(92vw,470px)}
+.subnav--wide a{white-space:normal}
+.subnav--wide .role{
+  margin-top:5px;
+  text-transform:none;
+  letter-spacing:.2px;
+  line-height:1.45;
+  color:var(--contrast);
+  opacity:.7;
+}
+/* Um submenu no fim da barra não pode nascer para fora da tela. */
+.main-nav > ul > li:nth-last-child(-n+2) .subnav{left:auto;right:0;transform:translateX(0) translateY(-8px)}
+.main-nav > ul > li:nth-last-child(-n+2):hover .subnav,
+.main-nav > ul > li:nth-last-child(-n+2):focus-within .subnav{transform:translateX(0) translateY(0)}
+@media (max-width:1200px){
+  .subnav--wide{min-width:360px;max-width:min(92vw,400px)}
+}
