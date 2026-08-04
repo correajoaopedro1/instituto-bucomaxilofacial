@@ -918,57 +918,23 @@ img.img-token[src^="data:"]{
    desenho do `.trust-item`, que já existia no sistema. Cards e faixa
    de credibilidade passam a ser a mesma família.
    Quem precisa mesmo de caixa fechada usa `.card--boxed`. */
-/* [REVISTO 04/08/2026] A rodada anterior tirou a caixa e deixou o card
-   como coluna aberta. Em fileira de 3 ou 4, com títulos de alturas
-   diferentes, aquilo ficou torto: cada parágrafo começava numa altura,
-   cada botão terminava noutra, e sem moldura o olho não tinha o que
-   agrupar. Voltou a ser placa — e agora com três garantias de
-   alinhamento que antes não existiam:
-     1. `height:100%` + grid esticando  -> todas as placas da fileira
-        têm a MESMA altura, independente do texto
-     2. `min-height` no h3              -> título de 1 linha ocupa 2, e
-        os parágrafos de todas as colunas começam na mesma altura
-     3. `margin-top:auto` no rodapé     -> os botões encostam na base,
-        alinhados entre si
-   É o que faz a fileira ler como fileira. */
+/* Card de conteúdo — desenho original do projeto, restaurado em
+   04/08/2026. As variações que eu tinha introduzido (coluna aberta,
+   depois placa branca) saíram a pedido do cliente: o ajuste das
+   seções passa a ser feito uma a uma, e não por regra geral. */
 .card{
-  background:var(--quaternary);
-  border:1px solid var(--cor-borda);
-  border-top:2px solid var(--brand-grey);
-  padding:clamp(22px,2.4vw,30px);
-  display:flex;flex-direction:column;gap:.85rem;align-items:flex-start;
-  height:100%;
-  transition:border-color .3s;
-}
-.card h3{
-  font-size:var(--fs-large);
-  line-height:1.35;
-  min-height:2.7em;      /* reserva 2 linhas — alinha os parágrafos */
-}
-.card p{margin:0}
-.card .eyebrow{color:var(--cor-texto-sup)}
-.card--link:hover{border-top-color:var(--secondary)}
-.card--link a:hover{text-decoration:none}
-.card .card-foot{margin-top:auto;padding-top:1.3rem}
-/* Em faixa escura a placa branca destoaria — ali o card fica vazado. */
-.band-dark .card,.cover .card{
-  background:transparent;
-  border-color:rgb(231 232 234 / .35);
-  border-top-color:rgb(231 232 234 / .5);
-}
-/* Listas dentro de card: sem as réguas da .checklist solta, que dentro
-   de uma placa viram uma pilha de linhas. */
-.card .checklist li{border:0;padding:.3em 0}
-.card .checklist > li:first-child{border-top:0}
-
-/* Variante fechada — mantém o desenho antigo para onde a caixa faz
-   sentido (bloco isolado, não em série). */
-.card--boxed{
   border:1px solid var(--cor-borda);
   padding:clamp(20px,4vw,32px);
+  display:flex;flex-direction:column;gap:1rem;align-items:flex-start;
+  background:transparent;
 }
-.card--boxed.card--link:hover{border-color:var(--primary)}
-.band-dark .card--boxed,.cover .card--boxed{border-color:rgb(231 232 234 / .35)}
+.card h3{font-size:var(--fs-large)}
+.card p{margin:0}
+.card .eyebrow{color:var(--cor-texto-sup)}
+.card--link:hover{border-color:var(--primary)}
+.card--link a:hover{text-decoration:none}
+.card .card-foot{margin-top:auto;padding-top:.5rem}
+.band-dark .card{border-color:rgb(231 232 234 / .35)}
 
 /* Card de membro da equipe — herda .procedure-card, acrescenta cargo */
 .team-card .role{
@@ -992,47 +958,24 @@ img.img-token[src^="data:"]{
    marcador, sem cor nova.
    Regra: use .checklist para frases curtas soltas (sintomas, itens
    de conferência). Para "termo + explicação", use .deflist. */
-.checklist{display:grid}
 .checklist li{
-  padding:.95em 0;
-  line-height:1.65;
-  border-bottom:1px solid var(--cor-borda);
+  position:relative;
+  padding-left:1.75em;
+  margin-bottom:.85em;
+  line-height:1.7;
 }
-.checklist > li:first-child{border-top:1px solid var(--cor-borda)}
-.band-dark .checklist li,.cover .checklist li{border-color:rgb(231 232 234 / .35)}
-/* columns quebrava a pauta entre as duas colunas — grid mantém a
-   régua alinhada em cada coluna independentemente. */
-.checklist--2col{grid-template-columns:repeat(2,1fr);column-gap:var(--gap-columns)}
-.checklist--2col > li:nth-child(2){border-top:1px solid var(--cor-borda)}
-.band-dark .checklist--2col > li:nth-child(2),
-.cover .checklist--2col > li:nth-child(2){border-color:rgb(231 232 234 / .35)}
-
-/* ---- 14.5b Lista de termo + explicação  [NOVO] ------------------
-   Substitui o padrão "<strong>Termo.</strong> explicação que segue".
-   A serifada do sistema é Light (300); o salto para bold cria dois
-   pesos que a família não sustenta bem e engrossa a mancha de texto.
-   Aqui o termo sai do corpo e vira rótulo em Montserrat maiúsculo —
-   a mesma tipografia do `.eyebrow`, que o sistema já usa para rótulo.
-   Ganha hierarquia de verdade e dispensa negrito. */
-.deflist{display:grid;gap:1.9rem}
-.deflist > li{
-  padding-left:1.5rem;
-  border-left:1px solid var(--cor-borda);
-}
-.deflist .term{
-  display:block;
-  margin-bottom:.5rem;
+.checklist li::before{
+  content:"—";
+  position:absolute;left:0;top:0;
+  color:var(--cor-texto-sup);
   font-family:var(--font-nav);
   font-size:var(--fs-xx-small);
-  letter-spacing:1px;
-  text-transform:uppercase;
-  line-height:1.5;
-  color:var(--cor-texto-sup);
+  line-height:2.2;
 }
-.deflist p{margin:0;line-height:1.7}
-.band-dark .deflist > li,.cover .deflist > li{border-left-color:rgb(231 232 234 / .35)}
-.band-dark .deflist .term,.cover .deflist .term{color:var(--tertiary)}
-.deflist--2col{grid-template-columns:repeat(2,1fr);gap:1.9rem var(--gap-columns)}
+.band-dark .checklist li::before,.cover .checklist li::before{color:var(--tertiary)}
+.checklist--2col{columns:2;column-gap:var(--gap-columns)}
+.checklist--2col li{break-inside:avoid}
+
 
 /* ---- 14.6 Etapas numeradas --------------------------------------
    Numeração com a tipografia exata do .mega-title. */
@@ -1300,33 +1243,6 @@ address{font-style:normal}
 }
 
 
-/* ---- 14.17 Nota de apoio  [NOVO] --------------------------------
-   Ressalva, condição, aviso. Substitui o padrão de destacar a frase
-   em negrito no meio do corpo de texto — em serifada Light o negrito
-   cria um bloco escuro que puxa o olho antes do título da seção.
-   Aqui a ressalva sai do corpo, ganha régua e vai para Montserrat
-   pequeno: continua se destacando, mas como aparte, não como grito.
-   Mesma tipografia do `.pending-note` e do `.footer-rt`. */
-.nota,.convenio-nota{
-  margin:0;
-  padding-top:1rem;
-  border-top:1px solid var(--cor-borda);
-  font-family:var(--font-nav);
-  font-size:var(--fs-xx-small);
-  line-height:1.9;
-  letter-spacing:.3px;
-  color:var(--cor-texto-sup);
-}
-.nota--center,.convenio-nota{
-  width:min(100%,620px);
-  margin-inline:auto;
-  text-align:center;
-}
-.band-dark .nota,.cover .nota,
-.band-dark .convenio-nota,.cover .convenio-nota{
-  border-top-color:rgb(231 232 234 / .35);
-  color:var(--tertiary);
-}
 
 
 /* ===================================================================
@@ -1399,29 +1315,21 @@ address{font-style:normal}
   .gallery,.gallery--4{grid-template-columns:repeat(2,1fr);gap:1.5rem}
   .section-head{margin-inline:auto;text-align:center}
 
-  /* Listas de duas colunas empilham. Na .checklist a régua de topo
-     volta a existir só no primeiro item — em coluna única, a do
-     segundo item viraria uma linha dupla no meio da lista. */
-  .checklist--2col,.deflist--2col{grid-template-columns:1fr}
-  .checklist--2col > li:nth-child(2){border-top:0}
+  .checklist--2col{columns:1}
 
 
 
-  /* Listas centradas no celular. A pauta da .checklist acompanha sem
-     ajuste — a régua já é a largura inteira do item. Na .deflist a
-     régua sai da esquerda (com texto centrado ela ficaria pendurada
-     em um dos lados) e vira um traço curto acima do rótulo. */
+  /* Listas de sintomas centradas. O traço deixa de ser marcador pendurado
+     à esquerda e passa a ficar centralizado acima de cada item — é o que
+     mantém a lista legível quando o texto é centrado. */
   .checklist{text-align:center}
-  .deflist{text-align:center}
-  .deflist > li{padding-left:0;border-left:0;padding-top:1.4rem}
-  .deflist > li::before{
-    content:"";display:block;
-    width:40px;height:1px;
-    background:var(--cor-borda);
-    margin:0 auto 1.1rem;
+  .checklist li{padding-left:0}
+  .checklist li::before{
+    position:static;
+    display:block;
+    line-height:1;
+    margin:0 auto .4em;
   }
-  .band-dark .deflist > li::before,
-  .cover .deflist > li::before{background:rgb(231 232 234 / .35)}
 }
 @media (max-width:767px){
   .intro-gallery{grid-template-columns:1fr}
@@ -1464,11 +1372,6 @@ address{font-style:normal}
   /* Cards e blocos de texto centrados. */
   .card,.media-card{align-items:center;text-align:center}
   .card .btn-row,.media-card .btn-row{justify-content:center}
-  /* Em coluna única cada card já é uma placa isolada: a reserva de
-     2 linhas no título deixa de fazer sentido (não há coluna vizinha
-     com que alinhar) e só abriria um vão embaixo do título curto. */
-  .card h3{min-height:0}
-  .card .card-foot{width:100%;display:flex;justify-content:center}
   .steps{text-align:center}
   .steps li::before{border-bottom:0;padding-bottom:0;margin-bottom:8px}
 
