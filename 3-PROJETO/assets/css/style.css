@@ -1,4 +1,4 @@
-﻿/* ===================================================================
+/* ===================================================================
    INSTITUTO BUCOMAXILOFACIAL — DESIGN SYSTEM COMPARTILHADO
    -------------------------------------------------------------------
    Origem: extraído do molde-mestre index.html (Hanna Face and Jaw).
@@ -224,10 +224,19 @@ img.img-token[src^="data:"]{
 .btn--outline-light{color:var(--quaternary)}
 .btn--outline-light:hover{color:var(--tertiary);border-color:var(--tertiary)}
 
-/* [NOVO] Área de toque mínima de 48px em mobile (briefing §9).
-   Não altera a aparência do botão em desktop. */
+/* [REVISTO 04/08/2026] Antes só havia `min-height:48px`, que resolvia o
+   alvo de toque mas não o respiro: o texto encostava na borda e o botão
+   ficava com cara de apertado. Agora o padding é explícito — 14px em
+   cima e embaixo, 24px nas laterais — e o min-height vira só a garantia
+   de piso. */
 @media (max-width:900px){
-  .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+  .btn{
+    min-height:48px;
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:14px 24px;
+    line-height:1.25;
+  }
+  .btn--outline{padding:12px 22px}   /* 2px de borda entram na conta */
 }
 
 /* [NOVO] Linha de botões — usada no fim de cada bloco */
@@ -315,9 +324,11 @@ img.img-token[src^="data:"]{
    Com o gap de 26px isso passava da largura útil e quebrava em duas
    linhas. Aperta o respiro em vez de esconder item. */
 @media (max-width:1300px){
-  .main-nav > ul{gap:18px}
-  .header-right{gap:16px}
-  .header-cta{padding:calc(.55em + 2px) calc(1em + 2px)}
+  /* 6 itens de topo depois que "Redes sociais" entrou no menu. */
+  .main-nav > ul{gap:14px}
+  .main-nav a{letter-spacing:.06rem}
+  .header-right{gap:14px}
+  .header-cta{padding:calc(.5em + 2px) calc(.9em + 2px)}
 }
 
 /* Mega-menu — mantido do molde. [DISPONÍVEL] para LPs futuras. */
@@ -810,9 +821,25 @@ img.img-token[src^="data:"]{
   gap:clamp(24px,4vw,48px);
   padding:20px;
 }
-.footer-bar .social{margin-left:0}
 .footer-bar img{width:65px}
 .footer-bar .main-nav a{color:var(--base)}
+
+/* [NOVO 04/08/2026] Redes sociais em texto, não em ícone. O ícone
+   solto do Instagram no header e no rodapé lia como enfeite; escrito,
+   o link diz o que é. Mesma tipografia do menu do rodapé. */
+.footer-social{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:clamp(18px,3vw,32px);
+}
+.footer-social a{
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:.12rem;
+  text-transform:uppercase;
+  color:var(--base);
+  white-space:nowrap;
+}
+.footer-social a:hover{color:var(--tertiary);text-decoration:none}
 .footer-legal{
   width:94%;margin-inline:auto;
   display:flex;justify-content:center;align-items:center;gap:6px;
@@ -857,26 +884,6 @@ img.img-token[src^="data:"]{
 .section-head h2{font-size:var(--fs-x-large)}
 .section-head p{margin-top:1rem}
 
-/* [NOVO] Cabeçalho assimétrico — rótulo e título à esquerda, texto de
-   apoio à direita, apoiados na mesma linha de base. Existe porque as
-   páginas abriam TODAS as seções com o mesmo bloco centrado: mesma
-   largura, mesmo eixo, mesmo ritmo, uma atrás da outra. Alternar com
-   o centrado é o que dá cadência à página. Usa a mesma grade e o
-   mesmo `--gap-columns` dos demais blocos de duas colunas. */
-.section-head--split{
-  max-width:none;
-  display:grid;
-  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
-  gap:var(--gap-columns);
-  align-items:end;
-}
-.section-head--split p{margin-top:0}
-/* A régua fecha o cabeçalho e separa do conteúdo sem um espaçador a mais. */
-.section-head--ruled{
-  padding-bottom:1.5rem;
-  border-bottom:1px solid var(--cor-borda);
-}
-.band-dark .section-head--ruled,.cover .section-head--ruled{border-bottom-color:rgb(231 232 234 / .35)}
 
 /* [NOVO] Régua avulsa — divisória entre blocos dentro da mesma seção. */
 .rule{border:0;height:1px;background:var(--cor-borda);margin:0}
@@ -911,20 +918,48 @@ img.img-token[src^="data:"]{
    desenho do `.trust-item`, que já existia no sistema. Cards e faixa
    de credibilidade passam a ser a mesma família.
    Quem precisa mesmo de caixa fechada usa `.card--boxed`. */
+/* [REVISTO 04/08/2026] A rodada anterior tirou a caixa e deixou o card
+   como coluna aberta. Em fileira de 3 ou 4, com títulos de alturas
+   diferentes, aquilo ficou torto: cada parágrafo começava numa altura,
+   cada botão terminava noutra, e sem moldura o olho não tinha o que
+   agrupar. Voltou a ser placa — e agora com três garantias de
+   alinhamento que antes não existiam:
+     1. `height:100%` + grid esticando  -> todas as placas da fileira
+        têm a MESMA altura, independente do texto
+     2. `min-height` no h3              -> título de 1 linha ocupa 2, e
+        os parágrafos de todas as colunas começam na mesma altura
+     3. `margin-top:auto` no rodapé     -> os botões encostam na base,
+        alinhados entre si
+   É o que faz a fileira ler como fileira. */
 .card{
-  border-top:2px solid var(--cor-borda);
-  padding:1.6rem 0 0;
-  display:flex;flex-direction:column;gap:.9rem;align-items:flex-start;
-  background:transparent;
+  background:var(--quaternary);
+  border:1px solid var(--cor-borda);
+  border-top:2px solid var(--brand-grey);
+  padding:clamp(22px,2.4vw,30px);
+  display:flex;flex-direction:column;gap:.85rem;align-items:flex-start;
+  height:100%;
   transition:border-color .3s;
 }
-.card h3{font-size:var(--fs-large);line-height:1.35}
+.card h3{
+  font-size:var(--fs-large);
+  line-height:1.35;
+  min-height:2.7em;      /* reserva 2 linhas — alinha os parágrafos */
+}
 .card p{margin:0}
 .card .eyebrow{color:var(--cor-texto-sup)}
 .card--link:hover{border-top-color:var(--secondary)}
 .card--link a:hover{text-decoration:none}
-.card .card-foot{margin-top:auto;padding-top:.5rem}
-.band-dark .card,.cover .card{border-top-color:rgb(231 232 234 / .35)}
+.card .card-foot{margin-top:auto;padding-top:1.3rem}
+/* Em faixa escura a placa branca destoaria — ali o card fica vazado. */
+.band-dark .card,.cover .card{
+  background:transparent;
+  border-color:rgb(231 232 234 / .35);
+  border-top-color:rgb(231 232 234 / .5);
+}
+/* Listas dentro de card: sem as réguas da .checklist solta, que dentro
+   de uma placa viram uma pilha de linhas. */
+.card .checklist li{border:0;padding:.3em 0}
+.card .checklist > li:first-child{border-top:0}
 
 /* Variante fechada — mantém o desenho antigo para onde a caixa faz
    sentido (bloco isolado, não em série). */
@@ -1092,48 +1127,15 @@ img.img-token[src^="data:"]{
   z-index:150;
   display:flex;flex-direction:column;align-items:center;gap:10px;
 }
-.dock-links{
-  display:flex;flex-direction:column;align-items:center;gap:10px;
-  opacity:0;visibility:hidden;
-  transform:translateY(10px);
-  transition:opacity .3s ease,transform .3s ease,visibility .3s;
-}
-.social-dock.is-open .dock-links{opacity:1;visibility:visible;transform:none}
-.dock-links a{
-  width:42px;height:42px;
-  border-radius:50%;
-  background:var(--contrast);
-  color:var(--quaternary);
-  display:flex;align-items:center;justify-content:center;
-  line-height:0;
-  transition:background .3s,transform .3s;
-}
-.dock-links svg{width:19px;height:19px;fill:currentColor;display:block}
-.dock-links a:hover{background:var(--primary);text-decoration:none;transform:translateY(-2px)}
+/* [REVISTO 04/08/2026] O dock expansível de redes sociais saiu por
+   decisão do cliente — "achei bem nada a ver". As redes viraram um
+   item de menu ("Redes sociais", com submenu) e uma lista de texto no
+   rodapé, que é onde elas se explicam sozinhas. Aqui ficou só o
+   WhatsApp, que é a conversão. O `.social-dock` permanece apenas como
+   o invólucro que posiciona o botão no canto. */
 
-/* Botão que abre o dock — placa clara, para não competir com o
-   WhatsApp. O "+" gira 45° e vira "×" quando aberto: mesmo desenho
-   e mesma mecânica do sinal do FAQ. */
-.dock-toggle{
-  width:34px;height:34px;
-  border-radius:50%;
-  border:1px solid var(--brand-grey);
-  background:var(--base);
-  color:var(--contrast);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .3s,color .3s,border-color .3s;
-}
-.dock-toggle:hover{background:var(--contrast);color:var(--base);border-color:var(--contrast)}
-.dock-toggle .sign{position:relative;width:12px;height:12px;transition:transform .3s}
-.dock-toggle .sign::before,.dock-toggle .sign::after{
-  content:"";position:absolute;top:50%;left:0;
-  width:100%;height:1px;background:currentColor;
-}
-.dock-toggle .sign::after{transform:rotate(90deg)}
-.dock-toggle[aria-expanded="true"] .sign{transform:rotate(45deg)}
-
-/* WhatsApp — ação principal. Deixou de ser `fixed`: quem posiciona
-   agora é o .social-dock. O resto (tamanho, cor, hover) é o mesmo. */
+/* WhatsApp — ação principal. Não é `fixed`: quem posiciona é o
+   .social-dock. O resto (tamanho, cor, hover) é o mesmo. */
 .wa-float{
   width:56px;height:56px;
   border-radius:50%;
@@ -1271,24 +1273,31 @@ address{font-style:normal}
    Os logos entram dessaturados e ganham cor no hover. É o que impede
    uma fileira de marcas de terceiros — cada uma com sua paleta — de
    brigar com a identidade do Instituto. */
-.convenio-rail{width:min(100%,940px);margin-inline:auto}
+.convenio-rail{width:min(100%,1000px);margin-inline:auto}
 .convenio-logo{
+  margin:0;                    /* <figure> tem margem lateral por padrão */
   aspect-ratio:5/2;
   background:var(--quaternary);
   border:1px solid var(--cor-borda);
   display:grid;place-items:center;
-  padding:12px 16px;
+  padding:14px 18px;
 }
 .convenio-logo img{
-  width:100%;height:100%;
+  max-width:100%;max-height:100%;
+  width:auto;height:auto;      /* respeita a proporção de cada marca */
   object-fit:contain;          /* logo não pode ser cortado, ≠ das fotos */
   filter:grayscale(1);
-  opacity:.72;
+  opacity:.7;
   transition:filter .35s,opacity .35s;
 }
 .convenio-logo:hover img{filter:none;opacity:1}
-/* O rótulo do token precisa caber na altura menor deste slot. */
-.convenio-logo[data-slot]::after{font-size:.62rem;letter-spacing:1px;line-height:1.6;padding:.5rem}
+
+/* Com 5 marcas, no desktop cabem todas e o carrossel não rola — as
+   setas se escondem sozinhas (`.slider-nav[disabled]`). Ele só vira
+   carrossel de fato no tablet e no celular, onde cabem 3 e 2. */
+@media (max-width:900px){
+  .convenio-logo{aspect-ratio:2/1}
+}
 
 
 /* ---- 14.17 Nota de apoio  [NOVO] --------------------------------
@@ -1334,8 +1343,8 @@ address{font-style:normal}
   .faq-q .sign,.faq-q .sign::after{transition:none}
   .reviews-fade .review{transition:none}
   /* [NOVO] componentes desta rodada */
-  .subnav,.dock-links{transition:none}
-  .dock-toggle .sign,.mobile-sub-toggle .sign::after{transition:none}
+  .subnav{transition:none}
+  .mobile-sub-toggle .sign::after{transition:none}
   .hamburger::before,.hamburger::after,.hamburger .bar{transition:none}
   .has-sub > a::after{transition:none}
   .convenio-logo img{transition:none}
@@ -1363,6 +1372,7 @@ address{font-style:normal}
      só o menu some (ele já está no menu hambúrguer). */
   .footer-bar .main-nav{display:none}
   .footer-bar{justify-content:center}
+  .footer-social{width:100%}
   .slider-nav.prev{left:0}
   .slider-nav.next{right:0}
 
@@ -1395,11 +1405,7 @@ address{font-style:normal}
   .checklist--2col,.deflist--2col{grid-template-columns:1fr}
   .checklist--2col > li:nth-child(2){border-top:0}
 
-  /* O cabeçalho assimétrico volta a ser um bloco só, centrado como
-     os demais — em coluna única a assimetria não tem o que expressar. */
-  .section-head--split{grid-template-columns:1fr;gap:1rem;text-align:center}
-  .section-head--split .eyebrow{display:block}
-  .section-head--ruled{padding-bottom:1.25rem}
+
 
   /* Listas centradas no celular. A pauta da .checklist acompanha sem
      ajuste — a régua já é a largura inteira do item. Na .deflist a
@@ -1458,19 +1464,11 @@ address{font-style:normal}
   /* Cards e blocos de texto centrados. */
   .card,.media-card{align-items:center;text-align:center}
   .card .btn-row,.media-card .btn-row{justify-content:center}
-  /* Régua do card mais curta e centrada: em coluna única, uma régua
-     de largura total a cada card viraria uma sequência de linhas
-     atravessando a tela. */
-  .card{border-top:0;padding-top:1.25rem;position:relative}
-  .card::before{
-    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:44px;height:2px;background:var(--cor-borda);
-    transition:background .3s;
-  }
-  .card--link:hover::before{background:var(--secondary)}
-  .band-dark .card::before,.cover .card::before{background:rgb(231 232 234 / .35)}
-  .card--boxed{border:1px solid var(--cor-borda);padding:clamp(20px,4vw,32px)}
-  .card--boxed::before{content:none}
+  /* Em coluna única cada card já é uma placa isolada: a reserva de
+     2 linhas no título deixa de fazer sentido (não há coluna vizinha
+     com que alinhar) e só abriria um vão embaixo do título curto. */
+  .card h3{min-height:0}
+  .card .card-foot{width:100%;display:flex;justify-content:center}
   .steps{text-align:center}
   .steps li::before{border-bottom:0;padding-bottom:0;margin-bottom:8px}
 

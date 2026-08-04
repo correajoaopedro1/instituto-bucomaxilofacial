@@ -219,39 +219,9 @@
     });
   })();
 
-  /* =================================================================
-     DOCK SOCIAL FLUTUANTE  [NOVO]
-     O WhatsApp fica sempre visível; as redes sociais sobem a partir
-     dele. Fecha ao clicar fora e no Esc — o dock cobre conteúdo
-     enquanto aberto e não pode ficar preso.
-  ================================================================= */
-  (function () {
-    var dock   = d.getElementById("socialDock");
-    var toggle = d.getElementById("dockToggle");
-    if (!dock || !toggle) return;
-
-    function setOpen(open) {
-      dock.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.setAttribute("aria-label", open ? "Ocultar redes sociais" : "Mostrar redes sociais");
-    }
-
-    toggle.addEventListener("click", function (e) {
-      e.stopPropagation();
-      setOpen(!dock.classList.contains("is-open"));
-    });
-
-    d.addEventListener("click", function (e) {
-      if (!dock.contains(e.target)) setOpen(false);
-    });
-
-    d.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && dock.classList.contains("is-open")) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-  })();
+  /* O dock expansível de redes sociais foi removido em 04/08/2026 —
+     as redes viraram item de menu com submenu e lista no rodapé.
+     Sobrou o botão de WhatsApp, que não precisa de JS. */
 
   /* =================================================================
      ACORDEÃO DE FAQ  [NOVO]
