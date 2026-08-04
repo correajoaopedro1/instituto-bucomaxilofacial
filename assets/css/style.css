@@ -90,12 +90,12 @@
   --font-heading:"Addington","Cormorant Garamond",Georgia,serif;
   --font-nav:"Montserrat",-apple-system,Helvetica,Arial,sans-serif;
 
-  --fs-xx-small:.7rem;
-  --fs-extra-small:.8rem;
-  --fs-small:.9rem;
-  --fs-medium:clamp(.9rem,.9rem + ((1vw - .2rem) * .125),1rem);
-  --fs-large:clamp(1.1rem,1.1rem + ((1vw - .2rem) * .188),1.25rem);
-  --fs-x-large:clamp(1.5rem,1.5rem + ((1vw - .2rem) * .313),1.75rem);
+  --fs-xx-small:.76rem;
+  --fs-extra-small:.85rem;
+  --fs-small:.95rem;
+  --fs-medium:clamp(1rem,.95rem + .3vw,1.1rem);
+  --fs-large:clamp(1.2rem,1.1rem + .5vw,1.4rem);
+  --fs-x-large:clamp(1.7rem,1.4rem + 1.4vw,2.15rem);
   --fs-xx-large:clamp(1.8rem,1.8rem + ((1vw - .2rem) * .563),2.25rem);
   --fs-gigantic:clamp(3rem,3rem + ((1vw - .2rem) * .625),3.5rem);
 
@@ -136,7 +136,7 @@ h1,h2,h3,h4,h5,h6{margin:0;font-family:var(--font-heading);font-weight:300;line-
 h1{font-size:var(--fs-x-large);letter-spacing:3px;text-transform:uppercase}
 h2{font-size:var(--fs-large);letter-spacing:.12rem;text-transform:uppercase}
 h3{font-size:var(--fs-large);font-weight:400}
-ul{margin:0;padding:0;list-style:none}
+ul,ol{margin:0;padding:0;list-style:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* Foco visível — acessibilidade (§13 do briefing). Usa cor do sistema. */
@@ -170,8 +170,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .eyebrow{
   font-family:var(--font-nav);
   font-size:var(--fs-xx-small);
+  font-weight:500;
   text-transform:uppercase;
-  letter-spacing:1px;
+  letter-spacing:1.6px;
+  color:var(--secondary);
 }
 .visually-hidden{
   position:absolute;width:1px;height:1px;overflow:hidden;
@@ -881,7 +883,8 @@ img.img-token[src^="data:"]{
 .section-head .eyebrow{color:var(--cor-texto-sup);display:block;margin-bottom:.75rem}
 .band-dark .section-head .eyebrow,
 .cover .section-head .eyebrow{color:var(--tertiary)}
-.section-head h2{font-size:var(--fs-x-large)}
+.section-head h2{font-size:var(--fs-x-large);letter-spacing:.06rem}
+.section-head .eyebrow{margin-bottom:1rem}
 .section-head p{margin-top:1rem}
 
 
