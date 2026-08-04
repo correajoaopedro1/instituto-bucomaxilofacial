@@ -1,0 +1,4 @@
+# PACOTE DE HOMOLOGACAO - indexacao bloqueada de proposito.
+# Gere de novo com --producao antes de publicar de verdade.
+User-agent: *
+Disallow: /

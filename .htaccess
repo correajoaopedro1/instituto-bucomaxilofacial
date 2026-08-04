@@ -1,0 +1,97 @@
+# ===================================================================
+# Instituto Bucomaxilofacial — configuração de servidor (Apache / Hostinger)
+# Colocar na raiz de public_html.
+# ===================================================================
+
+# --- 1. Documento padrão de cada diretório -------------------------
+# É isso que faz /dr-jonathas-claus/ servir dr-jonathas-claus/index.html
+DirectoryIndex index.html
+
+# --- 2. Bloquear listagem de diretório -----------------------------
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# --- 3. Forçar HTTPS ----------------------------------------------
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# --- 4. Domínio único: www -> sem www ------------------------------
+# (se preferirem o contrário, inverta as duas linhas abaixo)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# --- 5. URL canônica com barra no final ----------------------------
+# /dr-jonathas-claus  ->  /dr-jonathas-claus/
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.*)$ /$1/ [R=301,L]
+
+# --- 6. Esconder o .html da URL ------------------------------------
+# /dr-jonathas-claus/index.html -> /dr-jonathas-claus/
+RewriteCond %{THE_REQUEST} \s/(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*)index\.html$ /$1 [R=301,L]
+
+# ===================================================================
+# 7. REDIRECIONAMENTOS  ⚠️ CONFERIR ANTES DE SUBIR
+# -------------------------------------------------------------------
+# REGRA DO PROJETO: todo redirecionamento aponta para a página do
+# Dr. Jonathas Claus ou do Dr. Matheus Spinella. São elas que recebem
+# tráfego. A LP do Dr. Lucas existe, mas não é destino de redirect.
+#
+# Critério para escolher entre as duas:
+#   ortognática, mordida, maxila, mandíbula, face   -> Jonathas
+#   ATM, dor, estalo, bruxismo, siso, extração      -> Spinella
+#   qualquer outra                                  -> Jonathas
+#
+# Levante a lista completa em Search Console > Páginas e acrescente
+# uma linha por URL. As duas abaixo são as que localizei.
+# ===================================================================
+RewriteRule ^fellowship/?$          /dr-jonathas-claus/ [R=301,L]
+RewriteRule ^cursos-e-mentorias/?$  /dr-jonathas-claus/ [R=301,L]
+
+</IfModule>
+
+# --- 7b. Página de erro --------------------------------------------
+# 404 devolve a home, que distribui para os dois cirurgiões.
+# Continua respondendo 404 de verdade — não vira soft 404 no Google.
+ErrorDocument 404 /index.html
+
+# --- 8. Proteger a documentação interna ----------------------------
+# Sem isto, qualquer pessoa abre seudominio.com.br/PENDENCIAS.md
+<FilesMatch "\.(md|json|log)$">
+  Require all denied
+</FilesMatch>
+
+# --- 9. Compressão -------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- 10. Cache ------------------------------------------------------
+# Assets com cache longo; HTML com cache curto, para que uma correção
+# de texto apareça rápido.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                "access plus 1 year"
+  ExpiresByType application/javascript  "access plus 1 year"
+  ExpiresByType image/webp              "access plus 1 year"
+  ExpiresByType image/png               "access plus 1 year"
+  ExpiresByType image/jpeg              "access plus 1 year"
+  ExpiresByType font/woff2              "access plus 1 year"
+  ExpiresByType text/html               "access plus 10 minutes"
+</IfModule>
+
+# --- 11. Cabeçalhos de segurança -----------------------------------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# --- 12. Charset ----------------------------------------------------
+AddDefaultCharset UTF-8
