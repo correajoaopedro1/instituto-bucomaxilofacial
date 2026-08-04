@@ -61,11 +61,36 @@ pegue o endereço exato em **Settings → Emails** e rode
 git config user.email "SEUNUMERO+correajoaopedro1@users.noreply.github.com"
 ```
 
+### 0.3-bis ⚠️ Limpar o `public_html` antes do primeiro deploy
+
+**O deploy por Git não apaga nada.** Ele traz os arquivos do repositório
+para dentro do diretório; o que já estava lá e não existe no repositório
+**continua lá**. Como o domínio hoje roda um WordPress, sem limpeza o
+`public_html` ficaria com as duas coisas misturadas:
+
+- `wp-admin/`, `wp-includes/`, `wp-content/` — WordPress sem manutenção é
+  superfície de ataque, e continuaria acessível pela URL
+- `wp-config.php` — com as credenciais do banco, parado no servidor
+- `index.php` do WordPress — este é o único que **não** causa problema:
+  o `DirectoryIndex index.html` do nosso `.htaccess` faz o `index.html`
+  ter precedência. Mas os outros continuam de pé
+
+Ordem correta, uma vez só:
+
+1. hPanel → **Backups** → gerar backup manual completo (não pule)
+2. Gerenciador de Arquivos → entrar em `public_html`
+3. Selecionar **tudo**, inclusive os ocultos (Configurações → *Mostrar
+   arquivos ocultos*), e apagar
+4. Só então configurar o Git abaixo
+
 Depois, no hPanel:
 
 1. **Avançado → GIT** → *Criar novo repositório*
-2. Conectar a conta do GitHub (OAuth — não precisa configurar chave SSH)
+2. Conectar a conta do GitHub por **OAuth**. Isso não é opcional: o
+   repositório é privado, e sem a autorização a Hostinger não o enxerga
 3. **Branch: `producao`** ← o passo que mais importa. Nunca `main`.
+   O branch precisa **já existir no GitHub** — ele nasce no primeiro
+   `npm run deploy:push`. Configurar antes disso dá erro na tela
 4. **Diretório: `public_html`**
 5. Deixar o campo de *build commands* **vazio** — o build já roda na sua
    máquina e o branch `producao` contém o site pronto. Hospedagem
