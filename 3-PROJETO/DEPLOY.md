@@ -2,6 +2,74 @@
 
 ---
 
+## 0. Deploy automático (a partir de 04/08/2026)
+
+O projeto agora tem gerador e está versionado. **O upload manual descrito
+na seção 1 virou plano B** — use só se o Git do hPanel estiver indisponível.
+
+### 0.1 Os comandos
+
+```bash
+npm run build            # homologação: noindex + Disallow: / (padrão)
+npm run build:producao   # produção — só roda com as pendências preenchidas
+npm run serve            # abre o pacote em http://localhost:8099
+npm run deploy           # build de produção + commit no branch `producao`
+npm run deploy:push      # o mesmo, já enviando
+```
+
+**Onde se preenchem as pendências:** `tokens.json`, na raiz. É o único
+lugar. Preencheu um valor, rodou `npm run build`, ele entra nas 4 páginas.
+
+### 0.2 A trava que protege o domínio
+
+O site atual **já tem histórico no Google**. Se um pacote de homologação
+— `noindex` nas 4 páginas e `Disallow: /` no robots — fosse publicado no
+domínio real, o site sairia do índice. Três camadas impedem isso:
+
+1. `build.mjs` só gera pacote indexável com `--producao`.
+2. O build de produção **aborta** enquanto houver pendência bloqueante em
+   `tokens.json` (hoje: `GTM_ID`, `POLITICA_PRIVACIDADE_URL`,
+   `HORARIO_ATENDIMENTO`, `CRO_MATHEUS`).
+3. O branch `producao` é escrito **apenas** por `deploy.mjs`, que só roda
+   depois de um build de produção bem-sucedido. **Um push em `main` não
+   publica nada.**
+
+### 0.3 Ligar o Git na Hostinger — uma vez só
+
+Pré-requisito: o repositório precisa estar num remoto (GitHub, GitLab).
+Ele existe localmente e ainda **não tem `origin`** — crie o repositório
+**privado** (o `PENDENCIAS.md` tem observações internas) e:
+
+```bash
+git remote add origin git@github.com:SUA-CONTA/instituto-bucomaxilofacial.git
+git push -u origin main
+```
+
+Depois, no hPanel:
+
+1. **Avançado → GIT** → *Criar novo repositório*
+2. Conectar a conta do GitHub (OAuth — não precisa configurar chave SSH)
+3. **Branch: `producao`** ← o passo que mais importa. Nunca `main`.
+4. **Diretório: `public_html`**
+5. Deixar o campo de *build commands* **vazio** — o build já roda na sua
+   máquina e o branch `producao` contém o site pronto. Hospedagem
+   compartilhada nem sempre tem Node disponível; não vale a dependência.
+6. Abrir **Auto deployment**, copiar a URL do webhook
+7. No GitHub: *Settings → Webhooks → Add webhook*, colar a URL,
+   content type `application/json`, evento *Just the push event*
+
+Daí em diante: `npm run deploy:push` → a Hostinger publica sozinha.
+
+### 0.4 O que continua manual
+
+- **SSL** (seção 3) — uma vez só, no hPanel
+- **Redirecionamentos do site antigo** (seção 2) — é levantamento de
+  conteúdo, não tem como automatizar
+- **Revisão jurídica / CRO-SC** e a decisão do LOGO-03 — o build imprime
+  os dois como lembrete ao gerar produção, mas não tem como verificar
+
+---
+
 ## Antes de qualquer coisa: uma decisão
 
 O domínio `institutobucomaxilofacial.com.br` **já tem um site no ar**.
@@ -31,9 +99,13 @@ do WordPress antes** (Hostinger → Backups → gerar backup manual).
 
 ---
 
-## 1. O que sobe, e onde
+## 1. Upload manual — plano B
 
-Suba **o conteúdo** da pasta `instituto-bucomaxilofacial/` — não a pasta
+> Use só se o Git do hPanel estiver fora do ar. O caminho normal é a
+> seção 0. O zip continua sendo gerado por `npm run build`, em
+> `2-PARA-SUBIR/site-hospedagem.zip`.
+
+Suba **o conteúdo** da pasta `2-PARA-SUBIR/site/` — não a pasta
 em si — para dentro de `public_html/`. O resultado tem que ficar assim:
 
 ```
