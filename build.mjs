@@ -262,6 +262,39 @@ function crc32(buf) {
   return (c ^ -1) >>> 0;
 }
 
+/* ===================================================================
+   4-bis. CACHE BUSTING
+   O .htaccess manda o navegador guardar CSS e JS por UM ANO. Sem
+   versão na URL, isso significa que uma correção de layout fica
+   invisível por um ano para quem já visitou o site — foi exatamente
+   o que aconteceu em 04/08/2026: o CSS novo estava no servidor e o
+   navegador continuava desenhando com o antigo.
+
+   A URL passa a carregar um hash do conteúdo do arquivo. Mudou o
+   arquivo, muda o hash, muda a URL, o navegador baixa de novo. Não
+   mudou, o cache de um ano continua valendo — que é o ponto dele.
+=================================================================== */
+function hashCurto(rel) {
+  const buf = fs.readFileSync(path.join(PACOTE, rel.split('/').join(path.sep)));
+  let h = 5381;
+  for (let i = 0; i < buf.length; i++) h = (((h << 5) + h) ^ buf[i]) >>> 0;
+  return h.toString(36).slice(0, 7);
+}
+
+const VERSIONAR = ['assets/css/style.css', 'assets/js/main.js', 'assets/js/tracking.js'];
+const versoes = {};
+for (const rel of VERSIONAR) versoes[rel] = hashCurto(rel);
+
+for (const rel of arquivos.filter((r) => r.endsWith('.html'))) {
+  const p = path.join(PACOTE, rel.split('/').join(path.sep));
+  let html = fs.readFileSync(p, 'utf8');
+  for (const [ativo, v] of Object.entries(versoes)) {
+    html = html.split(`/${ativo}"`).join(`/${ativo}?v=${v}"`);
+  }
+  fs.writeFileSync(p, html, 'utf8');
+}
+log(`  versão      css=${versoes['assets/css/style.css']} js=${versoes['assets/js/main.js']}`);
+
 log(`  zip         ${gerarZip()} entradas -> 2-PARA-SUBIR/site-hospedagem.zip`);
 
 /* ===================================================================
@@ -292,11 +325,11 @@ fs.mkdirSync(PREVIEW, { recursive: true });
 for (const p of PAGINAS) {
   let h = fs.readFileSync(path.join(PACOTE, p.src.split('/').join(path.sep)), 'utf8');
   h = h.replace(/<title>/, '<title>[PRÉVIA] ');
-  h = h.replace(/[ \t]*<link rel="preload" as="style" href="\/assets\/css\/style\.css" \/>\r?\n/, '');
-  h = h.replace(/<link rel="stylesheet" href="\/assets\/css\/style\.css" \/>/, `<style>\n${css}\n</style>`);
+  h = h.replace(/[ \t]*<link rel="preload" as="style" href="\/assets\/css\/style\.css(\?v=[a-z0-9]+)?" \/>\r?\n/, '');
+  h = h.replace(/<link rel="stylesheet" href="\/assets\/css\/style\.css(\?v=[a-z0-9]+)?" \/>/, `<style>\n${css}\n</style>`);
   h = h.replace(/(src|srcset)="(\/assets\/[^"]+)"/g, (m, a, r) => { const u = dataUri(r); return u ? `${a}="${u}"` : m; });
   h = h.replace(
-    /[ \t]*<script src="\/assets\/js\/tracking\.js" defer><\/script>\s*<script src="\/assets\/js\/main\.js" defer><\/script>/,
+    /[ \t]*<script src="\/assets\/js\/tracking\.js(\?v=[a-z0-9]+)?" defer><\/script>\s*<script src="\/assets\/js\/main\.js(\?v=[a-z0-9]+)?" defer><\/script>/,
     `<script>\n${jsT}\n</script>\n<script>\n${jsM}\n</script>`
   );
   h = h.replace(/<meta name="robots" content="[^"]*" \/>/, '<meta name="robots" content="noindex, nofollow" />');
