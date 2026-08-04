@@ -41,8 +41,24 @@ Ele existe localmente e ainda **não tem `origin`** — crie o repositório
 **privado** (o `PENDENCIAS.md` tem observações internas) e:
 
 ```bash
-git remote add origin git@github.com:SUA-CONTA/instituto-bucomaxilofacial.git
+git remote add origin https://github.com/correajoaopedro1/instituto-bucomaxilofacial.git
 git push -u origin main
+```
+
+**Identidade dos commits** (configurada só neste repositório):
+
+```
+correajoaopedro1 <correajoaopedro1@users.noreply.github.com>
+```
+
+O endereço `@users.noreply.github.com` é o do próprio GitHub — mantém o
+e-mail real fora do histórico público e ainda assim vincula os commits à
+conta. Se o GitHub recusar o push por causa dele, é porque a conta está
+com *Keep my email addresses private* ligado e exige a forma com número:
+pegue o endereço exato em **Settings → Emails** e rode
+
+```bash
+git config user.email "SEUNUMERO+correajoaopedro1@users.noreply.github.com"
 ```
 
 Depois, no hPanel:
