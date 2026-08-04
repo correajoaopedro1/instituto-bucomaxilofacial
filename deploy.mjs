@@ -142,7 +142,10 @@ console.log(`  [3/3] commit feito — ${nArquivos} arquivos no branch \`${BRANCH
 /* ---------- 4. envio ---------- */
 if (ENVIAR) {
   try {
-    // git escreve progresso em stderr mesmo quando dá certo — por isso\n    // o stdio é 'pipe' e quem decide sucesso é o código de saída.\n    execFileSync('git', ['push', 'origin', BRANCH], { cwd: RAIZ, stdio: 'pipe' });
+    // git escreve o progresso do push em stderr mesmo quando dá certo.
+    // Por isso o stdio é 'pipe': quem decide sucesso é o código de
+    // saída, não o fato de ter havido escrita em stderr.
+    execFileSync('git', ['push', 'origin', BRANCH], { cwd: RAIZ, stdio: 'pipe' });
     console.log(`\n  Enviado. A Hostinger publica em seguida, pelo webhook.\n`);
   } catch {
     console.error(`\n  Falha no push. Confira se o remoto 'origin' existe e se você`);
