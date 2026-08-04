@@ -154,7 +154,7 @@ if (ENVIAR) {
   console.log(`\n  Commit pronto, nada foi enviado ainda.`);
   console.log(`  Para publicar de fato:\n`);
   console.log(`      git push origin ${BRANCH}\n`);
-  console.log(`  (ou rode \`npm run deploy:push\` da próxima vez)\n`);
+  console.log(`  (ou rode \`npm run ${HOMOLOGACAO ? 'deploy:homolog' : 'deploy:push'}\` da próxima vez)\n`);
 }
 
 git(['worktree', 'remove', '--force', '.deploy']);
