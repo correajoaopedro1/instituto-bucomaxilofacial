@@ -1,0 +1,17 @@
+{
+  "name": "instituto-bucomaxilofacial",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing pages estáticas do Instituto Bucomaxilofacial — Florianópolis / SC",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:producao": "node build.mjs --producao",
+    "deploy": "node deploy.mjs",
+    "deploy:push": "node deploy.mjs --push",
+    "serve": "node serve.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

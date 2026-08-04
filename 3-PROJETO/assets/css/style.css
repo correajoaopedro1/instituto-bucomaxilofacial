@@ -1,0 +1,1509 @@
+﻿/* ===================================================================
+   INSTITUTO BUCOMAXILOFACIAL — DESIGN SYSTEM COMPARTILHADO
+   -------------------------------------------------------------------
+   Origem: extraído do molde-mestre index.html (Hanna Face and Jaw).
+   Nenhum valor visual do molde foi alterado.
+
+   ORGANIZAÇÃO
+     §1  Fontes
+     §2  Tokens (:root)
+     §3  Reset / base
+     §4  Utilitários
+     §5  Botões
+     §6  Header / navegação / menu mobile
+     §7  Cover / hero
+     §8  Sliders
+     §9  Cards
+     §10 Blocos 2-colunas (split / office / location)
+     §11 Depoimentos
+     §12 Instagram (disponível, não usado)
+     §13 Footer
+     §14 COMPONENTES NOVOS (compostos a partir do molde)
+     §15 Reveal
+     §16 Responsivo
+
+   [REUTILIZÁVEL] marca blocos prontos para LPs futuras de procedimento
+   (ex.: /cirurgia-ortognatica-florianopolis/, /atm-florianopolis/).
+=================================================================== */
+
+
+/* ===================================================================
+   §1  FONTES
+=================================================================== */
+/* Addington CF Light — arquivo pendente de fornecimento (PENDENCIAS FONT-01).
+   Enquanto o .woff não existir, o fallback Cormorant Garamond assume.
+   font-display trocado de `fallback` (molde) para `swap` por exigência de
+   performance do briefing §13 — sem impacto visual. */
+@font-face{
+  font-family:"Addington";
+  font-style:normal;
+  font-weight:300;
+  font-display:swap;
+  src:url("/assets/fonts/AddingtonCF-Light.woff") format("woff");
+}
+
+
+/* ===================================================================
+   §2  TOKENS
+=================================================================== */
+:root{
+  /* -----------------------------------------------------------------
+     MARCA — cores lidas diretamente do logo oficial (Marca.jpg.webp)
+     e da apresentação institucional. Fonte: amostragem de pixel.
+     Estas são as ÚNICAS cores de origem. Tudo abaixo deriva delas.
+  ----------------------------------------------------------------- */
+  --brand-blue:#0E7BA2;        /* "INSTITUTO" do logo */
+  --brand-graphite:#363435;    /* "BUCOMAXILOFACIAL" do logo */
+  --brand-grey:#AAABAF;        /* símbolo (taça / perfis) do logo */
+
+  /* Derivadas — mesma matiz da marca, apenas variação de luminosidade.
+     Existem porque o molde precisa de um tom escuro para hover e de um
+     tom claro para bordas. Nenhuma matiz nova foi introduzida. */
+  --brand-blue-deep:#0A5F7E;   /* brand-blue escurecido — texto e hover */
+  --brand-blue-darker:#084E67; /* brand-blue escurecido — hover de botão */
+  --brand-grey-light:#E7E8EA;  /* brand-grey clareado — bordas e faixas */
+
+  /* -----------------------------------------------------------------
+     PALETA DO MOLDE — os mesmos SLOTS do index.html, agora apontando
+     para a identidade do Instituto. A estrutura de cor do molde
+     (1 fundo, 1 escuro, 1 CTA, 1 borda, brancos) foi preservada;
+     só os valores mudaram, conforme identidade enviada pelo cliente.
+     Valores originais do molde ficam registrados no DESIGN-SYSTEM.md.
+  ----------------------------------------------------------------- */
+  --base:#F9F7F7;                       /* mantido — neutro do molde */
+  --contrast:var(--brand-graphite);     /* era #15120e */
+  --primary:var(--brand-blue-deep);     /* era #806B5D */
+  --secondary:var(--brand-blue);        /* era #A79686 */
+  --tertiary:var(--brand-grey-light);   /* era #E6E0DA */
+  --quaternary:#ffffff;                 /* mantido */
+  --quinary:var(--brand-blue-deep);     /* era #885e44 */
+  --senary:var(--brand-blue-darker);    /* era #79553F */
+
+  /* Aliases semânticos — apontam para as MESMAS cores acima.
+     Existem para legibilidade do código, não introduzem tom novo. */
+  --cor-cta:var(--secondary);
+  --cor-cta-hover:var(--tertiary);
+  --cor-borda:var(--tertiary);
+  --cor-texto-sup:var(--primary);
+
+  /* Tipografia */
+  --font-heading:"Addington","Cormorant Garamond",Georgia,serif;
+  --font-nav:"Montserrat",-apple-system,Helvetica,Arial,sans-serif;
+
+  --fs-xx-small:.7rem;
+  --fs-extra-small:.8rem;
+  --fs-small:.9rem;
+  --fs-medium:clamp(.9rem,.9rem + ((1vw - .2rem) * .125),1rem);
+  --fs-large:clamp(1.1rem,1.1rem + ((1vw - .2rem) * .188),1.25rem);
+  --fs-x-large:clamp(1.5rem,1.5rem + ((1vw - .2rem) * .313),1.75rem);
+  --fs-xx-large:clamp(1.8rem,1.8rem + ((1vw - .2rem) * .563),2.25rem);
+  --fs-gigantic:clamp(3rem,3rem + ((1vw - .2rem) * .625),3.5rem);
+
+  /* Raio de canto — único do sistema, aplicado a botões e campos.
+     Círculos (dots, botão flutuante) seguem em 50%. */
+  --raio-botao:3px;
+
+  /* Layout */
+  --content:1200px;
+  --wide:1600px;
+  --gap-columns:4em;
+  --space-x-large:clamp(36px,16vw,96px);
+  --space-large:clamp(36px,12vw,72px);
+  --space-medium:clamp(24px,8vw,48px);
+}
+
+
+/* ===================================================================
+   §3  RESET / BASE
+=================================================================== */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--base);
+  color:var(--contrast);
+  font-family:var(--font-heading);
+  font-size:var(--fs-medium);
+  line-height:1.75;
+  overflow-x:hidden;
+}
+img,svg{max-width:100%;display:block}
+img{height:auto}
+a{color:inherit;text-decoration:none}
+a:hover{text-decoration:underline}
+p{margin:0 0 1em;letter-spacing:-.02em}
+h1,h2,h3,h4,h5,h6{margin:0;font-family:var(--font-heading);font-weight:300;line-height:1.15}
+h1{font-size:var(--fs-x-large);letter-spacing:3px;text-transform:uppercase}
+h2{font-size:var(--fs-large);letter-spacing:.12rem;text-transform:uppercase}
+h3{font-size:var(--fs-large);font-weight:400}
+ul{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* Foco visível — acessibilidade (§13 do briefing). Usa cor do sistema. */
+:focus-visible{outline:2px solid var(--quinary);outline-offset:3px}
+.site-header :focus-visible,.mobile-menu :focus-visible,
+.cover :focus-visible,.wa-float:focus-visible{outline-color:var(--tertiary)}
+
+/* Âncoras não ficam sob o header fixo */
+[id]{scroll-margin-top:110px}
+
+/* Pular para o conteúdo */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:300;
+  background:var(--contrast);color:var(--base);
+  font-family:var(--font-nav);font-size:var(--fs-extra-small);
+  padding:12px 20px;
+}
+.skip-link:focus{left:0}
+
+
+/* ===================================================================
+   §4  UTILITÁRIOS
+=================================================================== */
+.wrap{width:min(94%,var(--wide));margin-inline:auto}
+.wrap-content{width:min(90%,var(--content));margin-inline:auto}
+.wrap-narrow{width:min(90%,860px);margin-inline:auto}   /* [NOVO] leitura longa */
+.center{text-align:center}
+.sp-x-large{height:var(--space-x-large)}
+.sp-large{height:var(--space-large)}
+.sp-medium{height:var(--space-medium)}
+.eyebrow{
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+}
+
+/* Placeholder de imagem pendente. Usa um GIF 1×1 transparente como src
+   (evita 404 no console) e a cor --tertiary como fundo. O nome do token
+   fica em data-token e em comentário HTML ao lado. */
+.img-token{background:var(--cor-borda)}
+/* Enquanto o src ainda é o placeholder data:, a área da foto aparece
+   hachurada — deixa explícito que ali entra imagem. Some sozinho
+   quando o arquivo real é apontado no src. */
+img.img-token[src^="data:"]{
+  background:
+    repeating-linear-gradient(45deg,transparent 0 14px,rgb(170 171 175 / .22) 14px 28px),
+    var(--cor-borda);
+}
+
+
+/* ===================================================================
+   §5  BOTÕES
+=================================================================== */
+.btn{
+  display:inline-block;
+  background:var(--secondary);
+  color:var(--quaternary);
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:.15rem;
+  line-height:1.5rem;
+  text-transform:uppercase;
+  padding:calc(.667em + 2px) calc(1.333em + 2px);
+  border:0;
+  /* [ALTERADO] o molde usava canto reto. 3px por decisão do cliente,
+     para tirar a dureza sem descaracterizar o sistema. */
+  border-radius:var(--raio-botao);
+  transition:background .3s,color .3s,border-color .3s;
+}
+.btn:hover{background:var(--tertiary);color:var(--contrast);text-decoration:none}
+.btn--dark{background:var(--contrast);color:var(--base)}
+.btn--dark:hover{background:var(--contrast);color:var(--base);opacity:.8}
+.btn--outline{
+  background:transparent;
+  color:var(--contrast);
+  border:2px solid currentColor;
+  padding:.667em 1.333em;
+}
+.btn--outline:hover{background:transparent;color:var(--quinary);border-color:var(--quinary)}
+.btn--outline-light{color:var(--quaternary)}
+.btn--outline-light:hover{color:var(--tertiary);border-color:var(--tertiary)}
+
+/* [NOVO] Área de toque mínima de 48px em mobile (briefing §9).
+   Não altera a aparência do botão em desktop. */
+@media (max-width:900px){
+  .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+}
+
+/* [NOVO] Linha de botões — usada no fim de cada bloco */
+.btn-row{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.btn-row.center{justify-content:center}
+
+
+/* ===================================================================
+   §6  HEADER / NAVEGAÇÃO
+=================================================================== */
+/* Header transparente sobre a foto, como no molde. O logo entra em
+   versão branca (.logo-img--negativo); a versão colorida da marca fica
+   reservada ao rodapé. Decisão do cliente em 03/08/2026 — ver C-10. */
+.site-header{
+  position:fixed;
+  inset:0 0 auto 0;
+  z-index:120;
+  color:var(--quaternary);
+  transition:background .35s ease,padding .35s ease;
+}
+.site-header.is-stuck{background:rgb(54 52 53 / .95);backdrop-filter:blur(6px)}
+.header-inner{
+  width:94%;
+  margin-inline:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:14px 20px;
+  transition:padding .35s ease;
+}
+.site-header.is-stuck .header-inner{padding-block:8px}
+.header-right{display:flex;align-items:center;gap:22px;flex-wrap:nowrap}
+
+/* [NOVO] Marca em texto — enquanto o SVG do logo não é fornecido (LOGO-01).
+   Usa a mesma tipografia da marca do footer do molde (.footer-mark .word). */
+.wordmark{
+  display:block;
+  font-family:var(--font-heading);
+  font-size:var(--fs-large);
+  font-weight:300;
+  letter-spacing:4px;
+  line-height:1.1;
+  text-transform:uppercase;
+  transition:font-size .35s ease;
+}
+.wordmark small{
+  display:block;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:2px;
+  margin-top:4px;
+}
+.header-logo:hover{text-decoration:none}
+.site-header.is-stuck .header-logo .wordmark{font-size:var(--fs-medium)}
+
+/* [ALTERADO] gap menor e nowrap: com 5 itens de menu + CTA, o gap de 40px
+   do molde forçava a barra a quebrar em duas linhas. */
+.main-nav > ul{display:flex;align-items:center;gap:26px;flex-wrap:nowrap}
+.main-nav a{
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:.12rem;
+  text-transform:uppercase;
+  font-weight:400;
+  white-space:nowrap;
+}
+.main-nav a:hover{color:var(--tertiary);text-decoration:none}
+
+/* [NOVO] Estado da página atual (briefing §6) */
+.main-nav a[aria-current="page"],
+.mobile-nav a[aria-current="page"]{
+  border-bottom:1px solid currentColor;
+  padding-bottom:3px;
+}
+/* Quando a página atual está dentro de um submenu, o item de topo
+   também precisa marcar — senão o menu fechado não mostra onde
+   o visitante está. O `.subnav a[aria-current]` tem tratamento
+   próprio (§6), sem sublinhado, para não brigar com a régua da lista. */
+.main-nav .has-sub.is-current > a{border-bottom:1px solid currentColor;padding-bottom:3px}
+.subnav a[aria-current="page"]{border-bottom:0}
+
+/* [NOVO] Faixa intermediária: entre 1100px (onde o menu vira
+   hambúrguer) e 1300px a barra tem logo + 5 itens + ícone + botão.
+   Com o gap de 26px isso passava da largura útil e quebrava em duas
+   linhas. Aperta o respiro em vez de esconder item. */
+@media (max-width:1300px){
+  .main-nav > ul{gap:18px}
+  .header-right{gap:16px}
+  .header-cta{padding:calc(.55em + 2px) calc(1em + 2px)}
+}
+
+/* Mega-menu — mantido do molde. [DISPONÍVEL] para LPs futuras. */
+.has-mega{position:static}
+.mega{
+  position:absolute;
+  left:0;right:0;
+  top:100%;
+  background:var(--base);
+  color:var(--contrast);
+  padding:50px clamp(20px,5vw,90px) 40px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+  opacity:0;visibility:hidden;transform:translateY(-8px);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s;
+}
+.has-mega:hover .mega,.has-mega:focus-within .mega{opacity:1;visibility:visible;transform:none}
+.mega-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+  max-width:var(--wide);
+  margin-inline:auto;
+}
+.mega-title{
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--primary);
+  margin:0 0 14px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--tertiary);
+}
+.mega-title + .mega-title,.mega-column a + .mega-title,.mega-column span + .mega-title{margin-top:28px}
+.mega-column a,.mega-column span{
+  display:block;
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:.5px;
+  text-transform:none;
+  line-height:2.1;
+  color:var(--contrast);
+}
+.mega-column a:hover{color:var(--quinary);text-decoration:none}
+.mega-column span{color:var(--primary)}
+.mega-foot{max-width:var(--wide);margin:32px auto 0;display:flex;justify-content:flex-end}
+
+/* ---- Submenu compacto  [NOVO] -----------------------------------
+   O molde só tem o mega-menu, que ocupa a largura inteira da tela —
+   peso demais para listar três cirurgiões. Este é o mesmo componente
+   reduzido à largura do conteúdo: mesma placa `--base`, mesma sombra
+   já autorizada no sistema (a do mega), mesma tipografia do
+   `.mega-column a`. Nenhum valor novo. */
+.has-sub{position:relative}
+/* Seta do item que abre submenu — dois lados de uma caixa girados 45°.
+   Mesmo desenho do `.faq-q .sign`, sem glifo tipográfico. */
+.has-sub > a::after{
+  content:"";
+  display:inline-block;
+  width:5px;height:5px;
+  margin-left:8px;
+  vertical-align:2px;
+  border-right:1px solid currentColor;
+  border-bottom:1px solid currentColor;
+  transform:translateY(-2px) rotate(45deg);
+  transition:transform .25s ease;
+}
+.has-sub:hover > a::after,.has-sub:focus-within > a::after{transform:translateY(0) rotate(45deg)}
+/* Ponte invisível: sem ela o ponteiro perde o hover no vão entre o
+   item do menu e a placa, e o submenu fecha no meio do caminho. */
+.has-sub::before{content:"";position:absolute;left:0;right:0;top:100%;height:18px}
+.subnav{
+  position:absolute;
+  top:calc(100% + 18px);
+  left:50%;
+  min-width:262px;
+  background:var(--base);
+  color:var(--contrast);
+  border-top:2px solid var(--secondary);
+  padding:6px 22px 10px;
+  box-shadow:0 20px 40px rgb(0 0 0 / .12);   /* a única sombra do sistema */
+  opacity:0;visibility:hidden;
+  transform:translateX(-50%) translateY(-8px);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s;
+}
+.has-sub:hover .subnav,.has-sub:focus-within .subnav{
+  opacity:1;visibility:visible;
+  transform:translateX(-50%) translateY(0);
+}
+.subnav li + li{border-top:1px solid var(--cor-borda)}
+.subnav a{
+  display:block;
+  padding:13px 0;
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:.5px;
+  line-height:1.4;
+  text-transform:none;
+  white-space:nowrap;
+  color:var(--contrast);
+}
+.subnav a:hover{color:var(--quinary);text-decoration:none}
+.subnav a[aria-current="page"]{border-bottom:0;padding-bottom:13px;color:var(--quinary)}
+/* Cargo do cirurgião sob o nome — mesma tipografia do `.team-card .role` */
+.subnav .role{
+  display:block;
+  margin-top:3px;
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--cor-texto-sup);
+}
+
+/* [ALTERADO] O ícone ficava desalinhado porque o <a> era inline-flex sem
+   dimensão própria: a linha de base do link empurrava o SVG para baixo.
+   Agora o link tem caixa fixa e centra o ícone. */
+.social{display:flex;gap:12px;align-items:center;line-height:0}
+.social a{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;
+}
+.social svg{width:22px;height:22px;fill:currentColor;display:block}
+.social a:hover{color:var(--tertiary)}
+
+/* Hambúrguer + menu mobile */
+/* [ALTERADO] O molde desenha o ícone com duas linhas (border-top +
+   border-bottom de uma caixa de 18px). Passou a três riscos por decisão
+   do cliente — o de baixo e o de cima continuam sendo as bordas da caixa
+   e o do meio é o <span>. A caixa cresceu para 46×44 para alcançar o
+   alvo de toque de 44px exigido no briefing §9; as linhas continuam com
+   os mesmos 42px de largura e 1px de espessura do molde. */
+.hamburger{
+  display:none;
+  position:relative;
+  width:46px;height:44px;
+}
+.hamburger::before,.hamburger::after,.hamburger .bar{
+  content:"";
+  position:absolute;left:50%;
+  width:42px;height:1px;
+  background:currentColor;
+  transform:translateX(-50%);
+  transition:width .3s ease;
+}
+.hamburger::before{top:14px}
+.hamburger .bar{top:22px}
+.hamburger::after{top:30px}
+/* O risco do meio encurta no hover — único movimento do ícone. */
+.hamburger:hover .bar{width:26px}
+.mobile-menu{
+  position:fixed;inset:0;
+  z-index:200;
+  background:var(--contrast);
+  color:var(--quaternary);
+  padding:40px;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  transform:translateY(-100%);
+  transition:transform .45s cubic-bezier(.4,0,.2,1),visibility .45s;
+  overflow-y:auto;
+  /* [NOVO] visibility impede que os links fiquem focáveis com o menu fechado.
+     Correção de acessibilidade; sem efeito visual. */
+  visibility:hidden;
+}
+.mobile-menu.is-open{transform:none;visibility:visible}
+.mobile-menu .close{align-self:flex-end;width:40px;height:40px;position:relative}
+.mobile-menu .close::before,.mobile-menu .close::after{
+  content:"";position:absolute;top:50%;left:0;width:100%;height:1px;background:currentColor;
+}
+.mobile-menu .close::before{transform:rotate(45deg)}
+.mobile-menu .close::after{transform:rotate(-45deg)}
+.mobile-menu img{width:250px;margin:20px auto}
+.mobile-menu .wordmark{margin:20px auto;text-align:center}
+.mobile-nav{display:flex;flex-direction:column;align-items:center;gap:18px;margin:60px 0}
+.mobile-nav a{
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:.15rem;
+  text-transform:uppercase;
+  padding:12px 4px;          /* [NOVO] alvo de toque 48px */
+}
+
+/* ---- Submenu do menu mobile  [NOVO] -----------------------------
+   Mesmo conteúdo do `.subnav` do desktop, em acordeão: no celular
+   não existe hover e uma placa suspensa não teria como abrir.
+   O botão e o sinal de + reaproveitam o `.faq-q` / `.faq-q .sign`. */
+.mobile-nav{width:100%;max-width:320px}
+.mobile-group{width:100%;text-align:center}
+.mobile-sub-toggle{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;
+  min-height:48px;
+  padding:12px 4px;
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:.15rem;
+  text-transform:uppercase;
+  color:inherit;
+}
+.mobile-sub-toggle .sign{
+  flex:0 0 auto;position:relative;
+  width:11px;height:11px;
+  transition:transform .3s;
+}
+.mobile-sub-toggle .sign::before,.mobile-sub-toggle .sign::after{
+  content:"";position:absolute;top:50%;left:0;
+  width:100%;height:1px;background:currentColor;
+}
+.mobile-sub-toggle .sign::after{transform:rotate(90deg);transition:transform .3s}
+.mobile-sub-toggle[aria-expanded="true"] .sign::after{transform:rotate(0deg)}
+.mobile-sub{
+  display:flex;flex-direction:column;align-items:center;
+  gap:2px;
+  margin:4px 0 8px;
+  padding:6px 0;
+  border-block:1px solid rgb(231 232 234 / .35);
+}
+.mobile-sub[hidden]{display:none}
+.mobile-sub a{
+  padding:10px 4px;
+  text-transform:none;
+  letter-spacing:.5px;
+  opacity:.9;
+}
+.mobile-sub .role{
+  display:block;
+  margin-top:2px;
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--tertiary);
+  opacity:.8;
+}
+.mobile-menu .fine{
+  margin-top:auto;
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  text-align:center;
+}
+
+
+/* ===================================================================
+   §7  COVER / HERO   [REUTILIZÁVEL]
+=================================================================== */
+.cover{position:relative;display:flex;isolation:isolate;overflow:hidden}
+.cover > img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+}
+.cover .overlay{position:absolute;inset:0;background:var(--contrast);opacity:.5;z-index:-1}
+.cover .overlay.dim-70{opacity:.7}
+.cover .overlay.dim-0{opacity:0}
+.cover-inner{width:min(90%,var(--content));margin-inline:auto;padding-block:60px;z-index:1}
+
+.hero{min-height:100vh;align-items:flex-end;justify-content:flex-end}
+.hero > img{object-position:23% 91%}
+.hero .hero-inner{
+  color:var(--quaternary);
+  margin-right:12vw;
+  padding-bottom:clamp(60px,12vh,140px);
+  z-index:1;
+}
+.hero h1{font-size:var(--fs-x-large)}
+.hero h1 .credentials{white-space:nowrap}
+.hero h2{
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:1px;
+  margin-top:1rem;
+}
+.hero .btn{margin-top:3em;font-size:.55rem}
+
+/* [NOVO] Hero com dois CTAs e um parágrafo de apoio.
+   Só acrescenta largura máxima e espaçamento — nenhum estilo novo. */
+.hero .hero-inner{max-width:640px}
+.hero .hero-lead{
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  line-height:1.9;
+  margin-top:1.25rem;
+}
+.hero .btn-row{margin-top:2.5em}
+.hero .btn-row .btn{margin-top:0}
+
+
+/* ===================================================================
+   §8  SLIDERS   [REUTILIZÁVEL]
+=================================================================== */
+.slider{position:relative}
+.slider-viewport{overflow:hidden}
+.slider-track{
+  display:flex;
+  gap:var(--slider-gap,3rem);
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.slider-track > *{flex:0 0 auto;width:var(--slide-w,100%)}
+.slider-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;
+  display:grid;place-items:center;
+  color:inherit;
+  transition:opacity .3s;
+  z-index:3;
+}
+.slider-nav svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.2}
+.slider-nav.prev{left:-50px}
+.slider-nav.next{right:-50px}
+.slider-nav[disabled]{opacity:0;pointer-events:none}
+
+
+/* ===================================================================
+   §9  CARDS   [REUTILIZÁVEL]
+=================================================================== */
+/* Card com imagem — padrão do molde (.procedure-card) */
+.procedures{color:var(--quaternary)}
+.procedures h2{font-size:var(--fs-x-large);text-align:center;margin-bottom:var(--space-large)}
+.procedure-card img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+}
+.procedure-card h3{
+  margin-top:1.5rem;
+  text-align:center;
+  font-size:clamp(.875rem,.875rem + ((1vw - .2rem) * .281),1.1rem);
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.procedure-card a:hover{text-decoration:none;opacity:.75}
+.procedures .btn-row{margin-top:var(--space-large);display:flex;justify-content:center}
+
+/* Galeria de topo — mantida do molde. [DISPONÍVEL] quando houver 3 fotos reais. */
+.intro-gallery{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+.intro-gallery figure{margin:0;position:relative}
+.intro-gallery img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.intro-gallery .duotone img{filter:grayscale(1)}
+.intro-gallery figcaption{display:none}
+
+
+/* ===================================================================
+   §10  BLOCOS 2-COLUNAS   [REUTILIZÁVEL]
+   .split é alias agrupado de .office-grid — declarações idênticas.
+=================================================================== */
+.office{background:rgb(231 232 234 / .74)}     /* --brand-grey-light no mesmo alfa do molde */
+.band-soft{background:rgb(231 232 234 / .74)}  /* [NOVO] alias da faixa suave do molde */
+.band-dark{background:var(--contrast);color:var(--base)}  /* [NOVO] mesma cor do .mobile-menu */
+.band-dark h2,.band-dark h3{color:var(--base)}
+.band-dark .btn--outline{color:var(--base);border-color:currentColor}
+
+.office-grid,.split{display:flex;gap:var(--gap-columns);align-items:flex-end}
+.office-grid .col-img,.split .col-img{flex:0 0 55%}
+.office-grid .col-img img,.split .col-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.office-grid figcaption,.split figcaption{
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-top:.75rem;
+}
+.office-grid .col-copy,.split .col-copy{flex:1 1 40%;display:flex;flex-direction:column;gap:1.5rem;align-items:flex-start}
+.office-grid h2,.split h2{font-size:var(--fs-x-large)}
+.split--middle{align-items:center}        /* [NOVO] variação de alinhamento */
+.split--reverse{flex-direction:row-reverse}
+
+/* Localização */
+.location-grid{display:flex;gap:var(--gap-columns);align-items:flex-end}
+.location-grid .col-map{flex:0 0 55%}
+.location-grid .col-copy{flex:1 1 40%;display:flex;flex-direction:column;gap:.67rem;align-items:flex-start}
+
+
+/* ===================================================================
+   §11  DEPOIMENTOS   [REUTILIZÁVEL]
+=================================================================== */
+.reviews-box{
+  width:min(90%,650px);
+  margin-inline:auto;
+  background:var(--contrast);
+  color:var(--base);
+  font-size:var(--fs-large);
+  position:relative;
+}
+.reviews-fade{position:relative}
+.reviews-fade .review{
+  position:absolute;inset:0;
+  opacity:0;visibility:hidden;
+  transition:opacity .7s ease,visibility .7s;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:var(--space-x-large) clamp(1rem,5vw,5.06rem);
+  text-align:center;
+}
+.reviews-fade .review.is-active{opacity:1;visibility:visible;position:relative}
+.reviews-fade .quote-mark{font-size:var(--fs-gigantic);line-height:1;margin:0}
+.reviews-fade .review p.text{margin:0}
+.reviews-fade .review .author{           /* [NOVO] assinatura do depoimento */
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin:1.5em 0 0;
+}
+.see-more-reviews{
+  border-top:1px solid currentColor;
+  padding-top:1em;
+  margin-top:1.75em;
+  text-transform:uppercase;
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:1px;
+}
+.see-more-reviews a{color:var(--base)}
+.see-more-reviews a:hover{color:var(--tertiary);text-decoration:none}
+.review-dots{
+  display:flex;gap:8px;justify-content:center;
+  padding-bottom:34px;
+}
+.review-dots button{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--base);opacity:.25;transition:opacity .3s;
+}
+.review-dots button.is-active{opacity:1}
+
+
+/* ===================================================================
+   §12  INSTAGRAM — mantido do molde. [DISPONÍVEL], não usado nas LPs
+        (depende de conteúdo real de rede social — token IG-01).
+=================================================================== */
+.instagram{background:rgb(231 232 234 / .55)}  /* --brand-grey-light no mesmo alfa do molde */
+.ig-grid{display:flex;gap:2.25rem;align-items:center}
+.ig-head{flex:0 0 30%;display:flex;align-items:center;gap:.44rem}
+.ig-head img{width:75px}
+.ig-head h2{margin:0}
+.ig-head .account{
+  font-family:var(--font-heading);
+  font-size:var(--fs-medium);
+  text-transform:none;
+  letter-spacing:0;
+}
+.ig-slider{flex:1 1 70%;min-width:0}
+.ig-post{position:relative;display:block}
+.ig-post img{width:100%;aspect-ratio:1;object-fit:cover}
+.ig-post .play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;opacity:.9}
+.ig-post .play svg{width:44px;height:44px;fill:#fff}
+.ig-post .meta{
+  position:absolute;inset:0;
+  background:rgb(54 52 53 / .6);
+  color:#fff;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.5rem;
+  opacity:0;transition:opacity .35s;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;text-transform:uppercase;
+}
+.ig-post:hover .meta{opacity:1}
+.ig-post .meta .handle{display:flex;align-items:center;gap:6px}
+.ig-post .meta svg{width:18px;height:18px;fill:#fff}
+
+
+/* ===================================================================
+   §13  FOOTER   [REUTILIZÁVEL]
+=================================================================== */
+.site-footer .cover{min-height:600px;flex-direction:column;justify-content:center;color:var(--base)}
+.site-footer .cover .overlay{background:#000;opacity:.5}
+.footer-mark{
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+}
+.footer-mark .word{
+  font-size:var(--fs-xx-large);
+  font-style:italic;
+  font-weight:100;
+  letter-spacing:6px;
+  line-height:1;
+  text-transform:uppercase;
+  margin-bottom:.5em;
+}
+.footer-mark hr{
+  width:190px;height:1px;border:0;background:var(--base);
+  margin:1.5em 0;
+}
+/* [ALTERADO] O rodapé não tem mais wordmark à esquerda — a marca subiu para
+   o .footer-mark. Com só menu + ícone, `space-between` jogava o ícone
+   sozinho na borda direita. Agora os dois ficam centrados juntos. */
+.footer-bar{
+  width:94%;margin-inline:auto;
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(24px,4vw,48px);
+  padding:20px;
+}
+.footer-bar .social{margin-left:0}
+.footer-bar img{width:65px}
+.footer-bar .main-nav a{color:var(--base)}
+.footer-legal{
+  width:94%;margin-inline:auto;
+  display:flex;justify-content:center;align-items:center;gap:6px;
+  padding:20px;
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--base);
+}
+.footer-legal a{text-decoration:underline}
+
+/* [NOVO] Bloco de responsável técnico — obrigatório pelo CFO/CRO (briefing §11).
+   Usa a mesma tipografia do .footer-legal. */
+.footer-rt{
+  width:min(90%,var(--content));margin-inline:auto;
+  padding:0 20px 24px;
+  text-align:center;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  line-height:2;
+  letter-spacing:.5px;
+  color:var(--base);
+  opacity:.85;
+}
+.footer-rt p{margin:0}
+
+
+/* ===================================================================
+   §14  COMPONENTES NOVOS
+   Todos compostos a partir de padrões já presentes no molde.
+   Nenhuma cor, fonte, raio ou sombra fora do sistema.   [REUTILIZÁVEL]
+=================================================================== */
+
+/* ---- 14.1 Cabeçalho de seção ------------------------------------
+   Agrupamento de .eyebrow + h2 + parágrafo. Sem estilo novo. */
+.section-head{max-width:760px;margin-bottom:var(--space-medium)}
+.section-head.center{margin-inline:auto;text-align:center}
+.section-head .eyebrow{color:var(--cor-texto-sup);display:block;margin-bottom:.75rem}
+.band-dark .section-head .eyebrow,
+.cover .section-head .eyebrow{color:var(--tertiary)}
+.section-head h2{font-size:var(--fs-x-large)}
+.section-head p{margin-top:1rem}
+
+/* [NOVO] Cabeçalho assimétrico — rótulo e título à esquerda, texto de
+   apoio à direita, apoiados na mesma linha de base. Existe porque as
+   páginas abriam TODAS as seções com o mesmo bloco centrado: mesma
+   largura, mesmo eixo, mesmo ritmo, uma atrás da outra. Alternar com
+   o centrado é o que dá cadência à página. Usa a mesma grade e o
+   mesmo `--gap-columns` dos demais blocos de duas colunas. */
+.section-head--split{
+  max-width:none;
+  display:grid;
+  grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:var(--gap-columns);
+  align-items:end;
+}
+.section-head--split p{margin-top:0}
+/* A régua fecha o cabeçalho e separa do conteúdo sem um espaçador a mais. */
+.section-head--ruled{
+  padding-bottom:1.5rem;
+  border-bottom:1px solid var(--cor-borda);
+}
+.band-dark .section-head--ruled,.cover .section-head--ruled{border-bottom-color:rgb(231 232 234 / .35)}
+
+/* [NOVO] Régua avulsa — divisória entre blocos dentro da mesma seção. */
+.rule{border:0;height:1px;background:var(--cor-borda);margin:0}
+.band-dark .rule,.cover .rule{background:rgb(231 232 234 / .35)}
+
+/* ---- 14.2 Grids utilitários -------------------------------------
+   Mesmo gap e mesmo ponto de colapso dos grids do molde. */
+.grid-2,.grid-3,.grid-4{display:grid;gap:var(--gap-columns)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+.grid-tight{gap:2rem}
+
+/* ---- 14.3 Faixa de credibilidade --------------------------------
+   Deriva de .eyebrow + borda do .mega-title. */
+.trust-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:2.5rem;
+}
+.trust-item{border-top:1px solid var(--cor-borda);padding-top:1.25rem}
+.trust-item .eyebrow{color:var(--cor-texto-sup);display:block;margin-bottom:.5rem}
+.trust-item p{margin:0;line-height:1.6}
+.band-dark .trust-item,.cover .trust-item{border-top-color:rgb(231 232 234 / .35)}
+.band-dark .trust-item .eyebrow,.cover .trust-item .eyebrow{color:var(--tertiary)}
+
+/* ---- 14.4 Card de conteúdo --------------------------------------
+   [ALTERADO] Era uma caixa fechada por 1px em volta. Quatro dessas
+   lado a lado é exatamente o desenho que faz um site parecer montado
+   em construtor: todos os blocos com o mesmo peso, nenhum com
+   hierarquia. Virou coluna aberta com régua no topo — o mesmo
+   desenho do `.trust-item`, que já existia no sistema. Cards e faixa
+   de credibilidade passam a ser a mesma família.
+   Quem precisa mesmo de caixa fechada usa `.card--boxed`. */
+.card{
+  border-top:2px solid var(--cor-borda);
+  padding:1.6rem 0 0;
+  display:flex;flex-direction:column;gap:.9rem;align-items:flex-start;
+  background:transparent;
+  transition:border-color .3s;
+}
+.card h3{font-size:var(--fs-large);line-height:1.35}
+.card p{margin:0}
+.card .eyebrow{color:var(--cor-texto-sup)}
+.card--link:hover{border-top-color:var(--secondary)}
+.card--link a:hover{text-decoration:none}
+.card .card-foot{margin-top:auto;padding-top:.5rem}
+.band-dark .card,.cover .card{border-top-color:rgb(231 232 234 / .35)}
+
+/* Variante fechada — mantém o desenho antigo para onde a caixa faz
+   sentido (bloco isolado, não em série). */
+.card--boxed{
+  border:1px solid var(--cor-borda);
+  padding:clamp(20px,4vw,32px);
+}
+.card--boxed.card--link:hover{border-color:var(--primary)}
+.band-dark .card--boxed,.cover .card--boxed{border-color:rgb(231 232 234 / .35)}
+
+/* Card de membro da equipe — herda .procedure-card, acrescenta cargo */
+.team-card .role{
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--cor-texto-sup);
+  text-align:center;
+  margin:.5rem 0 0;
+}
+.team-card .btn-row{justify-content:center;margin-top:1.25rem}
+.team-card--soon{opacity:.75}
+
+/* ---- 14.5 Lista de sintomas / checklist -------------------------
+   [ALTERADO] Era um travessão "—" em Montserrat .7rem pendurado à
+   esquerda de cada linha. Em corpo serifado de peso 300 o glifo lia
+   como sujeira: pequeno demais para ser um marcador, grande demais
+   para sumir. Virou uma lista pautada — o item é separado por régua
+   de 1px, exatamente a mesma régua do `.faq-item`. Sem glifo, sem
+   marcador, sem cor nova.
+   Regra: use .checklist para frases curtas soltas (sintomas, itens
+   de conferência). Para "termo + explicação", use .deflist. */
+.checklist{display:grid}
+.checklist li{
+  padding:.95em 0;
+  line-height:1.65;
+  border-bottom:1px solid var(--cor-borda);
+}
+.checklist > li:first-child{border-top:1px solid var(--cor-borda)}
+.band-dark .checklist li,.cover .checklist li{border-color:rgb(231 232 234 / .35)}
+/* columns quebrava a pauta entre as duas colunas — grid mantém a
+   régua alinhada em cada coluna independentemente. */
+.checklist--2col{grid-template-columns:repeat(2,1fr);column-gap:var(--gap-columns)}
+.checklist--2col > li:nth-child(2){border-top:1px solid var(--cor-borda)}
+.band-dark .checklist--2col > li:nth-child(2),
+.cover .checklist--2col > li:nth-child(2){border-color:rgb(231 232 234 / .35)}
+
+/* ---- 14.5b Lista de termo + explicação  [NOVO] ------------------
+   Substitui o padrão "<strong>Termo.</strong> explicação que segue".
+   A serifada do sistema é Light (300); o salto para bold cria dois
+   pesos que a família não sustenta bem e engrossa a mancha de texto.
+   Aqui o termo sai do corpo e vira rótulo em Montserrat maiúsculo —
+   a mesma tipografia do `.eyebrow`, que o sistema já usa para rótulo.
+   Ganha hierarquia de verdade e dispensa negrito. */
+.deflist{display:grid;gap:1.9rem}
+.deflist > li{
+  padding-left:1.5rem;
+  border-left:1px solid var(--cor-borda);
+}
+.deflist .term{
+  display:block;
+  margin-bottom:.5rem;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  line-height:1.5;
+  color:var(--cor-texto-sup);
+}
+.deflist p{margin:0;line-height:1.7}
+.band-dark .deflist > li,.cover .deflist > li{border-left-color:rgb(231 232 234 / .35)}
+.band-dark .deflist .term,.cover .deflist .term{color:var(--tertiary)}
+.deflist--2col{grid-template-columns:repeat(2,1fr);gap:1.9rem var(--gap-columns)}
+
+/* ---- 14.6 Etapas numeradas --------------------------------------
+   Numeração com a tipografia exata do .mega-title. */
+.steps{counter-reset:step;display:grid;gap:2rem;grid-template-columns:repeat(4,1fr)}
+.steps li{counter-increment:step}
+.steps li::before{
+  content:"0" counter(step);
+  display:block;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1.5px;
+  color:var(--cor-texto-sup);
+  padding-bottom:8px;
+  margin-bottom:14px;
+  border-bottom:1px solid var(--cor-borda);
+}
+.steps h3,.steps h4{font-size:var(--fs-large);font-weight:400;margin-bottom:.5rem}
+.steps p{margin:0;line-height:1.7}
+.band-dark .steps li::before,.cover .steps li::before{
+  color:var(--tertiary);border-bottom-color:rgb(231 232 234 / .35);
+}
+
+/* ---- 14.7 Acordeão de FAQ ---------------------------------------
+   button do reset + borda --tertiary + tipografia .mega-column a. */
+.faq{border-top:1px solid var(--cor-borda)}
+.faq-item{border-bottom:1px solid var(--cor-borda)}
+.faq-q{
+  width:100%;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;
+  text-align:left;
+  padding:1.25rem 0;
+  min-height:48px;
+  font-family:var(--font-heading);
+  font-size:var(--fs-large);
+  font-weight:400;
+  line-height:1.4;
+  transition:color .3s;
+}
+.faq-q:hover{color:var(--quinary)}
+.faq-q .sign{
+  flex:0 0 auto;
+  position:relative;
+  width:16px;height:16px;
+  margin-top:.45em;
+  transition:transform .3s;
+}
+.faq-q .sign::before,.faq-q .sign::after{
+  content:"";position:absolute;top:50%;left:0;
+  width:100%;height:1px;background:currentColor;
+}
+.faq-q .sign::after{transform:rotate(90deg);transition:transform .3s}
+.faq-q[aria-expanded="true"] .sign::after{transform:rotate(0deg)}
+.faq-a{padding:0 0 1.5rem;max-width:70ch}
+.faq-a p:last-child{margin-bottom:0}
+.faq-a[hidden]{display:none}
+
+/* ---- 14.8 Navegação por âncora (LP multi-procedimento) ----------
+   Tipografia e gap do .main-nav. */
+.anchor-nav{
+  border-block:1px solid var(--cor-borda);
+  position:sticky;top:76px;z-index:100;
+  background:var(--base);
+}
+.anchor-nav ul{
+  display:flex;flex-wrap:wrap;gap:32px;
+  justify-content:center;
+  padding:14px 0;
+}
+.anchor-nav a{
+  display:inline-flex;align-items:center;min-height:48px;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:.15rem;
+  text-transform:uppercase;
+}
+.anchor-nav a:hover{color:var(--quinary);text-decoration:none}
+.anchor-nav a.is-active{border-bottom:1px solid currentColor}
+
+/* ---- 14.9 Dock social flutuante ---------------------------------
+   [ALTERADO] Era um botão de WhatsApp solto no canto. Virou um
+   agrupamento: o WhatsApp continua sendo a ação principal — mesmo
+   círculo, mesmo tamanho, mesmo azul da marca — e as redes sociais
+   sobem a partir dele quando o cliente abre o dock. Motivo: um ícone
+   sozinho no canto lê como widget de plugin; agrupado, lê como parte
+   do site. A hierarquia de conversão não muda (o WhatsApp segue
+   maior e sempre visível). Ver C-12 no DESIGN-SYSTEM.md.
+   Todos os círculos seguem o border-radius:50% dos .review-dots. */
+.social-dock{
+  position:fixed;
+  right:clamp(16px,3vw,28px);
+  bottom:clamp(16px,3vw,28px);
+  z-index:150;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.dock-links{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;visibility:hidden;
+  transform:translateY(10px);
+  transition:opacity .3s ease,transform .3s ease,visibility .3s;
+}
+.social-dock.is-open .dock-links{opacity:1;visibility:visible;transform:none}
+.dock-links a{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--contrast);
+  color:var(--quaternary);
+  display:flex;align-items:center;justify-content:center;
+  line-height:0;
+  transition:background .3s,transform .3s;
+}
+.dock-links svg{width:19px;height:19px;fill:currentColor;display:block}
+.dock-links a:hover{background:var(--primary);text-decoration:none;transform:translateY(-2px)}
+
+/* Botão que abre o dock — placa clara, para não competir com o
+   WhatsApp. O "+" gira 45° e vira "×" quando aberto: mesmo desenho
+   e mesma mecânica do sinal do FAQ. */
+.dock-toggle{
+  width:34px;height:34px;
+  border-radius:50%;
+  border:1px solid var(--brand-grey);
+  background:var(--base);
+  color:var(--contrast);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .3s,color .3s,border-color .3s;
+}
+.dock-toggle:hover{background:var(--contrast);color:var(--base);border-color:var(--contrast)}
+.dock-toggle .sign{position:relative;width:12px;height:12px;transition:transform .3s}
+.dock-toggle .sign::before,.dock-toggle .sign::after{
+  content:"";position:absolute;top:50%;left:0;
+  width:100%;height:1px;background:currentColor;
+}
+.dock-toggle .sign::after{transform:rotate(90deg)}
+.dock-toggle[aria-expanded="true"] .sign{transform:rotate(45deg)}
+
+/* WhatsApp — ação principal. Deixou de ser `fixed`: quem posiciona
+   agora é o .social-dock. O resto (tamanho, cor, hover) é o mesmo. */
+.wa-float{
+  width:56px;height:56px;
+  border-radius:50%;
+  background:var(--brand-blue);
+  color:var(--quaternary);
+  /* flex + line-height:0 em vez de grid: o <a> é inline por natureza e a
+     linha de base empurrava o ícone alguns pixels para baixo. */
+  display:flex;align-items:center;justify-content:center;
+  line-height:0;
+  transition:background .3s,transform .3s;
+}
+.wa-float svg{width:28px;height:28px;fill:currentColor;display:block}
+.wa-float:hover{background:var(--quinary);text-decoration:none;transform:translateY(-2px)}
+
+/* ---- 14.10 Facade de mapa ---------------------------------------
+   .location-grid .col-map + .btn sobreposto. O iframe só entra no clique. */
+.map-facade{position:relative;display:block;width:100%;aspect-ratio:4/3;overflow:hidden}
+.map-facade img,.map-facade iframe{width:100%;height:100%;border:0;display:block;object-fit:cover}
+.map-facade .map-cta{
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  background:rgb(54 52 53 / .35);
+  transition:background .3s;
+}
+.map-facade:hover .map-cta{background:rgb(54 52 53 / .5)}
+.map-facade.is-loaded .map-cta{display:none}
+
+/* ---- 14.11 Nota / aviso de conteúdo pendente --------------------
+   Usada onde o conteúdo real ainda não foi fornecido. */
+.pending-note{
+  border:1px dashed var(--cor-borda);
+  padding:clamp(20px,4vw,32px);
+  font-family:var(--font-nav);
+  font-size:var(--fs-extra-small);
+  line-height:1.9;
+  color:var(--cor-texto-sup);
+}
+.band-dark .pending-note,.cover .pending-note{border-color:rgb(231 232 234 / .35);color:var(--tertiary)}
+
+/* ---- 14.12 Bloco de contato / dados ------------------------------ */
+.contact-list{display:flex;flex-direction:column;gap:.5rem}
+.contact-list a{display:inline-flex;align-items:center;min-height:44px}
+.contact-list .eyebrow{color:var(--cor-texto-sup);display:block;margin-top:1rem}
+.band-dark .contact-list .eyebrow,.cover .contact-list .eyebrow{color:var(--tertiary)}
+address{font-style:normal}
+
+
+/* ---- 14.13 Logo do Instituto ------------------------------------
+   Substitui o wordmark de texto. O arquivo entregue é positivo
+   (grafite + azul) e o header/menu/rodapé têm fundo escuro, por isso
+   a variante --negativo. Ver LOGO-02 em PENDENCIAS.md. */
+/* Especificidade de 2 classes de propósito: precisa vencer o
+   `.header-logo img{width:300px}` do molde (§6) e as larguras fixas
+   dele no responsivo. Quem passa a controlar o tamanho é o container. */
+.header-logo .logo-img{display:block;width:100%;height:auto}
+.header-logo picture{display:block}
+.header-logo{display:block;width:clamp(196px,21vw,248px)}
+.site-header.is-stuck .header-logo{width:clamp(168px,17vw,208px)}
+.header-logo,.site-header.is-stuck .header-logo{transition:width .35s ease}
+.mobile-menu .header-logo{width:min(66%,230px);margin-block:4px 0}
+/* Versão branca — usada no header e no menu, que ficam sobre fundo escuro.
+   A versão colorida da marca aparece só no rodapé, sobre placa clara. */
+.logo-img--negativo{filter:brightness(0) invert(1)}
+
+/* Logo do rodapé — sem placa: versão branca, direto sobre a faixa escura. */
+.footer-logo{width:clamp(180px,24vw,260px);margin-inline:auto}
+
+/* ---- 14.14 Slot de imagem ----------------------------------------
+   Reserva visual do espaço da foto enquanto o arquivo real não chega.
+   Mostra o nome do token dentro do próprio bloco, para conferência.
+   Some sozinho (via .is-filled, aplicado no main.js) quando o src
+   deixa de ser o placeholder data:. Mesmas bordas e tipografia do
+   .pending-note — nenhum estilo novo. */
+.slot{position:relative;display:block;margin:0;background:var(--tertiary);overflow:hidden}
+.slot img{width:100%;height:100%;display:block;object-fit:cover}
+.slot[data-slot]::after{
+  content:attr(data-slot);
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+  padding:1rem;text-align:center;
+  border:1px dashed var(--brand-grey);
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1.5px;
+  line-height:1.9;
+  text-transform:uppercase;
+  color:var(--cor-texto-sup);
+}
+.slot.is-filled::after{content:none}
+
+/* Enquadramentos das fotos recuperadas do site antigo.
+   O retrato oficial tem uma faixa de texto no rodapé da imagem (com o
+   domínio antigo) e o frame de atendimento tem legenda de vídeo queimada.
+   Enquadrar pelo topo remove os dois — sem reprocessar arquivo. */
+.foto-topo{object-position:center top}
+.slot--1x1{aspect-ratio:1}
+.slot--3x4{aspect-ratio:3/4}
+.slot--4x3{aspect-ratio:4/3}
+.slot--16x9{aspect-ratio:16/9}
+.slot figcaption{
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--cor-texto-sup);
+  padding-top:.75rem;
+}
+
+/* ---- 14.15 Galeria e mosaico -------------------------------------
+   .gallery reusa a grade do .intro-gallery do molde (3 colunas, 3/4).
+   .gallery--4 é a mesma grade com 4 colunas — mesmo gap, mesmo ritmo. */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.gallery--4{grid-template-columns:repeat(4,1fr)}
+.gallery--2{grid-template-columns:repeat(2,1fr)}
+.gallery .duotone img{filter:grayscale(1)}
+
+/* Card com imagem — .procedure-card do molde + o slot acima. */
+.media-card{display:flex;flex-direction:column;gap:1rem}
+.media-card .slot{margin-bottom:.25rem}
+.media-card h3{font-size:var(--fs-large)}
+.media-card p{margin:0}
+.media-card .eyebrow{color:var(--cor-texto-sup)}
+
+/* Slider de imagens — usa .slider do molde; só define a proporção. */
+.media-slider .slot{aspect-ratio:4/3}
+
+
+/* ---- 14.16 Faixa de convênios  [NOVO] ---------------------------
+   Carrossel de logos das operadoras. Reusa o `[data-slider]` do molde
+   sem uma linha de JS nova — só muda a proporção do slide e o
+   tratamento do logo. Cada espaço é um `.slot`, então herda o
+   placeholder hachurado e o `.is-filled` automático: quando o
+   arquivo real entrar no src, a etiqueta do token some sozinha.
+
+   Os logos entram dessaturados e ganham cor no hover. É o que impede
+   uma fileira de marcas de terceiros — cada uma com sua paleta — de
+   brigar com a identidade do Instituto. */
+.convenio-rail{width:min(100%,940px);margin-inline:auto}
+.convenio-logo{
+  aspect-ratio:5/2;
+  background:var(--quaternary);
+  border:1px solid var(--cor-borda);
+  display:grid;place-items:center;
+  padding:12px 16px;
+}
+.convenio-logo img{
+  width:100%;height:100%;
+  object-fit:contain;          /* logo não pode ser cortado, ≠ das fotos */
+  filter:grayscale(1);
+  opacity:.72;
+  transition:filter .35s,opacity .35s;
+}
+.convenio-logo:hover img{filter:none;opacity:1}
+/* O rótulo do token precisa caber na altura menor deste slot. */
+.convenio-logo[data-slot]::after{font-size:.62rem;letter-spacing:1px;line-height:1.6;padding:.5rem}
+
+
+/* ---- 14.17 Nota de apoio  [NOVO] --------------------------------
+   Ressalva, condição, aviso. Substitui o padrão de destacar a frase
+   em negrito no meio do corpo de texto — em serifada Light o negrito
+   cria um bloco escuro que puxa o olho antes do título da seção.
+   Aqui a ressalva sai do corpo, ganha régua e vai para Montserrat
+   pequeno: continua se destacando, mas como aparte, não como grito.
+   Mesma tipografia do `.pending-note` e do `.footer-rt`. */
+.nota,.convenio-nota{
+  margin:0;
+  padding-top:1rem;
+  border-top:1px solid var(--cor-borda);
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  line-height:1.9;
+  letter-spacing:.3px;
+  color:var(--cor-texto-sup);
+}
+.nota--center,.convenio-nota{
+  width:min(100%,620px);
+  margin-inline:auto;
+  text-align:center;
+}
+.band-dark .nota,.cover .nota,
+.band-dark .convenio-nota,.cover .convenio-nota{
+  border-top-color:rgb(231 232 234 / .35);
+  color:var(--tertiary);
+}
+
+
+/* ===================================================================
+   §15  REVEAL
+=================================================================== */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 1s ease,transform 1s ease}
+.reveal.is-visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .slider-track{transition:none}
+  .mobile-menu{transition:none}
+  .wa-float{transition:none}
+  .faq-q .sign,.faq-q .sign::after{transition:none}
+  .reviews-fade .review{transition:none}
+  /* [NOVO] componentes desta rodada */
+  .subnav,.dock-links{transition:none}
+  .dock-toggle .sign,.mobile-sub-toggle .sign::after{transition:none}
+  .hamburger::before,.hamburger::after,.hamburger .bar{transition:none}
+  .has-sub > a::after{transition:none}
+  .convenio-logo img{transition:none}
+  .card,.card::before{transition:none}
+}
+
+
+/* ===================================================================
+   §16  RESPONSIVO
+=================================================================== */
+@media (max-width:1100px){
+  /* O CTA do header sai junto com o menu: a partir daqui a barra fixa é
+     logo + hambúrguer, e o botão flutuante de WhatsApp assume o CTA. */
+  .main-nav,.header-right .social,.header-cta{display:none}
+  .hamburger{display:flex;align-items:center;justify-content:center}
+  /* [ALTERADO] O logo mobile estava em 140–180px: com a barra reduzida a
+     logo + hambúrguer, sobrava largura ociosa e a marca ficava tímida.
+     Subiu para 184–224px, aproximando dos 220px da referência sem
+     chegar lá — o lettering do Instituto é mais longo que o do molde
+     e ocuparia a barra inteira. A versão encolhida no scroll
+     acompanha, mantendo a mesma proporção de redução do molde. */
+  .header-logo{width:clamp(184px,34vw,224px)}
+  .site-header.is-stuck .header-logo{width:clamp(164px,29vw,196px)}
+  /* [ALTERADO] o ícone social continua visível no rodapé mobile;
+     só o menu some (ele já está no menu hambúrguer). */
+  .footer-bar .main-nav{display:none}
+  .footer-bar{justify-content:center}
+  .slider-nav.prev{left:0}
+  .slider-nav.next{right:0}
+
+  /* [NOVO] */
+  .header-right{gap:16px}
+  .header-logo .wordmark{font-size:var(--fs-medium);letter-spacing:3px}
+  .trust-strip{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .anchor-nav{top:68px}
+  .anchor-nav ul{gap:20px}
+}
+@media (max-width:900px){
+  .results-grid,.office-grid,.split,.location-grid,.ig-grid{flex-direction:column;align-items:stretch;gap:2.5rem}
+  .office-grid .col-img,.office-grid .col-copy,.split .col-img,.split .col-copy,
+  .location-grid .col-map,.location-grid .col-copy,.ig-head,.ig-slider{flex:1 1 auto}
+  .office-grid .col-copy,.split .col-copy,.location-grid .col-copy{align-items:center;text-align:center}
+  .ig-head{justify-content:center}
+  .split--reverse{flex-direction:column}
+
+  /* [NOVO] */
+  .grid-2,.grid-3{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .gallery,.gallery--4{grid-template-columns:repeat(2,1fr);gap:1.5rem}
+  .section-head{margin-inline:auto;text-align:center}
+
+  /* Listas de duas colunas empilham. Na .checklist a régua de topo
+     volta a existir só no primeiro item — em coluna única, a do
+     segundo item viraria uma linha dupla no meio da lista. */
+  .checklist--2col,.deflist--2col{grid-template-columns:1fr}
+  .checklist--2col > li:nth-child(2){border-top:0}
+
+  /* O cabeçalho assimétrico volta a ser um bloco só, centrado como
+     os demais — em coluna única a assimetria não tem o que expressar. */
+  .section-head--split{grid-template-columns:1fr;gap:1rem;text-align:center}
+  .section-head--split .eyebrow{display:block}
+  .section-head--ruled{padding-bottom:1.25rem}
+
+  /* Listas centradas no celular. A pauta da .checklist acompanha sem
+     ajuste — a régua já é a largura inteira do item. Na .deflist a
+     régua sai da esquerda (com texto centrado ela ficaria pendurada
+     em um dos lados) e vira um traço curto acima do rótulo. */
+  .checklist{text-align:center}
+  .deflist{text-align:center}
+  .deflist > li{padding-left:0;border-left:0;padding-top:1.4rem}
+  .deflist > li::before{
+    content:"";display:block;
+    width:40px;height:1px;
+    background:var(--cor-borda);
+    margin:0 auto 1.1rem;
+  }
+  .band-dark .deflist > li::before,
+  .cover .deflist > li::before{background:rgb(231 232 234 / .35)}
+}
+@media (max-width:767px){
+  .intro-gallery{grid-template-columns:1fr}
+  .intro-gallery figure:not(:nth-child(2)){display:none}
+  .intro-gallery img{aspect-ratio:4/5}
+  .hero .hero-inner{margin-right:5%;margin-left:5%;width:auto}
+  .cover-inner{width:90%}
+  .footer-legal{flex-wrap:wrap;text-align:center}
+  .footer-legal .pipe{display:none}
+
+  /* [NOVO] */
+  .trust-strip{grid-template-columns:1fr;gap:1.75rem}
+  .steps{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:1fr}
+  .gallery,.gallery--4,.gallery--2{grid-template-columns:1fr;gap:1.25rem}
+  .hero{min-height:auto;padding-top:120px}
+  .hero .hero-inner{max-width:none;padding-bottom:80px}
+  .hero .btn-row{flex-direction:column;align-items:stretch}
+  .hero .btn-row .btn{width:100%}
+  .btn-row .btn{width:100%;text-align:center}
+  .anchor-nav ul{gap:14px;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-inline:5%}
+  .anchor-nav a{white-space:nowrap}
+  .wa-float{width:52px;height:52px}
+
+  /* =================================================================
+     AJUSTES DE MOBILE — rodada de 03/08/2026
+  ================================================================= */
+
+  /* (o CTA do header já sai em 1100px, junto com o menu — §16) */
+
+  /* Faixa de credibilidade centrada, com a borda acompanhando. */
+  .trust-strip{text-align:center}
+  .trust-item{border-top:0;padding-top:0}
+  .trust-item::before{
+    content:"";display:block;width:44px;height:1px;
+    background:var(--cor-borda);margin:0 auto 1.25rem;
+  }
+  .cover .trust-item::before,.band-dark .trust-item::before{background:rgb(231 232 234 / .35)}
+
+  /* Cards e blocos de texto centrados. */
+  .card,.media-card{align-items:center;text-align:center}
+  .card .btn-row,.media-card .btn-row{justify-content:center}
+  /* Régua do card mais curta e centrada: em coluna única, uma régua
+     de largura total a cada card viraria uma sequência de linhas
+     atravessando a tela. */
+  .card{border-top:0;padding-top:1.25rem;position:relative}
+  .card::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:44px;height:2px;background:var(--cor-borda);
+    transition:background .3s;
+  }
+  .card--link:hover::before{background:var(--secondary)}
+  .band-dark .card::before,.cover .card::before{background:rgb(231 232 234 / .35)}
+  .card--boxed{border:1px solid var(--cor-borda);padding:clamp(20px,4vw,32px)}
+  .card--boxed::before{content:none}
+  .steps{text-align:center}
+  .steps li::before{border-bottom:0;padding-bottom:0;margin-bottom:8px}
+
+  /* Nome do cirurgião e bloco "Sobre" centrados. */
+  .split .col-copy,.split .col-copy h2,.split .col-copy h3{text-align:center}
+  .split .col-copy{align-items:center}
+  .team-card h3,.team-card .role{text-align:center}
+
+  /* Convênios: o bloco tem align-items no atributo style, por isso o
+     !important — é a única forma de vencer estilo inline. */
+  #convenios .col-copy{align-items:center!important;text-align:center}
+  #convenios .btn-row{justify-content:center}
+
+  /* Próximo passo: endereço, telefone e e-mail alinhados ao centro,
+     e mais respiro antes do botão. */
+  .contact-list{align-items:center;text-align:center}
+  .contact-list a,.contact-list span{justify-content:center;text-align:center}
+  .location-grid .col-copy .btn-row{margin-top:var(--space-medium);justify-content:center}
+
+  /* Rodapé: o logo estava pequeno demais ao lado de "FLORIANÓPOLIS". */
+  .footer-logo{width:min(78vw,300px)}
+  .footer-mark .word{font-size:var(--fs-x-large)}
+
+  /* Ícone do WhatsApp: zera qualquer resquício de linha de base e
+     centra o SVG pela caixa, não pelo fluxo de texto. */
+  .wa-float{display:flex;align-items:center;justify-content:center;line-height:0;padding:0}
+  .wa-float svg{width:26px;height:26px;display:block;margin:0}
+}
+
+/* 360px — largura de validação de aceite */
+@media (max-width:400px){
+  .header-logo,.site-header.is-stuck .header-logo{width:min(52vw,150px)}
+  .header-inner{padding:12px 0;gap:12px}
+  .header-cta{font-size:.6rem;letter-spacing:.1rem;padding:.6em 1em}
+  .mobile-menu{padding:24px}
+}

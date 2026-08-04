@@ -1,0 +1,19 @@
+# Tudo aqui é gerado por `npm run build` — versionar seria versionar
+# a mesma coisa duas vezes, e o zip (~900 KB) criaria um blob novo a
+# cada commit.
+
+node_modules/
+
+# Prévias autocontidas (~5 MB de base64 por rodada)
+1-PREVIEW/
+
+# Pacote publicável + zip
+2-PARA-SUBIR/
+
+# Worktree que o deploy usa para montar o branch de produção
+.deploy/
+
+# Lixo de sistema
+Thumbs.db
+desktop.ini
+.DS_Store

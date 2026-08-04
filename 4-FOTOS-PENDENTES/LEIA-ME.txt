@@ -1,0 +1,40 @@
+COLOQUE AQUI AS FOTOS QUE VOCÊ BAIXAR DO GOOGLE MEU NEGÓCIO
+===========================================================
+
+Não precisa renomear, não precisa redimensionar, não precisa organizar.
+Jogue os arquivos soltos nesta pasta e me avise. Eu identifico cada
+imagem, escolho o destino, corto o enquadramento e ligo nas páginas.
+
+O QUE É MAIS ÚTIL, EM ORDEM DE PRIORIDADE
+-----------------------------------------
+1. Foto do Dr. Matheus Spinella          -> retrato dele e card de equipe
+2. Fachada / entrada do prédio           -> bloco de localização
+3. Recepção e sala de espera             -> galeria e bloco de estrutura
+4. Sala de atendimento / equipamentos    -> galeria
+5. Equipe reunida                        -> LP Geral
+6. Florianópolis / região da clínica     -> bloco "paciente de fora"
+
+O QUE NÃO PODE ENTRAR
+---------------------
+- Antes e depois de paciente (proibido pelo CFO/CRO, sem exceção)
+- Rosto de paciente identificável sem autorização escrita arquivada
+- Imagem de banco de imagem com marca d'água
+
+COMO BAIXAR AS FOTOS DO PERFIL
+------------------------------
+Opção A - pelo painel (melhor qualidade):
+  business.google.com -> escolher o perfil -> Fotos
+  -> abrir cada foto -> menu (tres pontos) -> Baixar
+
+Opção B - pelo perfil publico:
+  Abrir o perfil no Google -> aba Fotos -> clicar na foto para ampliar
+  -> botao direito -> "Salvar imagem como..."
+
+Opção C - Google Takeout (baixa tudo de uma vez):
+  takeout.google.com -> selecionar "Google Business Profile" -> exportar
+
+VÍDEOS
+------
+Se houver depoimento em video, me diga o link em vez de baixar.
+Lembrando: depoimento so entra com autorizacao escrita do paciente
+arquivada, e o trecho precisa falar de experiencia, nao de resultado.
