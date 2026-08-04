@@ -1,13 +1,27 @@
 /* ===================================================================
    INSTITUTO BUCOMAXILOFACIAL — publicação no branch de produção
    -------------------------------------------------------------------
-     node deploy.mjs           -> gera e comita, NÃO envia
-     node deploy.mjs --push    -> gera, comita e envia
+     node deploy.mjs                     -> produção,    branch `producao`
+     node deploy.mjs --homologacao       -> homologação, branch `homologacao`
+     node deploy.mjs --push              -> o mesmo, já enviando
+
+   DOIS DESTINOS, DOIS BRANCHES
+     O modo e o branch andam grudados: o pacote de homologação só pode
+     ir para `homologacao`, e o de produção só para `producao`. Não há
+     combinação que publique um no lugar do outro.
+
+     `homologacao` é para ver o site rodando de verdade sem tocar no
+     domínio real — noindex nas 4 páginas e Disallow: / no robots, então
+     nem que caia no ar por engano ele é indexado. Não exige nenhuma
+     pendência preenchida.
+
+     `producao` exige as pendências bloqueantes e é o que vai ao domínio.
 
    COMO FUNCIONA
-     1. Roda `build.mjs --producao`. Se houver pendência bloqueante em
-        tokens.json, o build aborta e nada acontece aqui.
-     2. Copia 2-PARA-SUBIR/site/ para a RAIZ do branch `producao`,
+     1. Roda o build no modo correspondente. Em produção, se houver
+        pendência bloqueante em tokens.json, o build aborta e nada
+        acontece aqui.
+     2. Copia 2-PARA-SUBIR/site/ para a RAIZ do branch de destino,
         usando um worktree em .deploy/.
      3. Comita. Enviar é passo separado, por opção.
 
@@ -35,9 +49,15 @@ import { fileURLToPath } from 'node:url';
 const RAIZ    = path.dirname(fileURLToPath(import.meta.url));
 const PACOTE  = path.join(RAIZ, '2-PARA-SUBIR', 'site');
 const TRABALHO= path.join(RAIZ, '.deploy');
-const BRANCH  = 'producao';
 
-const ENVIAR = process.argv.includes('--push');
+const ENVIAR      = process.argv.includes('--push');
+const HOMOLOGACAO = process.argv.includes('--homologacao');
+
+/* Modo e branch são decididos juntos, num lugar só. É isso que impede
+   um pacote de homologação de chegar ao branch de produção. */
+const BRANCH    = HOMOLOGACAO ? 'homologacao' : 'producao';
+const ARGS_BUILD= HOMOLOGACAO ? ['build.mjs'] : ['build.mjs', '--producao'];
+const ROTULO    = HOMOLOGACAO ? 'homologação' : 'produção';
 
 const git = (args, opts = {}) =>
   execFileSync('git', args, { cwd: RAIZ, encoding: 'utf8', stdio: 'pipe', ...opts }).trim();
@@ -58,10 +78,10 @@ if (sujo) {
   process.exit(1);
 }
 
-/* ---------- 1. build de produção ---------- */
-console.log('\n  [1/3] build de produção');
+/* ---------- 1. build ---------- */
+console.log(`\n  [1/3] build de ${ROTULO}`);
 try {
-  execFileSync(process.execPath, ['build.mjs', '--producao'], { cwd: RAIZ, stdio: 'inherit' });
+  execFileSync(process.execPath, ARGS_BUILD, { cwd: RAIZ, stdio: 'inherit' });
 } catch {
   console.error('\n  Build abortado. Nada foi publicado.\n');
   process.exit(1);
@@ -114,7 +134,7 @@ if (!mudou) {
 }
 
 const commitFonte = git(['rev-parse', '--short', 'HEAD']);
-gitDeploy(['commit', '-m', `producao: build de ${commitFonte}`]);
+gitDeploy(['commit', '-m', `${BRANCH}: build de ${commitFonte}`]);
 const nArquivos = gitDeploy(['ls-files']).split('\n').filter(Boolean).length;
 
 console.log(`  [3/3] commit feito — ${nArquivos} arquivos no branch \`${BRANCH}\``);

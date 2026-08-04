@@ -9,6 +9,7 @@
     "build:producao": "node build.mjs --producao",
     "deploy": "node deploy.mjs",
     "deploy:push": "node deploy.mjs --push",
+    "deploy:homolog": "node deploy.mjs --homologacao --push",
     "serve": "node serve.mjs"
   },
   "engines": {
