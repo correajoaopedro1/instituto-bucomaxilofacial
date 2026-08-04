@@ -1,0 +1,32 @@
+# ===================================================================
+# TRAVA DE SEGURANÇA — este arquivo NÃO é a configuração do site.
+# -------------------------------------------------------------------
+# A configuração real do site é 3-PROJETO/.htaccess, que o build copia
+# para a raiz do pacote publicável.
+#
+# Este aqui existe só para um caso: alguém apontar a hospedagem para o
+# branch `main` por engano. `main` é o repositório de trabalho — tem o
+# código-fonte com tokens crus, o build.mjs, o tokens.json e a
+# documentação interna. Nada disso pode ser servido na web.
+#
+# Aconteceu em 04/08/2026: o Git da Hostinger foi configurado com
+# `main` em vez de `homologacao`, e tokens.json, build.mjs e deploy.mjs
+# ficaram legíveis pela URL. Os .md escaparam porque 3-PROJETO/.htaccess
+# os bloqueia — mas a raiz não tinha proteção nenhuma.
+#
+# Com este arquivo, o mesmo engano devolve 403 em tudo em vez de expor
+# o repositório. O site de verdade não é afetado: os branches
+# `homologacao` e `producao` levam o .htaccess correto na raiz, gerado
+# a partir de 3-PROJETO/.htaccess, e este arquivo não vai para eles.
+# ===================================================================
+
+# Apache 2.4+
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+
+# Apache 2.2 (hospedagem antiga)
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

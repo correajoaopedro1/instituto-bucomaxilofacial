@@ -91,6 +91,19 @@ Depois, no hPanel:
 3. **Branch: `producao`** ← o passo que mais importa. Nunca `main`.
    O branch precisa **já existir no GitHub** — ele nasce no primeiro
    `npm run deploy:push`. Configurar antes disso dá erro na tela
+
+   > ⚠️ **Já deu errado uma vez.** Em 04/08/2026 o campo ficou em `main`
+   > e a Hostinger publicou o repositório de trabalho inteiro: as páginas
+   > foram parar em `/3-PROJETO/`, com os tokens crus à mostra e marcadas
+   > como indexáveis, e `tokens.json`, `build.mjs` e `deploy.mjs` ficaram
+   > legíveis pela URL. Os `.md` escaparam porque `3-PROJETO/.htaccess`
+   > os bloqueia. Desde então existe um `.htaccess` na raiz do `main` que
+   > devolve 403 em tudo — se o engano se repetir, nada é servido.
+   >
+   > **A Hostinger não deixa trocar o branch de um repositório já criado.**
+   > Para corrigir: apagar o repositório no hPanel, **esvaziar o
+   > `public_html`** (apagar a integração não remove arquivo), e criar de
+   > novo com o branch certo.
 4. **Diretório: `public_html`**
 5. Deixar o campo de *build commands* **vazio** — o build já roda na sua
    máquina e o branch `producao` contém o site pronto. Hospedagem
