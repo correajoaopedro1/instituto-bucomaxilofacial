@@ -1843,11 +1843,15 @@ h3{font-size:var(--fs-large)}
   line-height:1.6;
 }
 .indice-lista li:nth-child(3n){padding-right:0}
+/* A nota de fecho fica em grafite, não no azul de rótulo: em corpo
+   serifado o azul da marca lê como link que não leva a lugar nenhum —
+   o mesmo problema que o S-6 aponta no "CRO-SC 7964". */
 .indice-nota{
   margin:0;
   padding:1.3rem 0 0;
   font-size:var(--fs-small);
-  color:var(--cor-texto-sup);
+  color:var(--contrast);
+  opacity:.7;
 }
 
 @media (max-width:900px){
