@@ -1,6 +1,6 @@
 # Retomar o projeto — Instituto Bucomaxilofacial
 
-Estado em 04/08/2026. Cole o prompt do fim deste arquivo numa sessão nova
+Estado em 05/08/2026. Cole o prompt do fim deste arquivo numa sessão nova
 do Claude Code, aberta na pasta `_INSTITUTO-BUCOMAXILOFACIAL`.
 
 ---
@@ -64,16 +64,30 @@ Fora do código, também travam: **revisão jurídica / CRO-SC da copy** e o
 **LOGO-03** — a tagline do logo anuncia "implantes", que a regra 6 do
 briefing proíbe.
 
-## 5. Pendências de design
+## 5. Pendências de design e estrutura
 
-Estão em `3-PROJETO/AJUSTES-PENDENTES.md`, com ✅/⬜. O cliente aprovou a
-última rodada ("melhorou MUITO") e disse que **restam alguns ajustes**,
-ainda não detalhados. Perguntar quais antes de mexer.
+Estão em `3-PROJETO/AJUSTES-PENDENTES.md`, **revisado em 05/08/2026** contra o
+código e contra o site no ar. A lista de 04/08 estava defasada: a rodada de
+ajustes implementou quase tudo no `style.css` §17–§18 e os ⬜ nunca foram
+baixados. Agora os status estão conferidos.
 
-Aberto e conhecido:
-- **Favicon** — `assets/img/marca-simbolo.png` tem 237 KB e é a marca
-  completa; em 32px vira borrão. Falta o símbolo (a taça) recortado
-  quadrado, em 32×32 e 180×180.
+O que sobrou de design é pouco e específico: o título das etapas (S-5b), o link
+do Instagram no bloco "Sobre" (S-6), a seção "A estrutura" da home (G-3) e o
+favicon (T-5). O cliente disse que **restam alguns ajustes** ainda não
+detalhados — perguntar quais antes de mexer.
+
+O que apareceu de novo é a seção **A. Erros estruturais** da lista. O que pesa:
+
+- **E-1 🔴** `canonical`, `og:url`, JSON-LD e `sitemap.xml` das 4 páginas
+  apontam para `institutobucomaxilofacial.com.br` — o Wix antigo — e não para
+  `institutomaxilofacialsc.com`. Inofensivo enquanto houver `noindex`; no dia
+  que sair, o Google indexa o site velho no lugar do novo.
+- **E-3** o item "Redes sociais" do menu desktop aponta para uma âncora que não
+  existe em página nenhuma.
+- **E-4** o M-2 (Contato antes de Redes sociais) entrou só no menu desktop; no
+  mobile a ordem continua a antiga.
+- **E-5** texto duplicado no ar na LP do Jonathas: "Cirurgia e Traumatologia
+  Bucomaxilofacial — Cirurgia e Traumatologia Bucomaxilofacial".
 
 ## 6. Lições que custaram caro — não repetir
 
