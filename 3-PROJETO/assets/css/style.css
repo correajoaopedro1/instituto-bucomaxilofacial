@@ -1779,3 +1779,86 @@ h3{font-size:var(--fs-large)}
 @media (max-width:560px){
   .footer-col--ic a,.footer-col--ic address{justify-content:center;text-align:left}
 }
+
+
+/* ===================================================================
+   §20  SEÇÃO DO PROCEDIMENTO — fuga do container 50/50
+   O bloco "o que trata / para quem é indicada" era dois .card de 50%
+   lado a lado. O desenho em si não estava errado; o problema é que ele
+   já é o desenho de metade do site — split de imagem, grid de cards,
+   location-grid, checklist em duas colunas. Repetido, vira padrão de
+   construtor. Aqui a seção sai da grade de containers e vira
+   tipografia: rail de rótulo + coluna de leitura, e um índice de régua
+   corrida na largura inteira. Nenhuma caixa, nenhuma cor nova.
+=================================================================== */
+
+/* ---- 20.1 Rail de rótulo + coluna de leitura ---------------------
+   Geometria assimétrica (rótulo estreito à esquerda, texto ao lado, o
+   resto vazio) em vez de duas metades iguais. O vazio à direita é
+   proposital: é o que dá ar depois da lista densa da seção anterior. */
+.rail-texto{display:flex;gap:var(--gap-columns);align-items:flex-start}
+.rail-texto__rotulo{flex:0 0 17%;padding-top:.5rem}
+.rail-texto__rotulo .eyebrow{
+  display:block;
+  color:var(--secondary);
+  line-height:1.7;
+}
+.rail-texto__corpo{flex:1 1 auto;max-width:62ch}
+.rail-texto__corpo p{margin-bottom:1.15em}
+.rail-texto__corpo p:last-child{margin-bottom:0}
+/* A primeira frase é a definição da seção: entra um degrau acima do
+   corpo, na mesma serifada, sem virar título. */
+.rail-texto__corpo .lead{
+  font-size:var(--fs-large);
+  line-height:1.55;
+  margin-bottom:1.5em;
+}
+
+/* ---- 20.2 Índice de indicações -----------------------------------
+   Sem caixa, sem fundo, sem marcador. As réguas correm de ponta a
+   ponta da largura útil — por isso `column-gap:0` e o respiro feito
+   com padding interno: assim as bordas das células vizinhas se
+   encostam e a linha lê como uma régua só, e o bloco lê como um
+   índice, não como seis itens soltos. */
+.indice{border-top:1px solid var(--cor-borda)}
+.indice-titulo{
+  margin:0;
+  padding:1.6rem 0 .4rem;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  font-weight:500;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--secondary);
+}
+.indice-lista{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  column-gap:0;
+}
+.indice-lista li{
+  margin:0;
+  padding:1.2rem 2.5rem 1.2rem 0;
+  border-bottom:1px solid var(--cor-borda);
+  line-height:1.6;
+}
+.indice-lista li:nth-child(3n){padding-right:0}
+.indice-nota{
+  margin:0;
+  padding:1.3rem 0 0;
+  font-size:var(--fs-small);
+  color:var(--cor-texto-sup);
+}
+
+@media (max-width:900px){
+  .rail-texto{display:block}
+  .rail-texto__rotulo{padding-top:0;margin-bottom:1rem}
+  .rail-texto__corpo{max-width:none}
+  .indice-lista{grid-template-columns:repeat(2,1fr)}
+  .indice-lista li:nth-child(3n){padding-right:2.5rem}
+  .indice-lista li:nth-child(2n){padding-right:0}
+}
+@media (max-width:600px){
+  .indice-lista{grid-template-columns:1fr}
+  .indice-lista li:nth-child(n){padding-right:0}
+}
