@@ -1776,3 +1776,91 @@ h3{font-size:var(--fs-large)}
 @media (max-width:560px){
   .footer-col--ic a,.footer-col--ic address{justify-content:center;text-align:left}
 }
+
+
+/* ===================================================================
+   §20  SEÇÃO DO PROCEDIMENTO — reestruturação de 05/08/2026
+   A seção 4 das LPs vinha logo depois da lista de sinais da seção 3 e
+   repetia o mesmo desenho: placa branca com marcador azul, agora dentro
+   de dois cards de 50%. Lia como a seção anterior feita de novo, pior.
+   A correção tem duas partes: a ordem (imagem antes de mais texto, no
+   HTML) e o desenho dos dois blocos que sobraram — aqui.
+=================================================================== */
+
+/* ---- 20.1 Coluna de leitura --------------------------------------
+   O que era "O que a cirurgia trata" dentro de um card. É texto
+   explicativo: ganha largura de leitura, primeiro parágrafo com peso e
+   nenhuma caixa em volta. */
+.texto-corrido{margin-inline:0}
+.texto-corrido .eyebrow{
+  display:block;
+  color:var(--cor-texto-sup);
+  margin-bottom:1rem;
+}
+.texto-corrido p{margin-bottom:1.1em}
+.texto-corrido p:last-child{margin-bottom:0}
+.texto-corrido .lead{
+  font-size:var(--fs-large);
+  line-height:1.6;
+  color:var(--contrast);
+}
+
+/* ---- 20.2 Quadro de apoio ----------------------------------------
+   As indicações continuam sendo uma lista, mas não podem ser a MESMA
+   lista da seção 3. Lá é placa solta com marcador; aqui é um quadro só,
+   dividido por régua interna. Mesmo sistema, peso visual diferente. */
+.quadro{
+  border:1px solid var(--cor-borda);
+  border-top:3px solid var(--secondary);
+  background:var(--quaternary);
+  padding:clamp(24px,4vw,40px);
+}
+.quadro-titulo{
+  margin:0 0 1.5rem;
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  font-weight:500;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--secondary);
+}
+.quadro-nota{
+  margin:1.5rem 0 0;
+  padding-top:1.25rem;
+  border-top:1px solid var(--cor-borda);
+  font-size:var(--fs-small);
+  color:var(--cor-texto-sup);
+}
+
+/* Lista dividida por régua — sem placa, sem marcador, sem fundo. */
+.lista-regua{display:grid}
+.lista-regua li{
+  padding:.85rem 0;
+  border-bottom:1px solid var(--cor-borda);
+  line-height:1.6;
+  margin:0;
+}
+.lista-regua--2col{grid-template-columns:repeat(2,1fr);column-gap:var(--gap-columns)}
+/* Numa grade de duas colunas, a última linha de cada coluna não precisa
+   de régua — ela encostaria na borda do quadro. */
+.lista-regua--2col > li:nth-last-child(-n+2){border-bottom:0;padding-bottom:0}
+.lista-regua:not(.lista-regua--2col) > li:last-child{border-bottom:0;padding-bottom:0}
+
+/* ---- 20.3 Título de subseção (S-5b) ------------------------------
+   "Como funciona, etapa por etapa" era um h3 cinza, pequeno e
+   centralizado no meio de uma seção alinhada à esquerda. Passa a ter
+   degrau próprio: azul da marca, alinhado à seção, com régua abaixo. */
+.subsecao-titulo{
+  margin:0 0 .2rem;
+  font-size:clamp(1.35rem,1.15rem + .8vw,1.65rem);
+  color:var(--secondary);
+  text-align:left;
+  padding-bottom:1rem;
+  border-bottom:1px solid var(--cor-borda);
+}
+
+@media (max-width:767px){
+  .lista-regua--2col{grid-template-columns:1fr}
+  .lista-regua--2col > li:nth-last-child(-n+2){border-bottom:1px solid var(--cor-borda);padding-bottom:.85rem}
+  .lista-regua--2col > li:last-child{border-bottom:0;padding-bottom:0}
+}
