@@ -1782,24 +1782,79 @@ h3{font-size:var(--fs-large)}
 
 
 /* ===================================================================
-   §20  SEÇÃO DO PROCEDIMENTO — fuga do container 50/50
-   Eram dois .card de 50% lado a lado. O desenho não estava errado em
-   si: o problema é que container dividido em duas metades já é o
-   desenho de metade do site, e repetido vira padrão de construtor.
+   §20  SEÇÃO DO PROCEDIMENTO — cards com ícone
+   Eram dois .card de 50% lado a lado. As duas tentativas anteriores
+   tiraram a caixa e ficaram fracas pelo motivo oposto: régua fina,
+   tipo pequeno, tudo no mesmo tom, nada que segurasse o olho.
 
-   A primeira tentativa (rail de rótulo à esquerda + coluna de leitura)
-   foi pior: criou três margens esquerdas diferentes na mesma seção —
-   título em uma, texto em outra, índice numa terceira — e deixou meia
-   tela vazia à direita. Não lia como assimetria, lia como quebrado.
-
-   Esta versão tem UMA margem esquerda só, do título ao último item, e
-   usa a largura inteira. O que substitui a caixa é ritmo: régua,
-   rótulo, frase de abertura em corpo grande, texto em duas colunas de
-   LEITURA (fluxo de texto, não dois containers), régua, índice denso.
+   Referência trazida pelo cliente: grade de cards claros com ícone em
+   chip, canto macio e respiro largo. O desenho vem de lá; a matéria é
+   toda daqui — azul da marca, serifada dos títulos, cinza das bordas.
+   Duas coisas saem do sistema e ficam registradas:
+     · raio de 8px (o sistema só tinha os 3px do botão). Mesmo valor já
+       aprovado para a foto da clínica na seção de localização.
+     · azul da marca a 8% como fundo do chip do ícone — não é cor nova,
+       é a mesma cor em alfa.
 =================================================================== */
 
-/* Rótulo de bloco — mesma peça nos dois blocos da seção, para eles
-   lerem como partes de um mesmo objeto e não como seções separadas. */
+.grid-cards{gap:1.5rem}
+
+.card-ic{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:.9rem;
+  padding:clamp(24px,3vw,34px);
+  background:var(--quaternary);
+  border:1px solid var(--cor-borda);
+  border-radius:8px;
+  transition:border-color .3s;
+}
+.card-ic:hover{border-color:var(--secondary)}
+
+/* Chip do ícone — quadrado de canto macio com o azul da marca em alfa
+   baixo. O traço do ícone é o azul cheio. */
+.card-ic__ic{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;height:52px;
+  border-radius:8px;
+  background:rgb(14 123 162 / .08);
+  margin-bottom:.35rem;
+}
+.card-ic__ic svg{
+  width:26px;height:26px;
+  fill:none;
+  stroke:var(--secondary);
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.card-ic h3{
+  margin:0;
+  font-size:var(--fs-large);
+  line-height:1.3;
+  color:var(--contrast);
+}
+.card-ic p{margin:0;line-height:1.65}
+
+/* Nota de fecho da grade, centrada com o cabeçalho da seção. */
+.nota-central{
+  width:min(100%,720px);
+  margin-inline:auto;
+  text-align:center;
+  font-size:var(--fs-small);
+  color:var(--contrast);
+  opacity:.7;
+}
+
+/* ---- Bloco de texto do fim da seção ------------------------------
+   O que sobrou de "O que a cirurgia trata": uma margem esquerda só,
+   frase de abertura em corpo grande limitada a ~46ch (é linha de
+   display, por isso o vazio à direita dela é proposital) e os dois
+   parágrafos em duas colunas de LEITURA — fluxo de texto, não dois
+   containers — ocupando a largura inteira. */
 .bloco-rotulo{
   margin:0 0 1.2rem;
   font-family:var(--font-nav);
@@ -1809,72 +1864,21 @@ h3{font-size:var(--fs-large)}
   text-transform:uppercase;
   color:var(--secondary);
 }
-
-/* ---- 20.1 Bloco editorial ---------------------------------------- */
-.bloco-editorial{border-top:1px solid var(--cor-borda);padding-top:1.7rem}
-
-/* A frase de abertura é a definição da seção. Entra em corpo grande e
-   para em ~46 caracteres: é linha de display, não parágrafo — por isso
-   o vazio à direita DELA não incomoda, enquanto o vazio ao lado de um
-   parágrafo inteiro incomodava. */
 .bloco-editorial__lead{
   margin:0 0 1.9rem;
   max-width:46ch;
-  font-size:clamp(1.3rem,1.05rem + .95vw,1.75rem);
+  font-size:clamp(1.25rem,1.05rem + .8vw,1.6rem);
   line-height:1.45;
 }
-
-/* Duas colunas de TEXTO, não dois containers: o texto flui de uma para
-   a outra, sem borda, sem fundo e sem caixa. Ocupa a largura inteira,
-   que é o que fecha o buraco à direita. */
 .bloco-editorial__colunas{columns:2;column-gap:var(--gap-columns)}
 .bloco-editorial__colunas p{margin:0 0 1.15em;break-inside:avoid}
 .bloco-editorial__colunas p:last-child{margin-bottom:0}
 
-/* ---- 20.2 Índice de indicações -----------------------------------
-   Sem caixa, sem fundo, sem marcador. As réguas correm de ponta a
-   ponta — daí `column-gap:0` com o respiro feito por padding interno:
-   as bordas das células vizinhas se encostam e a linha lê como uma
-   régua só. Compacto de propósito: espaçado demais lê como tabela
-   vazia, que foi o defeito da versão anterior. */
-.indice{border-top:1px solid var(--cor-borda);padding-top:1.7rem}
-.indice-lista{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  column-gap:0;
-}
-.indice-lista li{
-  margin:0;
-  padding:.85rem 2.5rem .85rem 0;
-  border-bottom:1px solid var(--cor-borda);
-  font-size:var(--fs-small);
-  line-height:1.5;
-}
-.indice-lista li:nth-child(3n){padding-right:0}
-.indice-lista li:nth-child(-n+3){padding-top:0}
-
-/* A nota de fecho fica em grafite, não no azul de rótulo: em corpo
-   serifado o azul da marca lê como link que não leva a lugar nenhum —
-   o mesmo problema que o S-6 aponta no "CRO-SC 7964". */
-.indice-nota{
-  margin:0;
-  padding:1.1rem 0 0;
-  font-size:var(--fs-small);
-  color:var(--contrast);
-  opacity:.7;
-}
-
 @media (max-width:900px){
+  .grid-cards{grid-template-columns:repeat(2,1fr)}
   .bloco-editorial__colunas{columns:1}
   .bloco-editorial__lead{max-width:none}
-  .indice-lista{grid-template-columns:repeat(2,1fr)}
-  .indice-lista li:nth-child(3n){padding-right:2.5rem}
-  .indice-lista li:nth-child(2n){padding-right:0}
-  .indice-lista li:nth-child(-n+3){padding-top:.85rem}
-  .indice-lista li:nth-child(-n+2){padding-top:0}
 }
 @media (max-width:600px){
-  .indice-lista{grid-template-columns:1fr}
-  .indice-lista li:nth-child(n){padding-right:0;padding-top:.85rem}
-  .indice-lista li:first-child{padding-top:0}
+  .grid-cards{grid-template-columns:1fr}
 }
