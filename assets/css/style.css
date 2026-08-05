@@ -1783,47 +1783,25 @@ h3{font-size:var(--fs-large)}
 
 /* ===================================================================
    §20  SEÇÃO DO PROCEDIMENTO — fuga do container 50/50
-   O bloco "o que trata / para quem é indicada" era dois .card de 50%
-   lado a lado. O desenho em si não estava errado; o problema é que ele
-   já é o desenho de metade do site — split de imagem, grid de cards,
-   location-grid, checklist em duas colunas. Repetido, vira padrão de
-   construtor. Aqui a seção sai da grade de containers e vira
-   tipografia: rail de rótulo + coluna de leitura, e um índice de régua
-   corrida na largura inteira. Nenhuma caixa, nenhuma cor nova.
+   Eram dois .card de 50% lado a lado. O desenho não estava errado em
+   si: o problema é que container dividido em duas metades já é o
+   desenho de metade do site, e repetido vira padrão de construtor.
+
+   A primeira tentativa (rail de rótulo à esquerda + coluna de leitura)
+   foi pior: criou três margens esquerdas diferentes na mesma seção —
+   título em uma, texto em outra, índice numa terceira — e deixou meia
+   tela vazia à direita. Não lia como assimetria, lia como quebrado.
+
+   Esta versão tem UMA margem esquerda só, do título ao último item, e
+   usa a largura inteira. O que substitui a caixa é ritmo: régua,
+   rótulo, frase de abertura em corpo grande, texto em duas colunas de
+   LEITURA (fluxo de texto, não dois containers), régua, índice denso.
 =================================================================== */
 
-/* ---- 20.1 Rail de rótulo + coluna de leitura ---------------------
-   Geometria assimétrica (rótulo estreito à esquerda, texto ao lado, o
-   resto vazio) em vez de duas metades iguais. O vazio à direita é
-   proposital: é o que dá ar depois da lista densa da seção anterior. */
-.rail-texto{display:flex;gap:var(--gap-columns);align-items:flex-start}
-.rail-texto__rotulo{flex:0 0 17%;padding-top:.5rem}
-.rail-texto__rotulo .eyebrow{
-  display:block;
-  color:var(--secondary);
-  line-height:1.7;
-}
-.rail-texto__corpo{flex:1 1 auto;max-width:62ch}
-.rail-texto__corpo p{margin-bottom:1.15em}
-.rail-texto__corpo p:last-child{margin-bottom:0}
-/* A primeira frase é a definição da seção: entra um degrau acima do
-   corpo, na mesma serifada, sem virar título. */
-.rail-texto__corpo .lead{
-  font-size:var(--fs-large);
-  line-height:1.55;
-  margin-bottom:1.5em;
-}
-
-/* ---- 20.2 Índice de indicações -----------------------------------
-   Sem caixa, sem fundo, sem marcador. As réguas correm de ponta a
-   ponta da largura útil — por isso `column-gap:0` e o respiro feito
-   com padding interno: assim as bordas das células vizinhas se
-   encostam e a linha lê como uma régua só, e o bloco lê como um
-   índice, não como seis itens soltos. */
-.indice{border-top:1px solid var(--cor-borda)}
-.indice-titulo{
-  margin:0;
-  padding:1.6rem 0 .4rem;
+/* Rótulo de bloco — mesma peça nos dois blocos da seção, para eles
+   lerem como partes de um mesmo objeto e não como seções separadas. */
+.bloco-rotulo{
+  margin:0 0 1.2rem;
   font-family:var(--font-nav);
   font-size:var(--fs-xx-small);
   font-weight:500;
@@ -1831,6 +1809,35 @@ h3{font-size:var(--fs-large)}
   text-transform:uppercase;
   color:var(--secondary);
 }
+
+/* ---- 20.1 Bloco editorial ---------------------------------------- */
+.bloco-editorial{border-top:1px solid var(--cor-borda);padding-top:1.7rem}
+
+/* A frase de abertura é a definição da seção. Entra em corpo grande e
+   para em ~46 caracteres: é linha de display, não parágrafo — por isso
+   o vazio à direita DELA não incomoda, enquanto o vazio ao lado de um
+   parágrafo inteiro incomodava. */
+.bloco-editorial__lead{
+  margin:0 0 1.9rem;
+  max-width:46ch;
+  font-size:clamp(1.3rem,1.05rem + .95vw,1.75rem);
+  line-height:1.45;
+}
+
+/* Duas colunas de TEXTO, não dois containers: o texto flui de uma para
+   a outra, sem borda, sem fundo e sem caixa. Ocupa a largura inteira,
+   que é o que fecha o buraco à direita. */
+.bloco-editorial__colunas{columns:2;column-gap:var(--gap-columns)}
+.bloco-editorial__colunas p{margin:0 0 1.15em;break-inside:avoid}
+.bloco-editorial__colunas p:last-child{margin-bottom:0}
+
+/* ---- 20.2 Índice de indicações -----------------------------------
+   Sem caixa, sem fundo, sem marcador. As réguas correm de ponta a
+   ponta — daí `column-gap:0` com o respiro feito por padding interno:
+   as bordas das células vizinhas se encostam e a linha lê como uma
+   régua só. Compacto de propósito: espaçado demais lê como tabela
+   vazia, que foi o defeito da versão anterior. */
+.indice{border-top:1px solid var(--cor-borda);padding-top:1.7rem}
 .indice-lista{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -1838,31 +1845,36 @@ h3{font-size:var(--fs-large)}
 }
 .indice-lista li{
   margin:0;
-  padding:1.2rem 2.5rem 1.2rem 0;
+  padding:.85rem 2.5rem .85rem 0;
   border-bottom:1px solid var(--cor-borda);
-  line-height:1.6;
+  font-size:var(--fs-small);
+  line-height:1.5;
 }
 .indice-lista li:nth-child(3n){padding-right:0}
+.indice-lista li:nth-child(-n+3){padding-top:0}
+
 /* A nota de fecho fica em grafite, não no azul de rótulo: em corpo
    serifado o azul da marca lê como link que não leva a lugar nenhum —
    o mesmo problema que o S-6 aponta no "CRO-SC 7964". */
 .indice-nota{
   margin:0;
-  padding:1.3rem 0 0;
+  padding:1.1rem 0 0;
   font-size:var(--fs-small);
   color:var(--contrast);
   opacity:.7;
 }
 
 @media (max-width:900px){
-  .rail-texto{display:block}
-  .rail-texto__rotulo{padding-top:0;margin-bottom:1rem}
-  .rail-texto__corpo{max-width:none}
+  .bloco-editorial__colunas{columns:1}
+  .bloco-editorial__lead{max-width:none}
   .indice-lista{grid-template-columns:repeat(2,1fr)}
   .indice-lista li:nth-child(3n){padding-right:2.5rem}
   .indice-lista li:nth-child(2n){padding-right:0}
+  .indice-lista li:nth-child(-n+3){padding-top:.85rem}
+  .indice-lista li:nth-child(-n+2){padding-top:0}
 }
 @media (max-width:600px){
   .indice-lista{grid-template-columns:1fr}
-  .indice-lista li:nth-child(n){padding-right:0}
+  .indice-lista li:nth-child(n){padding-right:0;padding-top:.85rem}
+  .indice-lista li:first-child{padding-top:0}
 }
