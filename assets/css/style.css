@@ -1683,3 +1683,96 @@ h3{font-size:var(--fs-large)}
   .footer-legal{flex-wrap:wrap;text-align:center}
   .footer-legal .pipe{display:none}
 }
+
+/* ===================================================================
+   §19  RODADA 05/08/2026
+   Correção dos defeitos encontrados na leitura do site no ar, mais a
+   padronização pedida pelo cliente. Mesma regra das seções anteriores:
+   fica no fim do arquivo e sobrescreve, para o histórico continuar
+   legível.
+=================================================================== */
+
+/* ---- 1 · o hero não pode depender de JS para existir --------------
+   `.hero-inner` carregava a classe `.reveal`: nascia em opacity:0 e só
+   aparecia quando o IntersectionObserver rodasse. Como o main.js é
+   `defer`, em rede lenta a primeira dobra ficava segundos vazia — sem
+   título, sem subtítulo, sem CTA, só a foto (ou a hachura). A entrada
+   passa a ser animação de CSS: existe no primeiro quadro pintado,
+   com JS ou sem. */
+.hero-inner{animation:hero-in .8s ease .05s both}
+@keyframes hero-in{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-inner{animation:none}
+}
+
+/* ---- 2 · espaço de imagem não pode colapsar -----------------------
+   Dentro de um flex com `align-items:center` o `.slot` vira
+   shrink-to-fit. Com o placeholder (GIF 1×1) a largura ia a zero e o
+   `aspect-ratio` levava a altura junto: em vez do espaço hachurado com
+   o nome do token, aparecia um buraco branco. Era isso que quebrava os
+   cards do Dr. Matheus e do Dr. Lucas em "Quem conduz o seu caso". */
+.media-card > .slot{align-self:stretch;width:100%}
+
+/* ---- 3 · quatro frentes: o 4º card alinha com os três vizinhos ----
+   O rótulo do CTA de traumatologia quebrava em duas linhas e subia o
+   botão em relação aos outros. */
+.grid-4 .card .card-foot .btn{white-space:nowrap}
+
+/* ---- 4 · foto da clínica com canto arredondado -------------------- */
+.location-grid .map-facade{overflow:hidden;border-radius:8px}
+.location-grid .map-facade img{border-radius:8px}
+
+/* ---- 5 · menu: Tratamentos com o título em azul e caixa alta ------
+   A linha de explicação segue como está (`.subnav--wide .role` já
+   desliga a caixa alta no §17). */
+.subnav--wide > li > a{
+  text-transform:uppercase;
+  letter-spacing:1.1px;
+  font-weight:500;
+  color:var(--secondary);
+}
+
+/* ---- 6 · Contato e Redes sociais: linha de apoio sem caixa alta ---
+   O e-mail e o endereço saíam em RECEPCAOIBMF@GMAIL.COM e LIFE MEDICAL
+   TOWER porque herdavam o `text-transform` do cargo do cirurgião. Dado
+   e cargo não são a mesma coisa: o cargo continua em caixa alta no
+   submenu da Equipe, o dado volta a ser escrito como se lê. */
+.subnav--info .role{
+  text-transform:none;
+  letter-spacing:.2px;
+  color:var(--contrast);
+  opacity:.65;
+}
+
+/* ---- 7 · hover do submenu menos gritante --------------------------
+   Passava de grafite para o azul profundo da marca — salto de cor
+   grande demais para um estado de passagem. Agora o item só perde
+   peso, mantendo a cor que já tinha. */
+.subnav a:hover{color:var(--contrast);opacity:.6}
+.subnav--wide > li > a:hover{color:var(--secondary);opacity:.65}
+
+/* ---- 8 · rodapé: ícone ancorando cada informação ------------------
+   As colunas Contato, Onde estamos e Redes sociais eram linhas de
+   texto soltas, sem nada que dissesse o que cada uma era. Ícone de
+   linha, na cor herdada, sem cor nova no sistema. */
+.footer-col--ic a,
+.footer-col--ic address{display:flex;align-items:flex-start;gap:.65rem}
+.footer-col--ic .ic{
+  flex:0 0 16px;
+  width:16px;height:16px;
+  margin-top:.3em;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.7;
+  transition:opacity .3s;
+}
+.footer-col--ic a:hover .ic{opacity:1}
+@media (max-width:560px){
+  .footer-col--ic a,.footer-col--ic address{justify-content:center;text-align:left}
+}
