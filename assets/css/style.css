@@ -1806,11 +1806,14 @@ h3{font-size:var(--fs-large)}
   gap:.9rem;
   padding:clamp(24px,3vw,34px);
   background:var(--quaternary);
+  /* Mesma caixa dos .card do resto do site: 1px de borda e a régua de
+     3px em azul no topo. O canto macio da referência saiu — o sistema
+     não tem raio em caixa, só nos 3px do botão. */
   border:1px solid var(--cor-borda);
-  border-radius:8px;
+  border-top:3px solid var(--secondary);
   transition:border-color .3s;
 }
-.card-ic:hover{border-color:var(--secondary)}
+.card-ic:hover{border-color:var(--cor-borda);border-top-color:var(--senary)}
 
 /* Chip do ícone — quadrado de canto macio com o azul da marca em alfa
    baixo. O traço do ícone é o azul cheio. */
@@ -1819,7 +1822,7 @@ h3{font-size:var(--fs-large)}
   align-items:center;
   justify-content:center;
   width:52px;height:52px;
-  border-radius:8px;
+  border-radius:var(--raio-botao);
   background:rgb(14 123 162 / .08);
   margin-bottom:.35rem;
 }
@@ -1864,21 +1867,30 @@ h3{font-size:var(--fs-large)}
   text-transform:uppercase;
   color:var(--secondary);
 }
+/* Centrado, na mesma largura e no mesmo eixo do cabeçalho da seção e
+   da nota da grade — para a seção inteira ler alinhada. */
+.bloco-editorial{
+  width:min(100%,760px);
+  margin-inline:auto;
+  text-align:center;
+}
 .bloco-editorial__lead{
-  margin:0 0 1.9rem;
-  max-width:46ch;
+  margin:0 0 1.5rem;
   font-size:clamp(1.25rem,1.05rem + .8vw,1.6rem);
   line-height:1.45;
 }
-.bloco-editorial__colunas{columns:2;column-gap:var(--gap-columns)}
-.bloco-editorial__colunas p{margin:0 0 1.15em;break-inside:avoid}
+.bloco-editorial__colunas p{margin:0 0 1.15em}
 .bloco-editorial__colunas p:last-child{margin-bottom:0}
 
 @media (max-width:900px){
   .grid-cards{grid-template-columns:repeat(2,1fr)}
-  .bloco-editorial__colunas{columns:1}
-  .bloco-editorial__lead{max-width:none}
 }
 @media (max-width:600px){
   .grid-cards{grid-template-columns:1fr}
 }
+
+/* Card sem parágrafo (LP do Dr. Lucas): o item já era curto e virou o
+   próprio título. Sem corpo, o card fica baixo demais ao lado dos
+   outros — o min-height iguala a fileira. */
+.grid-cards--curto .card-ic{min-height:180px}
+.grid-cards--curto .card-ic h3{margin-top:auto}
