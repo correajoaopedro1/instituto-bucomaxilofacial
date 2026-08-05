@@ -32,8 +32,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 
 <!-- Design system compartilhado pelas 4 LPs -->
-<link rel="preload" as="style" href="/assets/css/style.css?v=1tn9j7v" />
-<link rel="stylesheet" href="/assets/css/style.css?v=1tn9j7v" />
+<link rel="preload" as="style" href="/assets/css/style.css?v=13t0aqx" />
+<link rel="stylesheet" href="/assets/css/style.css?v=13t0aqx" />
 
 <!-- ============================================================
      GOOGLE TAG MANAGER — container e nada mais.
@@ -433,6 +433,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="sp-x-large"></div>
   </section>
 
+  <!-- ============ ETAPAS ============
+       [05/08/2026] Subiu para cá, a pedido do cliente: as etapas vinham
+       no fim da seção do procedimento; agora vêm logo depois dos sintomas,
+       e a seção do procedimento passa a ser a de baixo. O título virou h2
+       porque deixou de ser bloco interno e passou a titular a seção. -->
+  <div class="sp-x-large"></div>
+  <section class="wrap-content reveal" id="etapas">
+    <div class="section-head center">
+      <h2>Como funciona, etapa por etapa</h2>
+    </div>
+    <ol class="steps">
+      <li>
+        <h4>Avaliação</h4>
+        <p>Consulta presencial ou por vídeo. Sua queixa, seu histórico, exame clínico e a solicitação dos exames de imagem necessários.</p>
+      </li>
+      <li>
+        <h4>Planejamento</h4>
+        <p>Com tomografia e escaneamento, o caso é planejado virtualmente em 3D. Você vê o plano da sua cirurgia e entende o que está proposto antes de decidir.</p>
+      </li>
+      <li>
+        <h4>Cirurgia</h4>
+        <p>Realizada em ambiente hospitalar, sob anestesia geral, com a equipe do Instituto. As condições e o tempo de internação são definidos no planejamento.</p>
+      </li>
+      <li>
+        <h4>Acompanhamento</h4>
+        <p>Retornos programados, orientação sobre alimentação, fala e retomada das atividades — em conjunto com o seu ortodontista até a finalização.</p>
+      </li>
+    </ol>
+  </section>
+
   <!-- ============ 4. PROCEDIMENTO / SOLUÇÃO ============ -->
   <div class="sp-x-large"></div>
   <section class="wrap-content reveal" id="cirurgia-ortognatica">
@@ -446,10 +476,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </p>
     </div>
 
-    <!-- [05/08/2026] O bloco do planejamento virtual subiu para cá.
-         Vinha depois de dois cards com uma checklist dentro — a mesma placa
-         da seção 3, logo acima. Duas listas de placa em sequência liam como
-         a mesma seção repetida. A imagem entra antes e quebra a sequência. -->
+    <div class="grid-2 grid-tight">
+      <div class="card">
+        <span class="eyebrow">Para quem costuma ser indicada</span>
+        <ul class="checklist">
+          <li>Mordida aberta, cruzada, profunda ou que não fecha corretamente.</li>
+          <li>Desproporção entre maxila e mandíbula.</li>
+          <li>Assimetria facial de origem óssea.</li>
+          <li>Dificuldade mastigatória associada ao encaixe dos maxilares.</li>
+          <li>Alterações respiratórias relacionadas à posição dos maxilares.</li>
+          <li>Casos em que o tratamento ortodôntico isolado não corrige a mordida.</li>
+        </ul>
+        <p><strong>A indicação é sempre individual</strong> e só é definida após exame clínico e exames de imagem.</p>
+      </div>
+      <div class="card">
+        <span class="eyebrow">O que a cirurgia trata</span>
+        <p>
+          O objetivo é funcional: como você mastiga, como você fecha a boca,
+          como você respira e como sua articulação trabalha.
+        </p>
+        <p>
+          A mudança na proporção do rosto acontece como consequência do
+          reposicionamento ósseo — não é o ponto de partida do planejamento,
+          e o resultado é discutido caso a caso, sem generalização.
+        </p>
+        <p>
+          O tratamento é feito em conjunto com o seu ortodontista. Se você já
+          tem um, ele participa do planejamento.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp-large"></div>
+
+    <!-- Planejamento virtual — bloco .split do molde, com slot de imagem -->
     <div class="split split--middle split--reverse">
       <figure class="col-img slot slot--4x3" data-slot="{{FOTO_PLANEJAMENTO_3D}} — tela do planejamento virtual">
         <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
@@ -472,70 +532,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div class="sp-large"></div>
-
-    <!-- "O que a cirurgia trata" era um card ao lado de outro card. É texto
-         explicativo, não item de lista: vira coluna de leitura, sem caixa. -->
-    <div class="wrap-narrow texto-corrido">
-      <span class="eyebrow">O que a cirurgia trata</span>
-      <p class="lead">
-        O objetivo é funcional: como você mastiga, como você fecha a boca,
-        como você respira e como sua articulação trabalha.
-      </p>
-      <p>
-        A mudança na proporção do rosto acontece como consequência do
-        reposicionamento ósseo — não é o ponto de partida do planejamento,
-        e o resultado é discutido caso a caso, sem generalização.
-      </p>
-      <p>
-        O tratamento é feito em conjunto com o seu ortodontista. Se você já
-        tem um, ele participa do planejamento.
-      </p>
-    </div>
-
-    <div class="sp-large"></div>
-
-    <!-- As indicações continuam as mesmas. O que muda é o desenho: régua
-         entre linhas em vez da placa com marcador azul, que é o desenho da
-         seção 3. Mesma família, peso visual diferente. -->
-    <div class="quadro">
-      <p class="quadro-titulo">Quando costuma ser indicada</p>
-      <ul class="lista-regua lista-regua--2col">
-        <li>Mordida aberta, cruzada, profunda ou que não fecha corretamente.</li>
-        <li>Desproporção entre maxila e mandíbula.</li>
-        <li>Assimetria facial de origem óssea.</li>
-        <li>Dificuldade mastigatória associada ao encaixe dos maxilares.</li>
-        <li>Alterações respiratórias relacionadas à posição dos maxilares.</li>
-        <li>Casos em que o tratamento ortodôntico isolado não corrige a mordida.</li>
-      </ul>
-      <p class="quadro-nota">
-        A indicação é sempre individual e só é definida após exame clínico e
-        exames de imagem.
-      </p>
-    </div>
-
-    <div class="sp-large"></div>
-
-    <h3 class="subsecao-titulo">Como funciona, etapa por etapa</h3>
-    <div class="sp-medium"></div>
-    <ol class="steps">
-      <li>
-        <h4>Avaliação</h4>
-        <p>Consulta presencial ou por vídeo. Sua queixa, seu histórico, exame clínico e a solicitação dos exames de imagem necessários.</p>
-      </li>
-      <li>
-        <h4>Planejamento</h4>
-        <p>Com tomografia e escaneamento, o caso é planejado virtualmente em 3D. Você vê o plano da sua cirurgia e entende o que está proposto antes de decidir.</p>
-      </li>
-      <li>
-        <h4>Cirurgia</h4>
-        <p>Realizada em ambiente hospitalar, sob anestesia geral, com a equipe do Instituto. As condições e o tempo de internação são definidos no planejamento.</p>
-      </li>
-      <li>
-        <h4>Acompanhamento</h4>
-        <p>Retornos programados, orientação sobre alimentação, fala e retomada das atividades — em conjunto com o seu ortodontista até a finalização.</p>
-      </li>
-    </ol>
 
     <div class="sp-large"></div>
     <div class="btn-row center">
