@@ -1824,7 +1824,7 @@ h3{font-size:var(--fs-large)}
   margin-bottom:.35rem;
 }
 .card-ic__ic svg{
-  width:26px;height:26px;
+  width:28px;height:28px;
   fill:none;
   stroke:var(--secondary);
   stroke-width:1.6;
