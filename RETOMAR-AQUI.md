@@ -1,6 +1,6 @@
 # Retomar o projeto — Instituto Bucomaxilofacial
 
-Estado em 05/08/2026. Cole o prompt do fim deste arquivo numa sessão nova
+Estado em 06/08/2026. Cole o prompt do fim deste arquivo numa sessão nova
 do Claude Code, aberta na pasta `_INSTITUTO-BUCOMAXILOFACIAL`.
 
 ---
@@ -20,7 +20,7 @@ _INSTITUTO-BUCOMAXILOFACIAL/
 ├── 2-PARA-SUBIR/       pacote publicável (gerado)
 ├── 3-PROJETO/          FONTE — é aqui que se edita
 │   ├── index.html · dr-jonathas-claus/ · dr-matheus-spinella/ · dr-lucas/
-│   ├── assets/css/style.css   (§1–§18, um arquivo só)
+│   ├── assets/css/style.css   (§1–§20, um arquivo só)
 │   ├── assets/js/main.js · tracking.js
 │   ├── DESIGN-SYSTEM.md · PENDENCIAS.md · DEPLOY.md · README.md
 │   └── AJUSTES-PENDENTES.md   lista de design do cliente
@@ -62,34 +62,57 @@ sua máquina ──push──> GitHub branch `homologacao` ──webhook──> 
 
 Fora do código, também travam: **revisão jurídica / CRO-SC da copy** e o
 **LOGO-03** — a tagline do logo anuncia "implantes", que a regra 6 do
-briefing proíbe.
+briefing proíbe. O logo está no ar, no topo e no rodapé das 4 páginas.
 
-## 5. Pendências de design e estrutura
+## 5. O que a rodada de 05–06/08 fez
 
-Estão em `3-PROJETO/AJUSTES-PENDENTES.md`, **revisado em 05/08/2026** contra o
-código e contra o site no ar. A lista de 04/08 estava defasada: a rodada de
-ajustes implementou quase tudo no `style.css` §17–§18 e os ⬜ nunca foram
-baixados. Agora os status estão conferidos.
+Detalhe item a item em `3-PROJETO/AJUSTES-PENDENTES.md`.
 
-O que sobrou de design é pouco e específico: o título das etapas (S-5b), o link
-do Instagram no bloco "Sobre" (S-6), a seção "A estrutura" da home (G-3) e o
-favicon (T-5). O cliente disse que **restam alguns ajustes** ainda não
-detalhados — perguntar quais antes de mexer.
+**Seis defeitos que não estavam em lista nenhuma:**
 
-O que apareceu de novo é a seção **A. Erros estruturais** da lista. O que pesa:
+- A **primeira dobra ficava segundos em branco** em todas as páginas — o hero
+  dependia do JavaScript para existir. Virou animação de CSS.
+- **Buraco branco no lugar da foto** nos cards do Matheus e do Lucas: o espaço
+  de imagem colapsava dentro de um flex centralizado.
+- A **imagem de "A estrutura"** (home) e a do **exame de ATM** (Matheus) não
+  apareciam: `<figure>` sem a classe `.col-img`.
+- O **4º card de "Quatro frentes"** desalinhava dos vizinhos.
+- **Convênios:** a frase contradizia a faixa de logos.
+- **E-mail e endereço saíam em CAIXA ALTA** no menu.
+
+**Padronização pedida pelo cliente:** todos os CTAs em azul (`btn--dark` sumiu
+do site), ícones no rodapé, foto da clínica com canto de 8px, e uma regra só de
+tipografia para os quatro submenus — linha de cima em azul e caixa alta, linha
+de baixo em grafite e caixa normal.
+
+**Reestruturação das 3 LPs de cirurgião** (seção **G** do AJUSTES-PENDENTES):
+
+```
+sintomas → Como funciona, etapa por etapa → seção do procedimento
+```
+
+A seção do procedimento eram dois `.card` de 50% com uma checklist dentro —
+o mesmo desenho da seção de sintomas logo acima. Virou **grade de cards com
+ícone**, 3×2, em faixa clara. O bloco que trazia foto saiu para seção própria.
+
+## 6. O que sobrou
+
+Quase nada é design. É arquivo, decisão de cliente e revisão jurídica.
 
 - **E-1 🔴** `canonical`, `og:url`, JSON-LD e `sitemap.xml` das 4 páginas
-  apontam para `institutobucomaxilofacial.com.br` — o Wix antigo — e não para
-  `institutomaxilofacialsc.com`. Inofensivo enquanto houver `noindex`; no dia
-  que sair, o Google indexa o site velho no lugar do novo.
+  apontam para `institutobucomaxilofacial.com.br` — o Wix antigo. Inofensivo
+  enquanto houver `noindex`; no dia que sair, o Google indexa o site velho.
+- **⚠️ Copy nova sem revisão.** Os títulos dos cards do Jonathas e do Matheus
+  foram escritos nesta rodada. Resumem frases que já existiam, mas são copy em
+  página de saúde — entram na revisão jurídica / CRO-SC.
+- **⚠️ Logos de convênio no ar sem confirmação de contrato** (D-3).
 - **E-3** o item "Redes sociais" do menu desktop aponta para uma âncora que não
   existe em página nenhuma.
-- **E-4** o M-2 (Contato antes de Redes sociais) entrou só no menu desktop; no
-  mobile a ordem continua a antiga.
-- **E-5** texto duplicado no ar na LP do Jonathas: "Cirurgia e Traumatologia
-  Bucomaxilofacial — Cirurgia e Traumatologia Bucomaxilofacial".
+- **E-4** o M-2 entrou só no menu desktop; no mobile a ordem continua a antiga.
+- **S-6** "CRO-SC 7964" usa a classe `.eyebrow` e parece link sem ser.
+- **T-5** favicon depende do arquivo da taça em 32×32 e 180×180.
 
-## 6. Lições que custaram caro — não repetir
+## 7. Lições que custaram caro — não repetir
 
 1. **Nunca aplicar mudança de design em 4 páginas sem ver renderizado.**
    Já aconteceu uma vez e teve que ser revertido inteiro. Agora existe URL
@@ -104,8 +127,16 @@ O que apareceu de novo é a seção **A. Erros estruturais** da lista. O que pes
    Sai da mão no `public_html`.
 5. **`TRK-01`** — o `README.md` dizia `page_view_lp`, mas o `tracking.js`
    empurra **`lp_view`**. Já corrigido no README; conferir no GTM.
+6. **[NOVO 06/08] Tirar a caixa não é, sozinho, um ganho de design.** Duas
+   tentativas de resolver a repetição do container 50/50 por subtração —
+   rail tipográfico, depois índice de régua fina — foram reprovadas pelo
+   cliente por ficarem vazias. O que resolveu foi trocar o container por
+   outro objeto **com peso**, não por ausência de objeto.
+7. **[NOVO 06/08] Ícone só existe depois de visto na tela.** Dos doze
+   desenhados nesta rodada, nove precisaram ser refeitos a 28px. O que
+   parece claro no `<path>` vira borrão renderizado.
 
-## 7. Contexto de compliance (importante)
+## 8. Contexto de compliance (importante)
 
 Site de saúde, com regras do CFO/CRO:
 - Sem preço, sem promessa de resultado, sem superlativo, sem antes/depois
@@ -137,7 +168,6 @@ REGRA que veio de erro caro: nunca aplicar mudança de design nas 4
 páginas sem antes ver renderizado no site no ar. Uma seção por vez —
 ajusta, me mostra, e só depois replica nas outras páginas.
 
-Tenho mais alguns ajustes de design para pedir. Abra o site, dê uma
-olhada geral e me diga o que você já vê que pode melhorar, que eu
-complemento com a minha lista.
+A rodada de 05–06/08 fechou os defeitos e a reestruturação das LPs.
+O que sobra está na seção 6 do RETOMAR-AQUI.
 ```

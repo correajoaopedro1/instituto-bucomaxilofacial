@@ -1734,7 +1734,7 @@ h3{font-size:var(--fs-large)}
      linha de cima  — azul da marca, CAIXA ALTA
      linha de baixo — grafite, caixa normal
 
-   Nada de `.subnav--wide` ou `.subnav--info`: a regra é do `.subnav`. */
+   Nada de `.subnav--wide`: a regra é do `.subnav`, para os quatro. */
 .subnav > li > a{
   text-transform:uppercase;
   letter-spacing:1.1px;
