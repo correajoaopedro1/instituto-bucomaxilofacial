@@ -60,6 +60,11 @@ sua máquina ──push──> GitHub branch `homologacao` ──webhook──> 
 | `HORARIO_ATENDIMENTO` | clínica |
 | `CRO_MATHEUS` | ⚠️ fontes públicas divergem entre CRO e CRM no nº 14187 |
 
+Há um quinto na mesma lista, o **`DOMINIO_SITE`**, mas ele já está preenchido
+com `institutomaxilofacialsc.com` e por isso não aparece no aviso do build.
+Ele monta `canonical`, `og:url`, JSON-LD e `sitemap.xml` das 4 páginas — é o
+único lugar onde o endereço existe. Vazio, o build para em qualquer modo.
+
 Fora do código, também travam: **revisão jurídica / CRO-SC da copy** e o
 **LOGO-03** — a tagline do logo anuncia "implantes", que a regra 6 do
 briefing proíbe. O logo está no ar, no topo e no rodapé das 4 páginas.
@@ -97,20 +102,35 @@ o mesmo desenho da seção de sintomas logo acima. Virou **grade de cards com
 
 ## 6. O que sobrou
 
-Quase nada é design. É arquivo, decisão de cliente e revisão jurídica.
+**[06/08, 2ª passada]** Os sete erros estruturais da tabela A foram fechados,
+junto com o S-6 e o M-2 no mobile. O que restou não se resolve no editor.
 
-- **E-1 🔴** `canonical`, `og:url`, JSON-LD e `sitemap.xml` das 4 páginas
-  apontam para `institutobucomaxilofacial.com.br` — o Wix antigo. Inofensivo
-  enquanto houver `noindex`; no dia que sair, o Google indexa o site velho.
+**Depende de um arquivo:**
+
+- **T-5** — favicon. É a **única** pendência de design que sobrou no projeto.
+  Hoje as 4 páginas usam `marca-simbolo.png` (237 KB) como ícone de aba.
+  Faltam `favicon-32.png` (32×32) e `apple-touch-icon.png` (180×180), a taça
+  recortada. Chegando em `assets/img/`, é troca de duas linhas no `<head>`.
+
+**Depende de decisão de cliente ou do jurídico:**
+
 - **⚠️ Copy nova sem revisão.** Os títulos dos cards do Jonathas e do Matheus
-  foram escritos nesta rodada. Resumem frases que já existiam, mas são copy em
-  página de saúde — entram na revisão jurídica / CRO-SC.
+  foram escritos na rodada de 06/08. Resumem frases que já existiam, mas são
+  copy em página de saúde — entram na revisão jurídica / CRO-SC.
 - **⚠️ Logos de convênio no ar sem confirmação de contrato** (D-3).
-- **E-3** o item "Redes sociais" do menu desktop aponta para uma âncora que não
-  existe em página nenhuma.
-- **E-4** o M-2 entrou só no menu desktop; no mobile a ordem continua a antiga.
-- **S-6** "CRO-SC 7964" usa a classe `.eyebrow` e parece link sem ser.
-- **T-5** favicon depende do arquivo da taça em 32×32 e 180×180.
+- **LOGO-03** — a tagline do logo anuncia "implantes".
+- Os 4 tokens bloqueantes da seção 4, e a escolha de qual domínio fica no ar
+  (as duas opções estão no `DEPLOY.md`).
+
+**Aberto de design, mas sem dono no código:**
+
+- **M-1** — o menu promete 6 tratamentos, mas 3 caem na mesma página do
+  Jonathas e "Traumatologia da face" cai em `/#procedimentos`. A profundidade
+  anunciada ainda não existe como página.
+
+> ⚠️ **Nada da 2ª passada de 06/08 foi visto renderizado.** As mudanças de CSS
+> e o acordeão novo do menu mobile foram conferidos no HTML e no CSS gerados,
+> não na tela. Ver antes de considerar fechado — é a lição 1 logo abaixo.
 
 ## 7. Lições que custaram caro — não repetir
 
@@ -135,6 +155,17 @@ Quase nada é design. É arquivo, decisão de cliente e revisão jurídica.
 7. **[NOVO 06/08] Ícone só existe depois de visto na tela.** Dos doze
    desenhados nesta rodada, nove precisaram ser refeitos a 28px. O que
    parece claro no `<path>` vira borrão renderizado.
+8. **[NOVO 06/08] A regra de recuo do build apaga a linha inteira.** Token
+   sem valor que não tenha tratamento próprio some do HTML, em silêncio —
+   é ótimo para `og:image`, e péssimo para qualquer coisa estrutural. Um
+   `DOMINIO_SITE` vazio levaria junto o `canonical` e quebraria o JSON-LD
+   sem nada aparecer na tela. Por isso ele trava o build em **qualquer**
+   modo, e por isso `sitemap.xml` e `robots.txt` tratam token faltante
+   como erro, não como linha que sai.
+9. **[NOVO 06/08] O que não passa por token acaba gravado à mão.** O E-1
+   nasceu porque `sitemap.xml` e `robots.txt` eram copiados crus pelo
+   `build.mjs`. Arquivo que sobe e carrega dado do cliente entra na lista
+   `COM_TOKEN` — se não entrar, alguém vai escrever o valor direto nele.
 
 ## 8. Contexto de compliance (importante)
 

@@ -50,6 +50,20 @@ const TOKENS = { ...BLOQUEANTES, ...(bruto._DEGRADAM_MAS_NAO_BLOQUEIAM || {}) };
 
 const preenchido = (t) => typeof TOKENS[t] === 'string' && TOKENS[t].trim() !== '';
 
+/* DOMINIO_SITE é estrutural, não é pendência: ele monta canonical, og:url,
+   JSON-LD e sitemap. Vazio, cairia na regra (e) do transformar() — a linha
+   inteira sai — e as páginas subiriam sem canonical e com JSON-LD quebrado,
+   sem nenhum erro na tela. Por isso a trava é em qualquer modo, não só em
+   produção. */
+if (!preenchido('DOMINIO_SITE')) {
+  console.error(`\n  BUILD ABORTADO\n`);
+  console.error(`  {{DOMINIO_SITE}} está vazio em tokens.json.\n`);
+  console.error(`  Ele monta canonical, og:url, JSON-LD e sitemap.xml. Sem valor,`);
+  console.error(`  essas linhas sairiam do HTML em silêncio. Preencha com o domínio`);
+  console.error(`  sem protocolo e sem barra final. Ex.: institutomaxilofacialsc.com\n`);
+  process.exit(1);
+}
+
 /* ---------- páginas ---------- */
 const PAGINAS = [
   { src: 'index.html',                     preview: 'PREVIEW-instituto.html'   },
@@ -162,6 +176,26 @@ function transformar(html, arquivo) {
   return out;
 }
 
+/* -------------------------------------------------------------------
+   2-bis. TEXTO SIMPLES COM TOKEN
+   sitemap.xml e robots.txt também carregam o domínio. Antes eram
+   copiados sem passar por token nenhum — foi assim que o domínio
+   antigo ficou gravado à mão em 8 arquivos (E-1/E-2). Aqui não existe
+   regra de recuo: token sem valor é erro de build, não linha que some.
+------------------------------------------------------------------- */
+const COM_TOKEN = ['sitemap.xml', 'robots.txt'];
+
+function substituirTexto(txt, arquivo) {
+  for (const t of [...txt.matchAll(/\{\{([A-Z0-9_]+)\}\}/g)].map((m) => m[1])) {
+    if (preenchido(t)) txt = txt.split(`{{${t}}}`).join(TOKENS[t]);
+  }
+  const vazou = [...txt.matchAll(/\{\{([A-Z0-9_]+)\}\}/g)].map((m) => m[1]);
+  if (vazou.length) {
+    throw new Error(`${arquivo}: token sem valor -> {{${[...new Set(vazou)][0]}}}`);
+  }
+  return txt;
+}
+
 /* ===================================================================
    3. MONTA O PACOTE
 =================================================================== */
@@ -196,6 +230,8 @@ for (const rel of arquivos) {
       '# PACOTE DE HOMOLOGACAO - indexacao bloqueada de proposito.\n' +
       '# Gere de novo com --producao antes de publicar de verdade.\n' +
       'User-agent: *\nDisallow: /\n', 'utf8');
+  } else if (COM_TOKEN.includes(rel)) {
+    fs.writeFileSync(para, substituirTexto(fs.readFileSync(de, 'utf8'), rel), 'utf8');
   } else {
     fs.copyFileSync(de, para);
   }

@@ -126,30 +126,38 @@ Daí em diante: `npm run deploy:push` → a Hostinger publica sozinha.
 
 ## Antes de qualquer coisa: uma decisão
 
-O domínio `institutobucomaxilofacial.com.br` **já tem um site no ar**.
-E ele já está perdendo URL: `/fellowship/` e `/cursos-e-mentorias/` aparecem
-indexadas no Google mas **hoje retornam 404** — ou seja, o problema que os
-redirecionamentos resolvem já existe, independente da troca de site.
+**Onde estamos hoje (06/08/2026):** o site novo está no ar em
+`institutomaxilofacialsc.com`, em homologação, com `noindex` nas 4 páginas.
+O domínio antigo, `institutobucomaxilofacial.com.br`, **continua na Wix**
+(confirmado pelo header `server: Pepyaka`) e continua sendo o que o Google
+tem indexado.
 
-Isso não é publicar em domínio novo. É **substituir um site com histórico**.
-Duas formas de fazer:
+Ou seja: o caminho seguro já foi tomado — o site novo é aprovado num
+endereço próprio enquanto o antigo segue captando. O que **falta decidir**
+é o destino final do domínio antigo, e são coisas diferentes:
 
-### Opção A — Publicar em subdomínio primeiro (recomendado)
+### Opção A — O `.com.br` vira o endereço do site novo
 
-Sobe em `novo.institutobucomaxilofacial.com.br`, com `noindex` em todas as
-páginas. Serve para o cliente aprovar no ambiente real, com o WhatsApp
-funcionando e o GTM disparando. Quando estiver aprovado, troca para a raiz.
+Repontar o DNS do `.com.br` para a Hostinger e tornar o
+`institutomaxilofacialsc.com` um redirect 301 para ele. Preserva o
+histórico e a autoridade que o `.com.br` já tem no Google.
+**Custo:** exige o passo 2 abaixo (redirecionamentos) feito antes da troca.
 
-Vantagem: o site atual continua no ar e captando enquanto isso.
-Custo: zero — subdomínio na Hostinger não é cobrado à parte.
+### Opção B — O `institutomaxilofacialsc.com` passa a ser o endereço oficial
 
-### Opção B — Substituir direto
+Aí o `.com.br` inteiro vira 301 para o novo. Mais simples de operar, mas
+transfere autoridade em vez de herdá-la — e a transferência leva meses.
 
-Mais rápido, mas o site sai do ar durante a troca e qualquer erro
-acontece com tráfego real em cima. Se escolher essa, **faça backup completo
-do WordPress antes** (Hostinger → Backups → gerar backup manual).
+**Em qualquer das duas:** o passo 2 abaixo (redirecionamentos) não é
+opcional, e o `{{DOMINIO_SITE}}` em `tokens.json` tem que passar a valer o
+domínio escolhido **antes** do build de produção. Ele é o único lugar onde
+esse endereço existe — `canonical`, `og:url`, JSON-LD e `sitemap.xml` saem
+todos de lá.
 
-**Em qualquer das duas:** o passo 2 abaixo (redirecionamentos) não é opcional.
+> ⚠️ O `.com.br` já está perdendo URL: `/fellowship/` e
+> `/cursos-e-mentorias/` aparecem indexadas no Google mas **hoje retornam
+> 404**. O problema que os redirecionamentos resolvem já existe, e existe
+> independente de qual opção for escolhida.
 
 ---
 
@@ -241,12 +249,13 @@ O `.htaccess` também força HTTPS — os dois juntos não causam conflito.
 - [ ] Depoimentos reais e autorizados por escrito, ou o bloco 9 removido inteiro
 - [ ] Logos das operadoras no carrossel de convênios (`{{LOGO_CONVENIO_1..6}}`), **com o uso de marca conferido em cada contrato** — ou os `<figure>` que sobrarem apagados
 - [ ] **Nenhum `{{` sobrando em nenhuma página** — conferir com Ctrl+F em cada uma
+- [ ] `{{DOMINIO_SITE}}` valendo o domínio que vai ficar no ar — é ele que monta `canonical`, `og:url`, JSON-LD e `sitemap.xml` nas 4 páginas
 - [ ] Copy revisada pelo jurídico / CRO-SC
 - [ ] Acionador do GTM criado com o nome `lp_view` (não `page_view_lp` — ver TRK-01 em `PENDENCIAS.md`)
 
 **Conferir depois de subir:**
 
-- [ ] `https://institutobucomaxilofacial.com.br/` abre a LP Geral
+- [ ] O domínio de `{{DOMINIO_SITE}}` abre a LP Geral na raiz
 - [ ] As 4 rotas abrem, e o menu navega entre todas
 - [ ] `http://` redireciona para `https://`, e `www` redireciona para sem-www
 - [ ] Todos os botões de WhatsApp abrem a conversa com a mensagem certa

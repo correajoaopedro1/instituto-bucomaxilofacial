@@ -5,6 +5,30 @@ Será completado com os tokens das demais LPs nas etapas seguintes.
 
 ---
 
+## Atualizado em 06/08/2026 — o domínio volta a ser token
+
+**E-1 fechado.** As 31 ocorrências do domínio antigo nos arquivos que sobem
+(27 nos 4 HTMLs, 3 no `sitemap.xml`, 1 no `robots.txt`) apontavam para
+`institutobucomaxilofacial.com.br` — o Wix. Enquanto houvesse `noindex` não
+fazia estrago; no dia em que ele saísse, o Google indexaria o site velho.
+
+**E-2 fechado junto, porque era a causa.** O domínio tinha sido gravado à
+mão e o `{{DOMINIO_SITE}}` não existia mais. Ele voltou, em
+`_BLOQUEIAM_A_PRODUCAO`, já preenchido com `institutomaxilofacialsc.com`.
+
+Três mudanças no `build.mjs` sustentam isso:
+
+| O quê | Por quê |
+|---|---|
+| Trava se `DOMINIO_SITE` estiver vazio, **em qualquer modo** | Vazio, ele cairia na regra (e) do `transformar()` — a linha inteira sai. As páginas subiriam sem `canonical` e com JSON-LD quebrado, sem nada na tela avisando |
+| `sitemap.xml` e `robots.txt` passaram a resolver token | Antes eram copiados crus. Foi exatamente por isso que o domínio ficou gravado à mão neles |
+| Token sem valor nesses dois é **erro de build** | Ali não existe regra de recuo. Melhor quebrar do que publicar um sitemap com `{{` no meio |
+
+> Trocar de domínio hoje é **uma linha no `tokens.json`**. Antes era
+> busca-e-substitui em 8 arquivos.
+
+---
+
 ## Atualizado em 04/08/2026 — rodada de revisão estética
 
 Rodada pedida pelo cliente, motivada pela leitura de que o site estava
@@ -151,7 +175,7 @@ preenchidos porque são verificáveis, não porque foram confirmados por vocês.
 | `{{TELEFONE_CLINICA}}` | (48) 3364-9714 | site do Instituto |
 | `{{EMAIL_CONTATO}}` | recepcaoibmf@gmail.com | site do Instituto |
 | `{{INSTAGRAM_INSTITUTO}}` | instagram.com/institutobucomaxilofacial | site do Instituto |
-| `{{DOMINIO_SITE}}` | institutobucomaxilofacial.com.br | domínio em uso |
+| `{{DOMINIO_SITE}}` | ~~institutobucomaxilofacial.com.br~~ → **institutomaxilofacialsc.com** (corrigido em 06/08, ver E-1) | domínio em uso |
 | `{{CRO_JONATHAS}}` | CRO-SC 7964 | site do Instituto |
 | `{{RESPONSAVEL_TECNICO_CRO}}` | Dr. Jonathas Daniel Paggi Claus — CRO-SC 7964 | site do Instituto (consta como responsável técnico) |
 | `{{ESPECIALIDADES_REGISTRADAS_CRO}}` | Cirurgia e Traumatologia Bucomaxilofacial | ⚠️ **conferir no CRO-SC** antes de publicar — divulgar especialidade não registrada é infração |
@@ -349,7 +373,7 @@ e aplicados. Cores da marca e mapeamento completo em `DESIGN-SYSTEM.md` §2.
 
 | Token / item | O que é | Quem fornece | Bloqueio |
 |---|---|---|---|
-| `{{DOMINIO_SITE}}` | Domínio final, sem protocolo. Ex.: `institutobucomaxilofacial.com.br`. Usado em `canonical`, Open Graph, JSON-LD e `sitemap.xml` | Gestão da clínica | 🔴 |
+| `{{DOMINIO_SITE}}` | Domínio final, **sem protocolo e sem barra final**. Hoje: `institutomaxilofacialsc.com`. Monta `canonical`, `og:url`, JSON-LD e `sitemap.xml` nas 4 páginas — é o único lugar onde esse endereço existe. Trocar de domínio é editar esta linha e rodar o build | Gestão da clínica | ✅ preenchido |
 | `{{INSTAGRAM_INSTITUTO}}` | URL do Instagram do Instituto | Gestão da clínica | 🟡 |
 | `{{INSTAGRAM_JONATHAS}}` | URL do Instagram do Dr. Jonathas | Dr. Jonathas | 🟡 |
 | `{{INSTAGRAM_MATHEUS}}` | URL do Instagram do Dr. Matheus | Dr. Matheus | 🟡 |
