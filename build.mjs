@@ -76,6 +76,14 @@ const PAGINAS = [
    O PENDENCIAS.md em particular tem observações que não podem ser públicas. */
 const NAO_PUBLICAR = [/\.md$/i, /^_midia-site-antigo\//];
 
+/* Documentos internos que existem no site SÓ em homologação: briefing de
+   imagem para o designer, e o que mais vier depois. Precisam de uma URL
+   para poderem ser mandados por link sem exigir login, mas não podem
+   chegar ao domínio real — a homologação inteira é noindex + Disallow,
+   produção não é. Em `--producao` o arquivo nem entra no pacote, então
+   não há como vazar por esquecimento de robots. */
+const SO_HOMOLOGACAO = [/^fotos-pendentes\//];
+
 const log = (...a) => console.log(...a);
 const avisos = [];
 
@@ -214,13 +222,23 @@ function listar(dir, base = dir) {
 log(`\n  Instituto Bucomaxilofacial — build em modo ${MODO}\n`);
 
 limpar(PACOTE);
-const arquivos = listar(FONTE).filter((r) => !NAO_PUBLICAR.some((re) => re.test(r)));
+const arquivos = listar(FONTE).filter((r) =>
+  !NAO_PUBLICAR.some((re) => re.test(r)) &&
+  !(PRODUCAO && SO_HOMOLOGACAO.some((re) => re.test(r)))
+);
 let nHtml = 0;
 
 for (const rel of arquivos) {
   const de = path.join(FONTE, rel.split('/').join(path.sep));
   const para = path.join(PACOTE, rel.split('/').join(path.sep));
   fs.mkdirSync(path.dirname(para), { recursive: true });
+
+  /* Documento pronto e autocontido: não passa por transformar() nem entra
+     na conta de páginas do site. Já nasce com noindex no próprio HTML. */
+  if (SO_HOMOLOGACAO.some((re) => re.test(rel))) {
+    fs.copyFileSync(de, para);
+    continue;
+  }
 
   if (rel.endsWith('.html')) {
     fs.writeFileSync(para, transformar(fs.readFileSync(de, 'utf8'), rel), 'utf8');
