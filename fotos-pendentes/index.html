@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Fotos pendentes — Instituto Bucomaxilofacial</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+
+  :root{
+    --ground:#F9F7F7;
+    --surface:#FFFFFF;
+    --ink:#363435;
+    --muted:#6E6B6C;
+    --faint:#8E8B8C;
+    --rule:#E7E8EA;
+    --rule-strong:#CFD1D4;
+    --accent:#0E7BA2;
+    --accent-deep:#0A5F7E;
+    --accent-wash:rgb(14 123 162 / .07);
+
+    --serif:Georgia,"Cormorant Garamond","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+
+  @media screen and (prefers-color-scheme:dark){
+    :root{
+      --ground:#1B1A1A;
+      --surface:#232121;
+      --ink:#EDEBEC;
+      --muted:#A8A5A6;
+      --faint:#8A8788;
+      --rule:#343131;
+      --rule-strong:#464243;
+      --accent:#4EB0D4;
+      --accent-deep:#7EC8E4;
+      --accent-wash:rgb(78 176 212 / .10);
+    }
+  }
+
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+  }
+
+  .page{
+    width:min(92%,940px);
+    margin-inline:auto;
+    padding:clamp(40px,7vw,80px) 0 clamp(56px,9vw,110px);
+    display:flex;
+    flex-direction:column;
+    gap:clamp(40px,6vw,64px);
+  }
+
+  /* ---------- cabeçalho ---------- */
+  .head{display:flex;flex-direction:column;gap:20px}
+  .kicker{
+    margin:0;
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  h1{
+    margin:0;
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:clamp(2rem,1.5rem + 2.2vw,3rem);
+    line-height:1.1;
+    letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  .standfirst{
+    margin:0;
+    max-width:62ch;
+    font-size:1.05rem;
+    color:var(--muted);
+  }
+
+  .tally{
+    display:flex;
+    flex-wrap:wrap;
+    border:1px solid var(--rule);
+    border-radius:3px;
+    background:var(--surface);
+    overflow:hidden;
+  }
+  .tally div{
+    flex:1 1 130px;
+    padding:16px 20px;
+    border-left:1px solid var(--rule);
+  }
+  .tally div:first-child{border-left:0}
+  .tally b{
+    display:block;
+    font-family:var(--serif);
+    font-size:1.9rem;
+    font-weight:400;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .tally span{
+    display:block;
+    margin-top:6px;
+    font-size:.7rem;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--faint);
+  }
+
+  /* ---------- grupos ---------- */
+  .grupo{display:flex;flex-direction:column;gap:18px}
+  .grupo-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    gap:8px 16px;
+    padding-bottom:12px;
+    border-bottom:2px solid var(--ink);
+  }
+  .grupo-head h2{
+    margin:0;
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:1.5rem;
+    line-height:1.2;
+  }
+  .grupo-head .n{
+    font-size:.72rem;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .grupo-head .qtd{
+    margin-left:auto;
+    font-size:.78rem;
+    color:var(--faint);
+    font-variant-numeric:tabular-nums;
+  }
+  .porque{
+    margin:0;
+    max-width:64ch;
+    font-size:.94rem;
+    color:var(--muted);
+  }
+
+  .rolagem{overflow-x:auto}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.9rem;
+  }
+  thead th{
+    padding:0 12px 8px 0;
+    text-align:left;
+    font-size:.66rem;
+    font-weight:600;
+    letter-spacing:.13em;
+    text-transform:uppercase;
+    color:var(--faint);
+    white-space:nowrap;
+  }
+  tbody td{
+    padding:14px 12px 14px 0;
+    border-top:1px solid var(--rule);
+    vertical-align:top;
+  }
+  tbody tr:first-child td{border-top:1px solid var(--rule-strong)}
+  td.oq{font-weight:600;min-width:15ch}
+  td.onde{color:var(--muted);min-width:22ch}
+  td.dim{
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    color:var(--muted);
+  }
+
+  /* proporção desenhada em escala — altura fixa 22px, largura = 22 × razão */
+  .prop{display:flex;align-items:center;gap:9px;white-space:nowrap}
+  .cx{
+    flex:0 0 auto;
+    height:22px;
+    border:1.5px solid var(--accent);
+    border-radius:1px;
+    background:var(--accent-wash);
+  }
+  .cx.h1610{width:35px}   /* 1600×1000 */
+  .cx.h169{width:39px}    /* 1600×900  */
+  .cx.h43{width:29px}     /* 1200×900  */
+  .cx.h1263{width:42px}   /* 1200×630  */
+  .cx.v34{width:17px}     /* 900×1200  */
+  .prop em{
+    font-style:normal;
+    font-size:.66rem;
+    font-weight:600;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--faint);
+  }
+
+  /* ---------- avisos ---------- */
+  .aviso{
+    background:var(--surface);
+    border:1px solid var(--rule);
+    border-top:3px solid var(--accent);
+    border-radius:3px;
+    padding:clamp(22px,3.4vw,32px);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .aviso h2{
+    margin:0;
+    font-family:var(--serif);
+    font-weight:400;
+    font-size:1.35rem;
+  }
+  .aviso p{margin:0;max-width:66ch;color:var(--muted);font-size:.95rem}
+  .aviso ul{margin:0;padding-left:1.15em;display:grid;gap:8px;max-width:66ch}
+  .aviso li{color:var(--ink)}
+  .aviso--seco{border-top-color:var(--rule-strong)}
+
+  .selo{
+    align-self:flex-start;
+    padding:4px 10px;
+    border:1px solid var(--accent);
+    border-radius:3px;
+    font-size:.64rem;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  .nota{
+    margin:0;
+    padding-top:20px;
+    border-top:1px solid var(--rule);
+    font-size:.82rem;
+    color:var(--faint);
+    max-width:70ch;
+  }
+  .nota b{color:var(--muted)}
+
+  code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.86em;
+    color:var(--accent-deep);
+  }
+
+  /* ---------- celular ---------- */
+  @media screen and (max-width:640px){
+    thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+    tbody td{display:block;padding:4px 0;border-top:0}
+    tbody td.prop-cell{padding-top:16px}
+    tbody tr{display:block;padding-bottom:16px;border-top:1px solid var(--rule)}
+    tbody tr:first-child{border-top:1px solid var(--rule-strong)}
+    td.onde::before{content:"Onde entra: ";color:var(--faint)}
+  }
+
+  /* ---------- impressão / salvar em PDF ----------
+     Força o tema claro: o PDF é lido no papel e no visualizador, onde
+     fundo escuro vira mancha de tinta. E impede que um grupo se parta
+     no meio da página. */
+  @page{margin:14mm}
+  @media print{
+    :root{
+      --ground:#FFFFFF;
+      --surface:#FFFFFF;
+      --ink:#2A2829;
+      --muted:#555253;
+      --faint:#6E6B6C;
+      --rule:#DDDEE0;
+      --rule-strong:#BBBDC0;
+      --accent:#0A5F7E;
+      --accent-deep:#084E67;
+      --accent-wash:rgb(14 123 162 / .06);
+    }
+    body{background:#fff;font-size:11pt;line-height:1.5}
+    .page{width:100%;padding:0;gap:26px}
+    h1{font-size:26pt}
+    .grupo-head h2,.aviso h2{font-size:14pt}
+    .tally b{font-size:18pt}
+    .grupo,.aviso,.tally{break-inside:avoid}
+    tbody tr{break-inside:avoid}
+    .rolagem{overflow:visible}
+    .cx{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="head">
+    <p class="kicker">Instituto Bucomaxilofacial · Briefing de imagem</p>
+    <h1>Fotos pendentes do site</h1>
+    <p class="standfirst">
+      Levantamento feito sobre o código das quatro páginas em 7 de agosto de 2026.
+      Cada item abaixo é um espaço que hoje aparece hachurado no site, esperando arquivo.
+      As duas páginas dos Drs. Matheus e Lucas não têm nenhuma foto real ainda.
+    </p>
+
+    <div class="tally">
+      <div><b>27</b><span>fotos a produzir</span></div>
+      <div><b>4</b><span>páginas</span></div>
+      <div><b>8</b><span>bloqueiam o lançamento</span></div>
+      <div><b>3</b><span>já resolvidas</span></div>
+    </div>
+  </header>
+
+  <section class="grupo">
+    <div class="grupo-head">
+      <span class="n">Prioridade 1</span>
+      <h2>Pessoas</h2>
+      <span class="qtd">8 arquivos</span>
+    </div>
+    <p class="porque">
+      Sem estas, duas páginas inteiras não podem ir ao ar — a do Dr. Matheus e a do Dr. Lucas
+      abrem com o rosto do cirurgião e hoje abrem com um retângulo vazio.
+      Uma sessão de retrato por cirurgião cobre os três usos dele.
+    </p>
+    <div class="rolagem">
+      <table>
+        <thead>
+          <tr><th>Proporção</th><th>O que é</th><th>Onde entra</th><th>Arquivo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1610"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Matheus Spinella — ambiente</td>
+            <td class="onde">Abertura da página dele</td>
+            <td class="dim">1600 × 1000</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Matheus Spinella — retrato</td>
+            <td class="onde">Bloco “O cirurgião”, página dele</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Matheus Spinella — card</td>
+            <td class="onde">Seção “A equipe”, página inicial</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1610"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Lucas — ambiente</td>
+            <td class="onde">Abertura da página dele</td>
+            <td class="dim">1600 × 1000</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Lucas — retrato</td>
+            <td class="onde">Bloco “O cirurgião”, página dele</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Lucas — card</td>
+            <td class="onde">Seção “A equipe”, página inicial</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1610"></span><em>Deitada</em></span></td>
+            <td class="oq">Equipe reunida</td>
+            <td class="onde">Abertura da página inicial</td>
+            <td class="dim">1600 × 1000</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1610"></span><em>Deitada</em></span></td>
+            <td class="oq">Dr. Jonathas Claus — ambiente</td>
+            <td class="onde">Abertura da página dele (o retrato já existe)</td>
+            <td class="dim">1600 × 1000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grupo">
+    <div class="grupo-head">
+      <span class="n">Prioridade 2</span>
+      <h2>A clínica e o lugar</h2>
+      <span class="qtd">8 arquivos</span>
+    </div>
+    <p class="porque">
+      As quatro verticais de ambiente podem ser ângulos diferentes da mesma sala —
+      elas aparecem em páginas distintas e não devem se repetir idênticas.
+      As duas últimas são fundo atrás de texto claro: precisam de área calma e sem
+      elemento importante no centro.
+    </p>
+    <div class="rolagem">
+      <table>
+        <thead>
+          <tr><th>Proporção</th><th>O que é</th><th>Onde entra</th><th>Arquivo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Estrutura do consultório</td>
+            <td class="onde">Bloco “A estrutura”, página inicial</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Recepção e sala de espera</td>
+            <td class="onde">Galeria da página inicial</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Sala de atendimento — ângulo A</td>
+            <td class="onde">Galeria da página do Dr. Jonathas</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Sala de atendimento — ângulo B</td>
+            <td class="onde">Galeria da página do Dr. Matheus</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Sala de atendimento — ângulo C</td>
+            <td class="onde">Galeria da página do Dr. Lucas</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Equipe durante atendimento</td>
+            <td class="onde">Galeria da página do Dr. Lucas</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h169"></span><em>Deitada</em></span></td>
+            <td class="oq">Fachada / entrada do prédio</td>
+            <td class="onde">Fundo do rodapé — nas 4 páginas</td>
+            <td class="dim">1600 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h169"></span><em>Deitada</em></span></td>
+            <td class="oq">Florianópolis / região da clínica</td>
+            <td class="onde">Bloco “Você mora em outra cidade?” — nas 4 páginas</td>
+            <td class="dim">1600 × 900</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grupo">
+    <div class="grupo-head">
+      <span class="n">Prioridade 3</span>
+      <h2>Imagens técnicas</h2>
+      <span class="qtd">7 arquivos</span>
+    </div>
+    <p class="porque">
+      Estas não são foto de câmera: são captura de tela de software de planejamento e
+      imagens de exame. Saem do consultório, não da sessão. Precisam estar sem nome de
+      paciente, data de nascimento ou qualquer identificação no canto do arquivo.
+    </p>
+    <div class="rolagem">
+      <table>
+        <thead>
+          <tr><th>Proporção</th><th>O que é</th><th>Onde entra</th><th>Arquivo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Planejamento virtual em 3D</td>
+            <td class="onde">Bloco de planejamento, página do Dr. Jonathas</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h43"></span><em>Deitada</em></span></td>
+            <td class="oq">Exame de imagem da ATM</td>
+            <td class="onde">Página do Dr. Matheus</td>
+            <td class="dim">1200 × 900</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Etapa de planejamento com exames</td>
+            <td class="onde">Galeria da página inicial</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Etapa de planejamento com exames</td>
+            <td class="onde">Galeria da página do Dr. Jonathas</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Avaliação da articulação da mandíbula</td>
+            <td class="onde">Galeria da página do Dr. Matheus</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Exames usados no diagnóstico de ATM</td>
+            <td class="onde">Galeria da página do Dr. Matheus</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx v34"></span><em>Em pé</em></span></td>
+            <td class="oq">Exames usados na avaliação</td>
+            <td class="onde">Galeria da página do Dr. Lucas</td>
+            <td class="dim">900 × 1200</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="grupo">
+    <div class="grupo-head">
+      <span class="n">Prioridade 4</span>
+      <h2>Miniatura de compartilhamento</h2>
+      <span class="qtd">4 arquivos</span>
+    </div>
+    <p class="porque">
+      Uma por página. É a imagem que aparece quando alguém cola o link no WhatsApp,
+      no Facebook ou no LinkedIn. <b>Não precisa de foto nova</b> — pode ser o recorte
+      das aberturas da Prioridade 1 no formato certo. Sem elas, o link viaja sem
+      miniatura nenhuma.
+    </p>
+    <div class="rolagem">
+      <table>
+        <thead>
+          <tr><th>Proporção</th><th>O que é</th><th>Onde entra</th><th>Arquivo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1263"></span><em>Deitada</em></span></td>
+            <td class="oq">Miniatura — página inicial</td>
+            <td class="onde">Recorte da foto de equipe</td>
+            <td class="dim">1200 × 630</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1263"></span><em>Deitada</em></span></td>
+            <td class="oq">Miniatura — Dr. Jonathas</td>
+            <td class="onde">Recorte da abertura dele</td>
+            <td class="dim">1200 × 630</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1263"></span><em>Deitada</em></span></td>
+            <td class="oq">Miniatura — Dr. Matheus</td>
+            <td class="onde">Recorte da abertura dele</td>
+            <td class="dim">1200 × 630</td>
+          </tr>
+          <tr>
+            <td class="prop-cell"><span class="prop"><span class="cx h1263"></span><em>Deitada</em></span></td>
+            <td class="oq">Miniatura — Dr. Lucas</td>
+            <td class="onde">Recorte da abertura dele</td>
+            <td class="dim">1200 × 630</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="aviso">
+    <span class="selo">Regra do CFO / CRO</span>
+    <h2>O que não pode entrar, em nenhuma hipótese</h2>
+    <p>
+      Isto não é preferência de projeto: é norma do conselho de odontologia, e vale
+      para todo o material. Uma imagem fora da regra tira o site do ar e expõe os
+      cirurgiões a processo ético.
+    </p>
+    <ul>
+      <li><b>Antes e depois de paciente.</b> Proibido, sem exceção — inclusive com o rosto cortado.</li>
+      <li><b>Rosto de paciente identificável</b> sem autorização escrita arquivada.</li>
+      <li><b>Imagem de banco com marca d’água</b> ou sem licença comprovada.</li>
+      <li><b>Dado de paciente visível</b> em exame: nome, data de nascimento, número de prontuário.</li>
+    </ul>
+  </section>
+
+  <section class="aviso aviso--seco">
+    <h2>Especificações que valem para todos os arquivos</h2>
+    <ul>
+      <li><b>Formato:</b> JPG ou PNG na entrega. A conversão para WebP é feita na montagem do site.</li>
+      <li><b>Tamanho:</b> entregue no dobro das medidas da tabela, quando possível — telas de alta densidade usam essa reserva. Nunca abaixo do que está listado.</li>
+      <li><b>Enquadramento:</b> as proporções da tabela são as do corte final. O que sair fora delas será cortado pelo navegador, e o corte não escolhe o que preservar.</li>
+      <li><b>Fundos</b> (fachada e Florianópolis) recebem texto branco por cima: precisam de zona de respiro e nenhum detalhe importante no centro.</li>
+      <li><b>Nomes de arquivo</b> livres. A identificação e o destino de cada imagem são resolvidos na montagem.</li>
+    </ul>
+  </section>
+
+  <p class="nota">
+    <b>Já resolvidas, não precisam de nada:</b> retrato do Dr. Jonathas Claus, uma foto de
+    atendimento e a imagem do bloco “Próximo passo”. As cinco logomarcas de convênio
+    (Amil, Unimed, SulAmérica, Porto Seguro, Bradesco Saúde) também já estão no site.
+    <br /><br />
+    <b>Fora do escopo do designer:</b> o projeto tem 35 espaços de imagem reservados no
+    código, mas 7 deles não são usados por página nenhuma — sobram de uma versão anterior
+    e serão removidos na limpeza do <code>tokens.json</code>. Os 27 acima são o total real.
+  </p>
+
+</div>
+
+</body>
+</html>
