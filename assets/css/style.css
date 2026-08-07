@@ -555,12 +555,17 @@ img.img-token[src^="data:"]{
   letter-spacing:.5px;
   opacity:.9;
 }
+/* A regra de CAIXA do M-3 vale aqui também: linha de cima em caixa alta,
+   linha de baixo em caixa normal. Sem isso o e-mail do submenu de Contato
+   sairia RECEPCAOIBMF@GMAIL.COM no celular — que é o D-F de novo, só que
+   na outra tela. A regra de COR do M-3 não atravessa: o menu mobile tem
+   fundo `--contrast`, e o grafite de lá seria texto invisível. */
 .mobile-sub .role{
   display:block;
   margin-top:2px;
   font-size:var(--fs-xx-small);
-  letter-spacing:1px;
-  text-transform:uppercase;
+  letter-spacing:.2px;
+  text-transform:none;
   color:var(--tertiary);
   opacity:.8;
 }
@@ -1514,7 +1519,9 @@ address{font-style:normal}
    tratamento de placa das demais seções. */
 #estrutura .col-copy{gap:1.1rem}
 #estrutura .col-copy p{margin-bottom:.25em}
-#estrutura h2{color:var(--secondary)}
+/* O título era azul aqui; o §18 passou a pintá-lo de grafite e vence por
+   vir depois. A declaração morta saiu — quem lê esta seção não vai mais
+   mexer numa cor que não tem efeito. Decisão final está no §18. */
 
 /* ---- S-11 · próximo passo ----------------------------------------
    O mapa e a coluna de dados não partiam da mesma linha. */
@@ -1894,3 +1901,85 @@ h3{font-size:var(--fs-large)}
    outros — o min-height iguala a fileira. */
 .grid-cards--curto .card-ic{min-height:180px}
 .grid-cards--curto .card-ic h3{margin-top:auto}
+
+
+/* ===================================================================
+   §21  NÚMERO DE REGISTRO NO CRO  (S-6)
+   O número usava `.eyebrow`, que pinta de azul da marca. Azul em meio
+   a texto corrido lê como link — e este é o único azul da seção que
+   não leva a lugar nenhum. O visitante passa o mouse e não acontece
+   nada; pior, é justamente o dado que precisa ser lido como fato
+   registrado, não como chamada.
+
+   Mantém o tratamento tipográfico do `.eyebrow` (mesma fonte, mesmo
+   corpo, mesma caixa) e troca só a cor: grafite do texto, com o peso
+   baixado. Nenhuma cor nova entra no sistema.
+=================================================================== */
+.registro{
+  font-family:var(--font-nav);
+  font-size:var(--fs-xx-small);
+  font-weight:500;
+  text-transform:uppercase;
+  letter-spacing:1.6px;
+  color:var(--contrast);
+  opacity:.55;
+}
+
+
+/* ===================================================================
+   §22  RODADA MOBILE — 07/08/2026
+   Quatro pontos lidos no celular. Como as seções anteriores, fica no
+   fim do arquivo e sobrescreve o que veio antes.
+=================================================================== */
+
+/* ---- 1 · eyebrow do hero em duas linhas ---------------------------
+   "INSTITUTO BUCOMAXILOFACIAL · FLORIANÓPOLIS / SC" não cabe na
+   largura de um celular: quebrava em qualquer ponto, e o ponto médio
+   sobrava pendurado no fim da primeira linha. As duas informações
+   passam a ser dois <span>: no desktop leem como uma linha só, com o
+   separador entre elas; no celular viram uma linha cada e o separador
+   sai. Sem quebra imposta no HTML — é a mesma marcação nas duas
+   larguras. */
+.eyebrow--duas{text-wrap:balance}
+@media (max-width:767px){
+  .eyebrow--duas > span{display:block}
+  .eyebrow--duas .sep{display:none}
+}
+
+/* ---- 2 · menu mobile: respiro entre a marca e a lista -------------
+   Eram 20px de margem da logo + 60px do topo da lista = 80px de vazio
+   antes do primeiro item, com a lista inteira empurrada para baixo da
+   dobra. Passa a 12 + 24, e o padding de 12px que cada item já tem
+   fecha a conta. */
+.mobile-menu img{margin:12px auto 0}
+.mobile-nav{margin:24px 0 32px}
+
+/* ---- 3 · o CTA do menu mobile não tinha margem interna ------------
+   `.mobile-nav a{padding:12px 4px}` (0,1,1) vencia o `.btn` (0,1,0)
+   por especificidade: o botão ficava com 4px nas laterais e o texto
+   encostava na borda. Reafirma o padding do botão com uma seletora
+   que ganha, e fora de media query — entre 900 e 1100px o menu já é
+   o hambúrguer, mas a regra de 900px do §5 ainda não vale. */
+.mobile-nav .btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;
+  padding:14px 28px;
+  line-height:1.25;
+  margin-top:8px;
+}
+
+/* ---- 4 · rodapé no celular: bandeira à esquerda -------------------
+   Estava tudo centrado — marca, tagline e as quatro colunas. Em
+   coluna única, texto centrado obriga o olho a procurar o começo de
+   cada linha. Tudo alinha à esquerda; o que fica ABAIXO das redes
+   sociais (responsável técnico, especialidades registradas e o bloco
+   legal) continua centrado, porque é nota de rodapé e não conteúdo
+   de leitura. */
+@media (max-width:767px){
+  .footer-top{text-align:left}
+  .footer-logo{margin-inline:0}
+  .footer-grid{text-align:left}
+  .footer-col ul{justify-items:start}
+  .footer-col--ic a,
+  .footer-col--ic address{justify-content:flex-start;text-align:left}
+}
