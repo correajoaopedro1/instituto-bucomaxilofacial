@@ -1626,7 +1626,11 @@ h3{font-size:var(--fs-large)}
   margin:0 auto;
   padding:clamp(32px,5vw,48px) 0;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  /* Três, não quatro: a coluna "Navegação" saiu em 07/08/2026 (§22). O
+     valor é corrigido aqui, na origem, e não sobrescrito no fim do
+     arquivo — as regras de 900px e 560px abaixo também mexem nesta
+     propriedade, e um override no fim venceria as duas. */
+  grid-template-columns:repeat(3,1fr);
   gap:clamp(24px,4vw,40px);
   text-align:left;
 }
@@ -1969,12 +1973,14 @@ h3{font-size:var(--fs-large)}
 }
 
 /* ---- 4 · rodapé no celular: bandeira à esquerda -------------------
-   Estava tudo centrado — marca, tagline e as quatro colunas. Em
-   coluna única, texto centrado obriga o olho a procurar o começo de
-   cada linha. Tudo alinha à esquerda; o que fica ABAIXO das redes
-   sociais (responsável técnico, especialidades registradas e o bloco
-   legal) continua centrado, porque é nota de rodapé e não conteúdo
-   de leitura. */
+   Estava tudo centrado — marca, tagline e as colunas. Em coluna única,
+   texto centrado obriga o olho a procurar o começo de cada linha.
+
+   [REVISTO 07/08/2026] A primeira versão abriu exceção para o que fica
+   ABAIXO das redes sociais — responsável técnico, especialidades e o
+   bloco legal — mantendo esse trecho centrado por ser nota de rodapé.
+   O cliente pediu à esquerda também: uma única margem de leitura do
+   topo ao fim do rodapé, sem eixo que muda no meio da rolagem. */
 @media (max-width:767px){
   .footer-top{text-align:left}
   .footer-logo{margin-inline:0}
@@ -1982,4 +1988,6 @@ h3{font-size:var(--fs-large)}
   .footer-col ul{justify-items:start}
   .footer-col--ic a,
   .footer-col--ic address{justify-content:flex-start;text-align:left}
+  .footer-rt{text-align:left}
+  .footer-legal{justify-content:flex-start;text-align:left}
 }
