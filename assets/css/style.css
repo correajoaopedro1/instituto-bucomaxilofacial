@@ -1775,15 +1775,15 @@ h3{font-size:var(--fs-large)}
 .footer-col--ic a,
 .footer-col--ic address{display:flex;align-items:flex-start;gap:.65rem}
 .footer-col--ic .ic{
-  flex:0 0 16px;
-  width:16px;height:16px;
-  margin-top:.3em;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.5;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  opacity:.7;
+  flex:0 0 15px;
+  width:15px;height:15px;
+  margin-top:.32em;
+  /* Glifos cheios do acervo. Um traço de 1,5px e uma silhueta cheia não
+     pesam igual no mesmo quadrado: por isso 15px em vez de 16px e opacidade
+     um pouco menor — a mancha no rodapé fica a mesma de antes. */
+  fill:currentColor;
+  stroke:none;
+  opacity:.62;
   transition:opacity .3s;
 }
 .footer-col--ic a:hover .ic{opacity:1}
