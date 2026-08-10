@@ -1845,6 +1845,14 @@ h3{font-size:var(--fs-large)}
   stroke-linecap:round;
   stroke-linejoin:round;
 }
+/* Glifo cheio, do acervo do estúdio. Convive com os de traço acima: aqui
+   é a silhueta que carrega a forma, então o stroke sai e o fill entra.
+   Vai a 26px porque massa cheia pesa mais que linha no mesmo quadrado. */
+.card-ic__ic svg.ic-solido{
+  width:26px;height:26px;
+  fill:var(--secondary);
+  stroke:none;
+}
 .card-ic h3{
   margin:0;
   font-size:var(--fs-large);
