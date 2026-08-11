@@ -1919,8 +1919,10 @@ h3{font-size:var(--fs-large)}
 /* Card sem parágrafo (LP do Dr. Lucas): o item já era curto e virou o
    próprio título. Sem corpo, o card fica baixo demais ao lado dos
    outros — o min-height iguala a fileira. */
-.grid-cards--curto .card-ic{min-height:180px}
-.grid-cards--curto .card-ic h3{margin-top:auto}
+/* A variante --curto existia só para a grade do Lucas, que era a única
+   sem linha de apoio: o `margin-top:auto` empurrava o título para o pé
+   do card. Com os seis textos escritos, a grade passou a ser igual às
+   outras duas e a regra ficou sem uso. */
 
 
 /* ===================================================================
