@@ -1853,6 +1853,14 @@ h3{font-size:var(--fs-large)}
   fill:var(--secondary);
   stroke:none;
 }
+/* Assimetria facial é o único que não veio vetor: é um desenho de traço
+   rasterizado, usado como máscara de um retângulo em `currentColor` —
+   é o que mantém o ícone na cor da marca. Vai a 30px porque traço fino
+   pesa menos que massa cheia no mesmo quadrado. */
+.card-ic__ic svg.ic-mascara{
+  width:30px;height:30px;
+  color:var(--secondary);
+}
 .card-ic h3{
   margin:0;
   font-size:var(--fs-large);
