@@ -134,9 +134,19 @@ function transformar(html, arquivo) {
       if (pendentes.length) {
         const t = pendentes[0];
 
-        // (a) marcador de espaço de imagem — é para ficar mesmo
+        /* (a) marcador de espaço de imagem — o espaço fica, o token não.
+           O CSS imprime o `data-slot` na tela (`content:attr(data-slot)`),
+           então o que estava escrito ali era lido pelo visitante:
+           "{{FOTO_GALERIA_I1}} — RECEPÇÃO / CONSULTÓRIO". Some o nome do
+           token da parte visível e sobra a legenda, que é o que interessa
+           a quem olha. O `data-token` continua cru: é atributo, não
+           aparece em lugar nenhum, e é por ele que se rastreia o que
+           falta. */
         if (/^(FOTO_|LOGO_CONVENIO_)/.test(t) && /data-(token|slot)=/.test(linha)) {
-          saida.push(linha);
+          saida.push(linha.replace(
+            /(data-slot=")\{\{[A-Z0-9_]+\}\}\s*—\s*/,
+            '$1'
+          ));
           continue;
         }
         // (b) GTM: o snippet tem guarda que não carrega nada com token cru
@@ -173,7 +183,16 @@ function transformar(html, arquivo) {
     );
   }
 
-  // --- 2.3 rede de segurança ---
+  /* --- 2.3 comentários ficam na fonte, não no pacote ---
+     Os comentários de 3-PROJETO são documentação de quem mantém o código
+     e falam de pendência, contrato de operadora e conteúdo que ainda não
+     veio. Isso não renderiza, mas qualquer visitante lê no "ver código
+     fonte" — e num site de saúde é nota interna exposta. A fonte mantém
+     tudo; o pacote sai limpo. */
+  out = out.replace(/^[ \t]*<!--[\s\S]*?-->[ \t]*\r?\n/gm, '')
+           .replace(/<!--[\s\S]*?-->/g, '');
+
+  // --- 2.4 rede de segurança ---
   const vazou = [...out.matchAll(/\{\{([A-Z0-9_]+)\}\}/g)]
     .map((m) => m[1])
     .filter((t) => t !== 'GTM_ID' && !/^(FOTO_|LOGO_CONVENIO_)/.test(t));
