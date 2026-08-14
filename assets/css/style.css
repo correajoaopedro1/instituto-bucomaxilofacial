@@ -887,6 +887,10 @@ img.img-token[src^="data:"]{
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-4{grid-template-columns:repeat(4,1fr)}
+/* [NOVO 14/08/2026] A seção "O que muda quando tudo acontece no mesmo lugar"
+   ganhou um quinto card (fisioterapia, item 8 do cliente). Classe própria em
+   vez de mexer no .grid-4, que é usado em outros lugares com 4 itens. */
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap-columns)}
 .grid-tight{gap:2rem}
 
 /* ---- 14.3 Faixa de credibilidade --------------------------------
@@ -1294,6 +1298,7 @@ address{font-style:normal}
   .trust-strip{grid-template-columns:repeat(2,1fr)}
   .steps{grid-template-columns:repeat(2,1fr)}
   .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-5{grid-template-columns:repeat(3,1fr)}
   .anchor-nav{top:68px}
   .anchor-nav ul{gap:20px}
 }
@@ -1308,6 +1313,7 @@ address{font-style:normal}
   /* [NOVO] */
   .grid-2,.grid-3{grid-template-columns:1fr}
   .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-5{grid-template-columns:repeat(3,1fr)}
   .gallery,.gallery--4{grid-template-columns:repeat(2,1fr);gap:1.5rem}
   .section-head{margin-inline:auto;text-align:center}
 
@@ -1340,6 +1346,7 @@ address{font-style:normal}
   .trust-strip{grid-template-columns:1fr;gap:1.75rem}
   .steps{grid-template-columns:1fr}
   .grid-4{grid-template-columns:1fr}
+  .grid-5{grid-template-columns:1fr}
   .gallery,.gallery--4,.gallery--2{grid-template-columns:1fr;gap:1.25rem}
   .hero{min-height:auto;padding-top:120px}
   .hero .hero-inner{max-width:none;padding-bottom:80px}
