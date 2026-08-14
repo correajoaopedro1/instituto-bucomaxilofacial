@@ -193,6 +193,33 @@ img.img-token[src^="data:"]{
     var(--cor-borda);
 }
 
+/* [NOVO 13/08/2026] Exceção para as fotos de fundo de `.cover` (hero das 4
+   páginas e o bloco "paciente de fora").
+
+   Motivo: a hachura clara serve muito bem num slot de galeria, mas no
+   `.cover` ela quebra a página inteira. O topo é desenhado para ter
+   fotografia escura atrás — o logo usa `.logo-img--negativo`, que o deixa
+   inteiramente BRANCO, e o menu e o `h1` também são brancos. Com o
+   marcador claro no lugar da foto, logo, menu e título ficam brancos
+   sobre cinza claro e somem. O cliente leu isso como "faltou elegância"
+   e como "esse listrado não saiu bem pra mim" (itens 1 e 3 do retorno de
+   13/08), e não como o que de fato é: foto faltando.
+
+   Enquanto o arquivo não chega, o `.cover` recebe um degradê grafite →
+   azul da marca. Não é decisão de design definitiva: é o mesmo
+   placeholder, só que legível. **Some sozinho** no instante em que o
+   token receber um caminho de imagem, porque o seletor depende de o
+   `src` ainda ser o `data:` de 1px.
+
+   A hachura continua intacta em todo o resto do site — galeria, retratos,
+   cards de equipe — que é onde ela cumpre o papel de avisar. */
+.cover > img.img-token[src^="data:"]{
+  background:linear-gradient(155deg,
+    var(--brand-graphite) 0%,
+    #2B3A42 52%,
+    var(--brand-blue-deep) 100%);
+}
+
 
 /* ===================================================================
    §5  BOTÕES
