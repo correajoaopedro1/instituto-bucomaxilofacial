@@ -79,11 +79,12 @@
       "name": "Brasil"
     }
   ],
-  "availableService": {
-    "@type": "MedicalProcedure",
-    "name": "Cirurgia oral",
-    "procedureType": "https://schema.org/SurgicalProcedure"
-  }
+  "availableService": [
+    { "@type": "MedicalProcedure", "name": "Cirurgia oral",           "procedureType": "https://schema.org/SurgicalProcedure" },
+    { "@type": "MedicalProcedure", "name": "Cirurgia da ATM",         "procedureType": "https://schema.org/SurgicalProcedure" },
+    { "@type": "MedicalProcedure", "name": "Cirurgia ortognática",    "procedureType": "https://schema.org/SurgicalProcedure" },
+    { "@type": "MedicalProcedure", "name": "Trauma de face",          "procedureType": "https://schema.org/SurgicalProcedure" }
+  ]
 }
 </script>
 
@@ -101,7 +102,7 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Procedimentos gerais",
+      "name": "Cirurgia oral, ATM e ortognática",
       "item": "https://institutomaxilofacialsc.com/dr-lucas-ramos/"
     }
   ]
@@ -118,7 +119,7 @@
       "name": "Que tipo de caso é atendido aqui?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Procedimentos de cirurgia oral e bucomaxilofacial de rotina: extrações, dentes inclusos, remoção de lesões, biópsia, cirurgias pré-protéticas e avaliação de traumatismos. Casos que exigem ortognática ou tratamento de ATM são direcionados aos cirurgiões da equipe dedicados a essas frentes."
+        "text": "Cirurgia oral: extrações, dentes inclusos, remoção de cistos e lesões, biópsia, frenectomia e cirurgias pré-protéticas. Também cirurgia da ATM, cirurgia ortognática e trauma de face, conduzidos em conjunto com os demais cirurgiões da equipe."
       }
     },
     {
@@ -158,7 +159,7 @@
 </script>
 </head>
 
-<body class="lp-lucas" data-lp="lucas" data-medico="lucas" data-procedimento-foco="procedimentos-gerais">
+<body class="lp-lucas" data-lp="lucas" data-medico="lucas" data-procedimento-foco="cirurgia-oral-atm-ortognatica">
 
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-564Z5CWF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -187,7 +188,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <ul class="subnav">
               <li><a href="/dr-jonathas-claus/" data-menu-link="jonathas">Dr. Jonathas Claus<span class="role">Cirurgia ortognática</span></a></li>
               <li><a href="/dr-matheus-spinella/" data-menu-link="matheus">Dr. Matheus Spinella<span class="role">ATM e cirurgia oral</span></a></li>
-              <li><a href="/dr-lucas-ramos/" data-menu-link="lucas" aria-current="page">Dr. Lucas Ramos<span class="role">Procedimentos gerais</span></a></li>
+              <li><a href="/dr-lucas-ramos/" data-menu-link="lucas" aria-current="page">Dr. Lucas Ramos<span class="role">Cirurgia oral, ATM e ortognática</span></a></li>
             </ul>
           </li>
 
@@ -195,11 +196,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <a href="/#procedimentos">Tratamentos</a>
             <ul class="subnav subnav--wide">
               <li><a href="/dr-jonathas-claus/" data-menu-link="jonathas">Cirurgia ortognática<span class="role">Reposiciona maxila e mandíbula quando a mordida não encaixa</span></a></li>
-              <li><a href="/dr-jonathas-claus/" data-menu-link="jonathas">Assimetria facial<span class="role">Correção de desproporção óssea entre os lados da face</span></a></li>
               <li><a href="/dr-matheus-spinella/" data-menu-link="matheus">ATM e dor na mandíbula<span class="role">Dor, estalo, travamento e bruxismo — do conservador ao cirúrgico</span></a></li>
               <li><a href="/dr-matheus-spinella/" data-menu-link="matheus">Cirurgia oral e sisos<span class="role">Extrações, dentes inclusos, cistos, lesões e biópsia</span></a></li>
-              <li><a href="/dr-matheus-spinella/" data-menu-link="matheus">Cirurgia pré-protética<span class="role">Preparo do osso e da gengiva antes da reabilitação</span></a></li>
-              <li><a href="/#procedimentos">Traumatologia da face<span class="role">Fraturas e lesões dos ossos da face</span></a></li>
             </ul>
           </li>
 
@@ -231,7 +229,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          data-cta-id="header-agendar"
          data-cta-local="header"
          data-medico="lucas"
-         data-procedimento="procedimentos-gerais">Agendar consulta</a>
+         data-procedimento="cirurgia-oral-atm-ortognatica">Agendar consulta</a>
 
       <button class="hamburger" id="menuOpen" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu"><span class="bar" aria-hidden="true"></span></button>
     </div>
@@ -255,7 +253,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="mobile-sub" id="msub-equipe">
         <a href="/dr-jonathas-claus/" data-menu-link="jonathas">Dr. Jonathas Claus<span class="role">Cirurgia ortognática</span></a>
         <a href="/dr-matheus-spinella/" data-menu-link="matheus">Dr. Matheus Spinella<span class="role">ATM e cirurgia oral</span></a>
-        <a href="/dr-lucas-ramos/" data-menu-link="lucas" aria-current="page">Dr. Lucas Ramos<span class="role">Procedimentos gerais</span></a>
+        <a href="/dr-lucas-ramos/" data-menu-link="lucas" aria-current="page">Dr. Lucas Ramos<span class="role">Cirurgia oral, ATM e ortognática</span></a>
       </div>
     </div>
 
@@ -265,7 +263,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="/dr-jonathas-claus/" data-menu-link="jonathas">Cirurgia ortognática</a>
         <a href="/dr-matheus-spinella/" data-menu-link="matheus">ATM e dor na mandíbula</a>
         <a href="/dr-matheus-spinella/" data-menu-link="matheus">Cirurgia oral e sisos</a>
-        <a href="/#procedimentos">Traumatologia da face</a>
       </div>
     </div>
 
@@ -293,7 +290,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        data-cta-id="menu-mobile-agendar"
        data-cta-local="menu-mobile"
        data-medico="lucas"
-       data-procedimento="procedimentos-gerais">Agendar consulta</a>
+       data-procedimento="cirurgia-oral-atm-ortognatica">Agendar consulta</a>
   </nav>
 
 <div class="fine">
@@ -311,19 +308,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h1>Cirurgia oral e procedimentos bucomaxilofaciais</h1>
     <h2>Dr. Lucas Ramos — cirurgião bucomaxilofacial da equipe do Instituto</h2>
     <p class="hero-lead">
-      Extração de siso, dente incluso, remoção de lesão, biópsia e avaliação de trauma
-      de face. Procedimentos conduzidos com a estrutura e a equipe do Instituto, no
-      Centro de Florianópolis.
+      Cirurgia oral, cirurgia da ATM, ortognática e trauma de face. Procedimentos
+      conduzidos com a estrutura e a equipe do Instituto, no Centro de Florianópolis.
     </p>
     <div class="btn-row">
       <a class="btn"
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o."
          target="_blank" rel="noopener"
          data-cta-id="hero-agendar" data-cta-local="hero"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Agendar minha avaliação</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Agendar minha avaliação</a>
       <a class="btn btn--outline btn--outline-light" href="#procedimentos"
          data-cta-id="hero-ver-procedimentos" data-cta-local="hero"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Ver os procedimentos</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Ver os procedimentos</a>
     </div>
   </div>
 </section>
@@ -363,7 +359,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="wrap-content reveal" aria-label="Credenciais">
     <ul class="trust-strip">
       <li class="trust-item"><span class="eyebrow">Especialidade</span><p>Cirurgia e Traumatologia Bucomaxilofacial</p></li>
-      <li class="trust-item"><span class="eyebrow">Foco de atuação</span><p>Cirurgia oral e procedimentos bucomaxilofaciais de rotina.</p></li>
+      <li class="trust-item"><span class="eyebrow">Foco de atuação</span><p>Cirurgia oral, ATM, ortognática e trauma de face.</p></li>
       <li class="trust-item"><span class="eyebrow">Titulação</span><p>Especialista em Cirurgia e Traumatologia Bucomaxilofacial.</p></li>
       <li class="trust-item"><span class="eyebrow">Estrutura</span><p>Consultório e equipe própria do Instituto, no Centro de Florianópolis.</p></li>
     </ul>
@@ -403,7 +399,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto%20e%20gostaria%20de%20entender%20o%20meu%20caso."
          target="_blank" rel="noopener"
          data-cta-id="problema-avaliar-caso" data-cta-local="identificacao-problema"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Quero entender meu caso</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Quero entender meu caso</a>
       </div>
     </div>
     <div class="sp-x-large"></div>
@@ -429,7 +425,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="section-head center">
         <span class="eyebrow">Os procedimentos</span>
         <h2>O que é conduzido nesta frente</h2>
-        <p>Casos que exigem ortognática ou tratamento de ATM são direcionados aos cirurgiões da equipe dedicados a essas frentes.</p>
+        <p>Cirurgia oral, cirurgia da ATM, ortognática e trauma de face, conduzidos com a estrutura e a equipe do Instituto.</p>
       </div>
 
       <div class="grid-3 grid-cards">
@@ -475,6 +471,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <h3>Cirurgias pré-protéticas</h3>
           <p>Preparo dos tecidos da boca antes da instalação de prótese ou implante.</p>
         </article>
+
+        <article class="card-ic">
+          <span class="card-ic__ic" aria-hidden="true">
+            <svg class="ic-mascara" aria-hidden="true" viewBox="0 0 160 160"><mask id="mk-assimetria"><image width="160" height="160" href="data:image/png;base64,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"/></mask><rect width="160" height="160" fill="currentColor" mask="url(#mk-assimetria)"/></svg>
+          </span>
+          <h3>Cirurgia ortognática</h3>
+          <p>Reposicionamento da maxila e da mandíbula quando a mordida não encaixa.</p>
+        </article>
+        <article class="card-ic">
+          <span class="card-ic__ic" aria-hidden="true">
+            <svg class="ic-solido" aria-hidden="true" viewBox="3 3 59 59" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M36.4653 4H22.1466C18.7877 5.00899 16.593 7.16619 15.5625 10.4716C15.4222 12.1682 15.3583 13.8691 15.3708 15.5742C15.3714 17.0147 15.414 18.4459 15.4986 19.8679C14.6329 20.8118 14.3132 21.9111 14.5398 23.1659C15.1252 24.9591 16.3823 25.9547 18.3112 26.1528C18.6622 29.2512 20.1538 31.6781 22.7858 33.4334L18.0555 34.0557C14.0566 34.9616 11.521 37.3469 10.4487 41.2118C9.90415 44.7492 9.41407 48.2754 8.97852 51.7904V54.155C9.15562 54.2937 9.34739 54.4181 9.55382 54.5284C9.6242 56.6857 9.68812 58.8428 9.74559 61H11.7911C11.7802 59.0814 11.7802 57.1732 11.7911 55.2751C13.3103 55.8648 14.8444 56.404 16.3935 56.893V61H18.4391C18.4178 58.1787 18.4391 55.3577 18.503 52.5371C18.5558 50.1049 18.8328 47.6988 19.334 45.3188C18.685 45.2422 18.0458 45.1178 17.4163 44.9454C17.3203 45.0544 17.2564 45.1789 17.2245 45.3188C16.6805 48.4493 16.3609 51.6022 16.2657 54.7773L11.1519 52.9105L11.024 52.5993C11.3921 49.4632 11.797 46.3311 12.2386 43.2031C12.3537 42.2281 12.5667 41.2739 12.8778 40.3406C14.0152 38.0302 15.869 36.599 18.4391 36.0469C20.3148 35.8141 22.1898 35.586 24.0643 35.3624C24.1237 35.8058 24.2729 36.2206 24.5117 36.607C25.3432 37.8528 26.5151 38.6203 28.0275 38.9094C28.1767 38.9716 28.2832 39.0753 28.3471 39.2205C28.6998 42.0838 29.0833 44.9463 29.4977 47.8079C29.999 50.2358 30.8939 52.5175 32.1824 54.6528C33.8053 56.9703 35.9999 57.717 38.7665 56.893C38.8942 58.2595 38.9368 59.6285 38.8943 61H40.9398C40.9185 59.0912 40.9398 57.183 41.0038 55.2751L41.4512 54.6528C43.3397 54.5131 44.7247 53.6419 45.6062 52.0393C45.7329 48.3294 45.5198 44.6373 44.967 40.9629C44.8211 40.3085 44.5866 39.6862 44.2638 39.0961L44.3917 38.9716C47.7372 40.994 51.0612 43.0475 54.3636 45.1321C54.922 45.4079 55.4334 45.3457 55.8977 44.9454V43.7009C54.7193 41.9069 53.6112 40.0608 52.5738 38.1627C53.3564 37.2761 54.1874 36.4257 55.0667 35.6114C55.218 35.1417 55.1114 34.7475 54.7471 34.429C50.2901 33.0934 45.8155 31.8074 41.3234 30.571C40.1027 30.478 39.6978 30.9966 40.1088 32.1266L45.6701 36.0469L44.0081 37.167C43.7182 37.3609 43.5691 37.6305 43.5607 37.976C42.4861 36.3837 41.0159 35.2843 39.15 34.6779C38.0985 34.5079 37.0757 34.259 36.0817 33.9312C36.8513 32.7027 37.4267 31.396 37.8076 30.0109C38.5354 28.8189 38.9403 27.5329 39.0222 26.1528C40.0563 26.1286 40.9512 25.776 41.7069 25.095C43.1058 23.4883 43.2124 21.8081 42.0265 20.0546L41.8987 9.72489C41.5336 8.27007 40.6173 7.31592 39.15 6.86245C38.645 5.54199 37.7501 4.58784 36.4653 4ZM35.6982 6.05349C31.5221 5.99127 27.3458 5.97053 23.1693 5.99127C19.7947 6.61818 17.8983 8.60945 17.4802 11.9651C17.4163 14.2049 17.395 16.445 17.4163 18.6856H18.3112C18.2901 18.2274 18.3114 17.7711 18.3751 17.3166C18.4817 17.1299 18.6308 16.9847 18.8226 16.881L27.3882 16.7565C27.9036 16.6967 28.415 16.6138 28.9224 16.5076C30.9597 15.9105 32.6217 14.7904 33.9083 13.1474C34.2667 13.0534 34.6077 13.0949 34.9311 13.2718L38.9582 17.1921C39.1313 17.6729 39.1953 18.1707 39.15 18.6856H39.9171C39.9759 15.6922 39.912 12.7053 39.7253 9.72489C39.2842 9.00169 38.6238 8.64907 37.7437 8.66703C37.5608 8.60913 37.4117 8.50541 37.2962 8.3559C37.1363 7.9101 37.0085 7.45376 36.9127 6.9869C36.6583 6.49027 36.2534 6.17913 35.6982 6.05349ZM37.0406 18.1878C36.1412 17.2913 35.2249 16.4202 34.2919 15.5742C32.8254 17.1608 30.993 18.1772 28.7945 18.6234C25.9444 18.8018 23.0891 18.8641 20.2289 18.81C20.2076 21.0506 20.2289 23.2908 20.2928 25.5306C20.3922 26.858 20.7758 28.1025 21.4434 29.2642C23.0885 31.7859 25.4323 33.0719 28.4749 33.1223C28.7948 32.0433 29.285 31.0476 29.9451 30.1354C28.1951 29.5201 26.7248 29.9349 25.5345 31.3799C25.0419 30.9418 24.5944 30.4648 24.1921 29.9487C26.1636 27.7526 28.5287 27.234 31.2875 28.393C32.3688 27.4651 33.4129 26.4901 34.4197 25.4683C35.2864 24.921 36.16 24.9003 37.0406 25.4061C37.1258 23 37.1258 20.5938 37.0406 18.1878ZM18.1834 24.1616C18.3525 22.9388 18.3525 21.7357 18.1834 20.5524C17.7454 20.6725 17.3405 20.88 16.9688 21.1747C16.2096 22.6299 16.6145 23.6255 18.1834 24.1616ZM40.3645 23.5393C41.1224 22.0796 40.7175 21.0839 39.15 20.5524C39.1444 21.79 39.1444 22.9931 39.15 24.1616C39.6288 24.0893 40.0337 23.8819 40.3645 23.5393ZM36.0178 27.1485C35.932 27.0549 35.8255 27.0133 35.6982 27.024C34.7191 27.9149 33.7603 28.8276 32.8217 29.762C30.0537 32.7844 29.3293 36.2276 30.6483 40.0917C30.8537 42.0838 31.0667 44.0751 31.2875 46.0655C31.6138 48.3319 32.2956 50.4891 33.333 52.5371C33.7723 53.7529 34.6033 54.6033 35.826 55.0884C37.7738 55.4783 39.1587 54.7938 39.981 53.0349C40.2293 52.2532 40.5063 51.4857 40.812 50.7325C40.1416 50.4584 39.5236 50.1058 38.9582 49.6747C38.9521 49.9291 39.016 50.178 39.15 50.4214C38.5778 50.6764 37.9811 50.8837 37.3602 51.0437L37.1045 50.9192C36.5591 49.3058 36.0265 47.6879 35.5064 46.0655C34.5333 43.6379 33.5105 41.2317 32.4381 38.8472C32.3529 38.2249 32.3529 37.6026 32.4381 36.9804C33.3128 34.9038 34.2929 32.8711 35.3786 30.8821C35.8985 29.6876 36.1115 28.443 36.0178 27.1485ZM52.0624 35.7358C50.3053 35.1215 48.5154 34.6237 46.6929 34.2424C47.2385 34.6268 47.7711 35.0417 48.2909 35.4869C48.5466 35.9017 48.5466 36.3166 48.2909 36.7314C47.7493 37.1715 47.174 37.5655 46.565 37.9138C48.3368 39.0455 50.1267 40.1448 51.9345 41.2118C51.405 40.2643 50.8723 39.3103 50.3365 38.3493C50.2512 38.059 50.2512 37.7685 50.3365 37.4782C50.9385 36.913 51.5138 36.3322 52.0624 35.7358ZM28.0275 35.3002C27.3916 35.1694 26.7523 35.0656 26.1098 34.9891C26.3414 35.8997 26.9167 36.522 27.8357 36.8559C27.8613 36.3266 27.9252 35.808 28.0275 35.3002ZM38.2551 36.5448C37.1825 36.3236 36.1171 36.0955 35.059 35.8603C34.7309 36.5074 34.5178 37.1919 34.4197 37.9138C34.5979 39.057 35.0028 40.1149 35.6343 41.0873C35.792 40.2575 35.9412 39.4277 36.0817 38.5983C36.6873 38.6457 37.284 38.7493 37.8716 38.9094C37.9902 38.9577 38.0755 39.0407 38.1272 39.1583C37.7211 41.0556 37.4227 42.9639 37.2323 44.8832C37.5169 45.5547 37.7726 46.2392 37.9994 46.9367C39.8566 47.9026 41.689 48.8982 43.4967 49.9236C43.527 47.6838 43.4205 45.4436 43.1771 43.2031C43.0582 39.8962 41.4176 37.6768 38.2551 36.5448ZM42.474 52.2882C42.4832 51.7859 42.6963 51.6821 43.1132 51.9771C42.9329 52.1478 42.7198 52.2515 42.474 52.2882ZM55.8977 16.5699V15.3253C55.5347 14.9964 55.1086 14.8927 54.6193 15.0142L44.0081 21.6103C43.6439 21.9287 43.5373 22.3229 43.6885 22.7926C44.3148 23.3151 44.9754 23.7922 45.6701 24.2238L40.3006 27.9574C40.0521 28.1717 39.9243 28.4414 39.9171 28.7664C40.0332 29.5702 40.5019 29.8813 41.3234 29.6998C45.7562 28.4551 50.1882 27.2106 54.6193 25.9661C55.0939 25.6423 55.2429 25.2067 55.0668 24.6594C54.2126 23.8487 53.3816 23.0189 52.5738 22.1703C53.6529 20.2754 54.7609 18.4085 55.8977 16.5699ZM50.3365 21.9214C50.8723 20.9605 51.405 20.0064 51.9345 19.0589C50.164 20.1795 48.3742 21.279 46.565 22.357C47.1291 22.7664 47.7044 23.1605 48.291 23.5393C48.4772 23.896 48.5198 24.2693 48.4188 24.6594C47.8564 25.1459 47.2811 25.6022 46.6929 26.0284C48.5055 25.6408 50.2953 25.1638 52.0624 24.5972L50.4643 23.0415C50.2781 22.6848 50.2355 22.3114 50.3365 21.9214Z"/></svg>
+          </span>
+          <h3>Cirurgia da ATM</h3>
+          <p>Tratamento cirúrgico da articulação temporomandibular quando a conduta conservadora não resolve.</p>
+        </article>
+        <article class="card-ic">
+          <span class="card-ic__ic" aria-hidden="true">
+            <svg class="ic-solido" aria-hidden="true" viewBox="5 5 54 54" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.227 22.6509C15.0607 14.9692 20.1034 9.63779 27.4955 7.5167C30.9337 6.54215 36.6067 7.00076 39.9303 8.43393C46.4056 11.3003 50.1303 16.2303 51.8494 24.0841C52.0787 25.0013 52.5944 25.6892 53.0528 25.6892C53.5112 25.6892 54.7146 26.4345 55.7461 27.3517C57.5798 29.0142 57.6371 29.1862 57.5798 33.2563C57.4652 39.3903 56.491 40.9381 51.6202 42.4859C51.1618 42.6006 50.3022 44.0911 49.6719 45.6962C48.2966 49.5944 44.3427 53.8939 40.2742 55.9004C37.5236 57.2189 36.2629 57.5055 32.4236 57.5055C28.5843 57.5055 27.3236 57.2189 24.573 55.9004C20.5618 53.9513 16.5506 49.5944 15.0607 45.6389C14.0865 43.0019 13.6854 42.6006 11.7944 42.0846C10.591 41.7407 9.15843 40.8235 8.52809 40.0209C7.15281 38.1291 6.46517 31.5366 7.49663 29.1862C8.18427 27.409 10.3045 25.6892 11.7371 25.6892C12.2528 25.6892 12.8258 24.6 13.227 22.6509ZM48.1247 23.7975C47.2079 18.7527 44.0562 14.4532 39.5292 12.2175C32.882 8.83521 25.5472 10.3257 20.3899 16.0584C16.436 20.4725 15.8056 23.2242 16.6652 33.3137C17.009 37.7851 17.582 42.3713 17.9258 43.4605C19.5876 48.7919 24.8595 53.3207 30.4753 54.0659C36.3202 54.8685 43.1393 51.1423 45.9472 45.5816C47.3798 42.7726 48.927 27.8103 48.1247 23.7975ZM13.3989 34.6895C13.227 32.4538 13.0551 30.218 12.9404 29.8168C12.6539 28.9569 11.909 28.9569 11.0494 29.8168C10.0753 30.7913 10.1899 36.0654 11.2787 37.6132C12.9978 40.0782 13.6854 39.2183 13.3989 34.6895ZM54.2562 34.2309C54.5427 31.7085 54.4281 30.8486 53.6258 30.1034C52.136 28.6129 51.6202 28.9569 51.6202 31.3646C51.6202 32.5684 51.4483 34.7468 51.2764 36.2373C50.9326 38.3584 51.0472 38.8744 51.7348 38.8744C53.1674 38.8744 53.8551 37.5558 54.2562 34.2309ZM35.1169 30.39C35.2315 29.8741 36.8933 28.3263 38.8989 27.0077C40.8472 25.6892 42.8528 24.7147 43.3112 24.8867C44.973 25.5173 44.7438 26.9504 42.7382 28.7275L40.7326 30.5047L42.7955 32.3965C44.5146 33.9443 44.7438 34.4029 44.1708 35.1481C43.082 36.4666 42.1079 36.2373 38.3831 33.6576C36.091 32.1098 35.0023 31.0206 35.1169 30.39ZM20.5045 25.5173C19.5303 26.4345 20.2753 27.9823 22.1663 29.1288L24.1719 30.39L22.109 31.8232C19.7596 33.371 19.473 35.6067 21.536 35.8934C23.0831 36.1227 28.9281 31.9952 29.1573 30.562C29.4438 28.4409 21.8798 24.0841 20.5045 25.5173ZM23.0831 42.7726C23.1978 41.8553 24.1719 40.9954 26.3494 39.8489C29.7303 38.1864 32.6528 37.8998 36.3202 38.9317C39.2427 39.7343 42.0506 42.2566 41.5921 43.6325C41.0191 44.951 39.8157 44.8363 36.4348 43.1165C33.1112 41.4541 30.4753 41.5687 26.9225 43.5751C24.4011 44.951 22.7966 44.607 23.0831 42.7726Z"/></svg>
+          </span>
+          <h3>Trauma de face</h3>
+          <p>Fraturas e lesões dos ossos da face, avaliadas e conduzidas conforme o caso.</p>
+        </article>
       </div>
 
       <div class="sp-large"></div>
@@ -504,7 +522,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto%20e%20gostaria%20de%20entender%20como%20funciona%20a%20avalia%C3%A7%C3%A3o."
          target="_blank" rel="noopener"
          data-cta-id="procedimento-avaliacao" data-cta-local="procedimento"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Falar com a equipe no WhatsApp</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Falar com a equipe no WhatsApp</a>
       </div>
     </div>
     <div class="sp-x-large"></div>
@@ -532,7 +550,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o."
          target="_blank" rel="noopener"
          data-cta-id="sobre-agendar" data-cta-local="sobre-cirurgiao"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Agendar minha avaliação</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Agendar minha avaliação</a>
           </div>
         </div>
       </div>
@@ -588,7 +606,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Moro%20fora%20de%20Florian%C3%B3polis%20e%20vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto.%20Gostaria%20de%20entender%20como%20funciona%20o%20atendimento%20para%20pacientes%20de%20outra%20cidade."
          target="_blank" rel="noopener"
          data-cta-id="de-fora-video" data-cta-local="paciente-de-fora"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Falar com a equipe no WhatsApp</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Falar com a equipe no WhatsApp</a>
       </div>
     </div>
   </section>
@@ -649,7 +667,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto%20e%20gostaria%20de%20confirmar%20se%20voc%C3%AAs%20atendem%20o%20meu%20conv%C3%AAnio."
       target="_blank" rel="noopener"
       data-cta-id="convenios-confirmar" data-cta-local="convenios"
-      data-medico="lucas" data-procedimento="procedimentos-gerais">Confirmar meu convênio</a>
+      data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Confirmar meu convênio</a>
     </div>
   </section>
 
@@ -666,8 +684,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span>Que tipo de caso é atendido aqui?</span><span class="sign" aria-hidden="true"></span>
         </button></h3>
         <div class="faq-a" id="faq-1-a" role="region" aria-labelledby="faq-1-q" hidden>
-          <p>Procedimentos de cirurgia oral e bucomaxilofacial de rotina: extrações, dentes inclusos, remoção de lesões, biópsia, cirurgias pré-protéticas e avaliação de traumatismos.</p>
-          <p>Casos que exigem ortognática ou tratamento de ATM são direcionados aos cirurgiões da equipe dedicados a essas frentes.</p>
+          <p>Cirurgia oral: extrações, dentes inclusos, remoção de cistos e lesões, biópsia, frenectomia e cirurgias pré-protéticas.</p>
+          <p>Também cirurgia da ATM, cirurgia ortognática e trauma de face, conduzidos em conjunto com os demais cirurgiões da equipe.</p>
         </div>
       </div>
 
@@ -717,7 +735,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto.%20Minha%20d%C3%BAvida%20n%C3%A3o%20estava%20no%20FAQ."
          target="_blank" rel="noopener"
          data-cta-id="faq-duvida" data-cta-local="faq"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Minha dúvida não está aqui</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Minha dúvida não está aqui</a>
     </div>
   </section>
   <div class="sp-x-large"></div>
@@ -770,7 +788,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          href="https://wa.me/5548988487091?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20procedimentos%20gerais%20do%20Instituto%20e%20gostaria%20de%20agendar%20minha%20avalia%C3%A7%C3%A3o."
          target="_blank" rel="noopener"
          data-cta-id="final-agendar" data-cta-local="cta-final"
-         data-medico="lucas" data-procedimento="procedimentos-gerais">Agendar minha avaliação</a>
+         data-medico="lucas" data-procedimento="cirurgia-oral-atm-ortognatica">Agendar minha avaliação</a>
           </div>
         </div>
       </div>
@@ -851,7 +869,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      data-cta-id="whatsapp-flutuante"
      data-cta-local="botao-flutuante"
      data-medico="lucas"
-     data-procedimento="procedimentos-gerais">
+     data-procedimento="cirurgia-oral-atm-ortognatica">
     <svg class="wa-icone" viewBox="-23 -21 682 682.66669" fill="currentColor" aria-hidden="true"><path d="m544.386719 93.007812c-59.875-59.945312-139.503907-92.9726558-224.335938-93.007812-174.804687 0-317.070312 142.261719-317.140625 317.113281-.023437 55.894531 14.578125 110.457031 42.332032 158.550781l-44.992188 164.335938 168.121094-44.101562c46.324218 25.269531 98.476562 38.585937 151.550781 38.601562h.132813c174.785156 0 317.066406-142.273438 317.132812-317.132812.035156-84.742188-32.921875-164.417969-92.800781-224.359376zm-224.335938 487.933594h-.109375c-47.296875-.019531-93.683594-12.730468-134.160156-36.742187l-9.621094-5.714844-99.765625 26.171875 26.628907-97.269531-6.269532-9.972657c-26.386718-41.96875-40.320312-90.476562-40.296875-140.28125.054688-145.332031 118.304688-263.570312 263.699219-263.570312 70.40625.023438 136.589844 27.476562 186.355469 77.300781s77.15625 116.050781 77.132812 186.484375c-.0625 145.34375-118.304687 263.59375-263.59375 263.59375zm144.585938-197.417968c-7.921875-3.96875-46.882813-23.132813-54.148438-25.78125-7.257812-2.644532-12.546875-3.960938-17.824219 3.96875-5.285156 7.929687-20.46875 25.78125-25.09375 31.066406-4.625 5.289062-9.242187 5.953125-17.167968 1.984375-7.925782-3.964844-33.457032-12.335938-63.726563-39.332031-23.554687-21.011719-39.457031-46.960938-44.082031-54.890626-4.617188-7.9375-.039062-11.8125 3.476562-16.171874 8.578126-10.652344 17.167969-21.820313 19.808594-27.105469 2.644532-5.289063 1.320313-9.917969-.664062-13.882813-1.976563-3.964844-17.824219-42.96875-24.425782-58.839844-6.4375-15.445312-12.964843-13.359374-17.832031-13.601562-4.617187-.230469-9.902343-.277344-15.1875-.277344-5.28125 0-13.867187 1.980469-21.132812 9.917969-7.261719 7.933594-27.730469 27.101563-27.730469 66.105469s28.394531 76.683594 32.355469 81.972656c3.960937 5.289062 55.878906 85.328125 135.367187 119.648438 18.90625 8.171874 33.664063 13.042968 45.175782 16.695312 18.984374 6.03125 36.253906 5.179688 49.910156 3.140625 15.226562-2.277344 46.878906-19.171875 53.488281-37.679687 6.601563-18.511719 6.601563-34.375 4.617187-37.683594-1.976562-3.304688-7.261718-5.285156-15.183593-9.253906zm0 0" fill-rule="evenodd"/></svg>
   </a>
 </div>
