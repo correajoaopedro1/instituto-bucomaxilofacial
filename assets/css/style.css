@@ -896,6 +896,10 @@ img.img-token[src^="data:"]{
   grid-template-columns:repeat(4,1fr);
   gap:2.5rem;
 }
+/* [NOVO 13/08/2026] A home perdeu o item "Formação e ensino" e ficou com 3.
+   Modificador em vez de auto-fit no seletor base: as 3 LPs continuam com 4
+   itens e não podem ser afetadas por uma mudança feita para a home. */
+.trust-strip--3{grid-template-columns:repeat(3,1fr)}
 .trust-item{border-top:1px solid var(--cor-borda);padding-top:1.25rem}
 .trust-item .eyebrow{color:var(--cor-texto-sup);display:block;margin-bottom:.5rem}
 .trust-item p{margin:0;line-height:1.6}
