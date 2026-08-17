@@ -891,6 +891,18 @@ img.img-token[src^="data:"]{
    ganhou um quinto card (fisioterapia, item 8 do cliente). Classe própria em
    vez de mexer no .grid-4, que é usado em outros lugares com 4 itens. */
 .grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap-columns)}
+
+/* [NOVO 17/08/2026] Carro-chefe. O cliente pediu que Ortognática apareça em
+   destaque "sem esconder as outras áreas" — podendo ser card maior, imagem
+   ou destaque visual. Escolhido o destaque, e não o card maior: numa grade
+   de 4 colunas, alargar um card obriga a quebrar a linha e é justamente o
+   "esconder as outras" que ele nao quer.
+   Filete azul da marca no topo, eyebrow em azul e leve elevação. */
+.card--destaque{
+  border-top:3px solid var(--brand-blue);
+  background:rgb(14 123 162 / .04);
+}
+.card--destaque .eyebrow{color:var(--brand-blue)}
 .grid-tight{gap:2rem}
 
 /* ---- 14.3 Faixa de credibilidade --------------------------------
@@ -1519,6 +1531,19 @@ address{font-style:normal}
   background:var(--quaternary);
 }
 #equipe .media-card .slot{margin-bottom:1.25rem}
+
+/* [NOVO 17/08/2026] Esfumado na base do retrato de equipe.
+   O cliente: "achei que o meu padrao ficou melhor... em PB e com aquele
+   efeito na parte inferior". O efeito estava queimado no arquivo antigo
+   dele; agora que os tres retratos foram reprocessados no mesmo padrao
+   (1600x1200, 4:3, preto e branco), ele passa a ser do CSS e vale para os
+   tres igual. Sai sozinho se alguem trocar a foto. */
+#equipe .team-card .slot{position:relative}
+#equipe .team-card .slot::before{
+  content:"";position:absolute;inset:auto 0 0 0;height:38%;
+  background:linear-gradient(to bottom,rgb(249 247 247 / 0),var(--base));
+  pointer-events:none;z-index:1;
+}
 #equipe .media-card h3,#equipe .media-card .role,#equipe .media-card p{
   padding-inline:1.4rem;
 }
