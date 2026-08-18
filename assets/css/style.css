@@ -903,7 +903,14 @@ img.img-token[src^="data:"]{
   background:rgb(14 123 162 / .04);
 }
 .card--destaque .eyebrow{color:var(--brand-blue)}
-.grid-tight{gap:2rem}
+/* [ALTERADO 18/08/2026] O gap era 2rem e o padding do .card era ate 32px.
+   Numa grade de 5 colunas isso deixava ~150px de texto por card, e a copy
+   quebrava a cada tres palavras. O cliente pediu menos espaco entre as
+   caixas para sobrar mais dentro delas.
+   Gap 2rem -> 1.25rem, e o padding do card cai dentro das grades densas.
+   Vale para todo .grid-tight do site, que e onde essas caixas aparecem. */
+.grid-tight{gap:1.25rem}
+.grid-tight .card,.grid-tight .card-ic{padding:clamp(16px,1.7vw,22px)}
 
 /* ---- 14.3 Faixa de credibilidade --------------------------------
    Deriva de .eyebrow + borda do .mega-title. */
