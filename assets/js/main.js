@@ -404,44 +404,6 @@
   })();
 
   /* =================================================================
-     ABAS DE TIPO DE CASO
-     Cada aba mostra um painel e esconde os outros. Sem aba selecionada
-     nada quebra: o primeiro painel ja vem visivel do HTML.
-  ================================================================= */
-  (function () {
-    var grupos = d.querySelectorAll("[data-compare-tabs]");
-    if (!grupos.length) return;
-
-    Array.prototype.forEach.call(grupos, function (grupo) {
-      var abas = grupo.querySelectorAll(".compare-tab");
-
-      function abrir(alvo) {
-        Array.prototype.forEach.call(abas, function (aba) {
-          var id = aba.getAttribute("aria-controls");
-          var painel = d.getElementById(id);
-          var ativa = aba === alvo;
-          aba.setAttribute("aria-selected", ativa ? "true" : "false");
-          aba.setAttribute("tabindex", ativa ? "0" : "-1");
-          if (painel) painel.hidden = !ativa;
-        });
-      }
-
-      Array.prototype.forEach.call(abas, function (aba, i) {
-        aba.addEventListener("click", function () { abrir(aba); });
-        aba.addEventListener("keydown", function (e) {
-          var n = null;
-          if (e.key === "ArrowRight") n = abas[(i + 1) % abas.length];
-          if (e.key === "ArrowLeft") n = abas[(i - 1 + abas.length) % abas.length];
-          if (!n) return;
-          e.preventDefault();
-          abrir(n);
-          n.focus();
-        });
-      });
-    });
-  })();
-
-  /* =================================================================
      ANO CORRENTE NO FOOTER
   ================================================================= */
   Array.prototype.forEach.call(d.querySelectorAll("[data-ano]"), function (n) {
