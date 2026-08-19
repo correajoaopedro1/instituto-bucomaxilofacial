@@ -936,7 +936,10 @@ img.img-token[src^="data:"]{
 =================================================================== */
 .image-compare{
   position:relative;
-  aspect-ratio:4/3;
+  /* [ALTERADO 18/08/2026] Era 4/3. As imagens de antes/depois chegam em
+     850x1280 -- retrato, como toda foto de face. Em 4:3 elas seriam
+     cortadas no queixo e na testa, que e justamente o que se compara. */
+  aspect-ratio:850/1280;
   overflow:hidden;
   background:var(--cor-borda);
   --pos:50%;
@@ -1011,7 +1014,17 @@ img.img-token[src^="data:"]{
 .compare-tab[aria-selected="true"]{color:var(--brand-blue);border-color:var(--brand-blue)}
 .compare-painel[hidden]{display:none}
 @media (prefers-reduced-motion:reduce){.compare-tab{transition:none}}
-.compare-grid{align-items:start}
+/* Dois por linha, mas com teto de largura: em 590px cada, um retrato de
+   850x1280 daria 888px de altura e o par empurraria tudo para fora da tela.
+   Em 380px a altura cai para 572px e o par fica centrado, com respiro. */
+.compare-grid{
+  align-items:start;
+  grid-template-columns:repeat(2,minmax(0,380px));
+  justify-content:center;
+}
+@media (max-width:52rem){
+  .compare-grid{grid-template-columns:minmax(0,380px)}
+}
 .compare-item{margin:0;display:flex;flex-direction:column;gap:.75rem}
 .compare-item figcaption{
   font-family:var(--font-nav);
