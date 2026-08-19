@@ -581,8 +581,18 @@ img.img-token[src^="data:"]{
    §7  COVER / HERO   [REUTILIZÁVEL]
 =================================================================== */
 .cover{position:relative;display:flex;isolation:isolate;overflow:hidden}
-.cover > img{
-  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+/* [ALTERADO 19/08/2026] A imagem de fundo passou a vir dentro de <picture>,
+   para trocar de arquivo no mobile: no celular entra uma versao VERTICAL,
+   porque foto deitada esticada num ecra em pe corta o assunto todo.
+   Como <picture> vira o filho direto de .cover, o seletor antigo deixaria
+   a imagem sem posicionamento e ela empurraria o conteudo para baixo. */
+.cover > img,
+.cover > picture{
+  position:absolute;inset:0;width:100%;height:100%;z-index:-2;
+}
+.cover > img,
+.cover > picture > img{
+  width:100%;height:100%;object-fit:cover;display:block;
 }
 .cover .overlay{position:absolute;inset:0;background:var(--contrast);opacity:.5;z-index:-1}
 .cover .overlay.dim-70{opacity:.7}
