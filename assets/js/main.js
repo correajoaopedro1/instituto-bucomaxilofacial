@@ -360,6 +360,88 @@
   });
 
   /* =================================================================
+     COMPARADOR ANTES / DEPOIS
+     [NOVO 18/08/2026]
+
+     O controle de verdade e um <input type="range"> sobreposto e
+     invisivel. Toda a interacao — mouse, toque, teclado, leitor de tela —
+     vem de graca do proprio input. O JS aqui so faz duas coisas:
+
+       1. escreve a posicao numa custom property (--pos), e o CSS resolve
+          o recorte e a posicao do puxador;
+       2. mantem a <img> da frente presa a LARGURA DO COMPONENTE
+          (--compare-w). Sem isso ela encolheria junto com o recorte e a
+          comparacao ficaria errada: as duas metades mostrariam o mesmo
+          enquadramento em escalas diferentes.
+
+     O passo 2 precisa rodar de novo a cada resize, por isso o observer.
+  ================================================================= */
+  (function () {
+    var comps = d.querySelectorAll(".image-compare");
+    if (!comps.length) return;
+
+    Array.prototype.forEach.call(comps, function (comp) {
+      var range = comp.querySelector(".compare-range");
+      if (!range) return;
+
+      function pintar() {
+        comp.style.setProperty("--pos", range.value + "%");
+      }
+      function medir() {
+        comp.style.setProperty("--compare-w", comp.clientWidth + "px");
+      }
+
+      range.addEventListener("input", pintar);
+      pintar();
+      medir();
+
+      if ("ResizeObserver" in w) {
+        new w.ResizeObserver(medir).observe(comp);
+      } else {
+        w.addEventListener("resize", medir);
+      }
+    });
+  })();
+
+  /* =================================================================
+     ABAS DE TIPO DE CASO
+     Cada aba mostra um painel e esconde os outros. Sem aba selecionada
+     nada quebra: o primeiro painel ja vem visivel do HTML.
+  ================================================================= */
+  (function () {
+    var grupos = d.querySelectorAll("[data-compare-tabs]");
+    if (!grupos.length) return;
+
+    Array.prototype.forEach.call(grupos, function (grupo) {
+      var abas = grupo.querySelectorAll(".compare-tab");
+
+      function abrir(alvo) {
+        Array.prototype.forEach.call(abas, function (aba) {
+          var id = aba.getAttribute("aria-controls");
+          var painel = d.getElementById(id);
+          var ativa = aba === alvo;
+          aba.setAttribute("aria-selected", ativa ? "true" : "false");
+          aba.setAttribute("tabindex", ativa ? "0" : "-1");
+          if (painel) painel.hidden = !ativa;
+        });
+      }
+
+      Array.prototype.forEach.call(abas, function (aba, i) {
+        aba.addEventListener("click", function () { abrir(aba); });
+        aba.addEventListener("keydown", function (e) {
+          var n = null;
+          if (e.key === "ArrowRight") n = abas[(i + 1) % abas.length];
+          if (e.key === "ArrowLeft") n = abas[(i - 1 + abas.length) % abas.length];
+          if (!n) return;
+          e.preventDefault();
+          abrir(n);
+          n.focus();
+        });
+      });
+    });
+  })();
+
+  /* =================================================================
      ANO CORRENTE NO FOOTER
   ================================================================= */
   Array.prototype.forEach.call(d.querySelectorAll("[data-ano]"), function (n) {

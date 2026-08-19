@@ -28,8 +28,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
 
-<link rel="preload" as="style" href="/assets/css/style.css?v=1rr4slj" />
-<link rel="stylesheet" href="/assets/css/style.css?v=1rr4slj" />
+<link rel="preload" as="style" href="/assets/css/style.css?v=9ihaz8" />
+<link rel="stylesheet" href="/assets/css/style.css?v=9ihaz8" />
 
 <script>
 (function(w,d,s,l,i){
@@ -570,6 +570,98 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
+
+    <div class="sp-large"></div>
+
+    <div class="compare-tabs" role="tablist" aria-label="Tipo de caso" data-compare-tabs>
+        <button class="compare-tab" type="button" role="tab" id="tab-c2"
+                aria-controls="painel-c2" aria-selected="true" tabindex="0">Classe II</button>
+        <button class="compare-tab" type="button" role="tab" id="tab-c3"
+                aria-controls="painel-c3" aria-selected="false" tabindex="-1">Classe III</button>
+        <button class="compare-tab" type="button" role="tab" id="tab-as"
+                aria-controls="painel-as" aria-selected="false" tabindex="-1">Assimetria</button>
+        <button class="compare-tab" type="button" role="tab" id="tab-ma"
+                aria-controls="painel-ma" aria-selected="false" tabindex="-1">Mordida aberta</button>
+    </div>
+
+    <div class="sp-medium"></div>
+
+      <div class="compare-painel" id="painel-c2" role="tabpanel" aria-labelledby="tab-c2">
+        <div class="image-compare">
+          <div class="image-back">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_C2_DEPOIS}}"
+                 alt="Depois da cirurgia ortogn&aacute;tica &mdash; classe ii" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="image-front">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_C2_ANTES}}"
+                 alt="Antes da cirurgia ortogn&aacute;tica &mdash; classe ii" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="slider-handle" aria-hidden="true">
+            <div class="slider-circle"><div class="slider-icon">&#8596;</div></div>
+          </div>
+          <span class="compare-tag compare-tag--antes" aria-hidden="true">Antes</span>
+          <span class="compare-tag compare-tag--depois" aria-hidden="true">Depois</span>
+          <input class="compare-range" type="range" min="0" max="100" value="50" step="1"
+                 aria-label="Comparar antes e depois &mdash; classe ii" />
+        </div>
+      </div>
+      <div class="compare-painel" id="painel-c3" role="tabpanel" aria-labelledby="tab-c3" hidden>
+        <div class="image-compare">
+          <div class="image-back">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_C3_DEPOIS}}"
+                 alt="Depois da cirurgia ortogn&aacute;tica &mdash; classe iii" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="image-front">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_C3_ANTES}}"
+                 alt="Antes da cirurgia ortogn&aacute;tica &mdash; classe iii" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="slider-handle" aria-hidden="true">
+            <div class="slider-circle"><div class="slider-icon">&#8596;</div></div>
+          </div>
+          <span class="compare-tag compare-tag--antes" aria-hidden="true">Antes</span>
+          <span class="compare-tag compare-tag--depois" aria-hidden="true">Depois</span>
+          <input class="compare-range" type="range" min="0" max="100" value="50" step="1"
+                 aria-label="Comparar antes e depois &mdash; classe iii" />
+        </div>
+      </div>
+      <div class="compare-painel" id="painel-as" role="tabpanel" aria-labelledby="tab-as" hidden>
+        <div class="image-compare">
+          <div class="image-back">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_ASSIM_DEPOIS}}"
+                 alt="Depois da cirurgia ortogn&aacute;tica &mdash; assimetria" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="image-front">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_ASSIM_ANTES}}"
+                 alt="Antes da cirurgia ortogn&aacute;tica &mdash; assimetria" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="slider-handle" aria-hidden="true">
+            <div class="slider-circle"><div class="slider-icon">&#8596;</div></div>
+          </div>
+          <span class="compare-tag compare-tag--antes" aria-hidden="true">Antes</span>
+          <span class="compare-tag compare-tag--depois" aria-hidden="true">Depois</span>
+          <input class="compare-range" type="range" min="0" max="100" value="50" step="1"
+                 aria-label="Comparar antes e depois &mdash; assimetria" />
+        </div>
+      </div>
+      <div class="compare-painel" id="painel-ma" role="tabpanel" aria-labelledby="tab-ma" hidden>
+        <div class="image-compare">
+          <div class="image-back">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_MA_DEPOIS}}"
+                 alt="Depois da cirurgia ortogn&aacute;tica &mdash; mordida aberta" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="image-front">
+            <img class="img-token" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-token="{{FOTO_MA_ANTES}}"
+                 alt="Antes da cirurgia ortogn&aacute;tica &mdash; mordida aberta" width="1200" height="900" loading="lazy" />
+          </div>
+          <div class="slider-handle" aria-hidden="true">
+            <div class="slider-circle"><div class="slider-icon">&#8596;</div></div>
+          </div>
+          <span class="compare-tag compare-tag--antes" aria-hidden="true">Antes</span>
+          <span class="compare-tag compare-tag--depois" aria-hidden="true">Depois</span>
+          <input class="compare-range" type="range" min="0" max="100" value="50" step="1"
+                 aria-label="Comparar antes e depois &mdash; mordida aberta" />
+        </div>
+      </div>
     <div class="sp-medium"></div>
     <p class="wrap-narrow center">
       Nenhum desses padr&otilde;es &eacute; diagn&oacute;stico por si s&oacute;. O que define a conduta &eacute; a
@@ -1031,6 +1123,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script src="/assets/js/tracking.js?v=6mwl2i" defer></script>
-<script src="/assets/js/main.js?v=1nkprtt" defer></script>
+<script src="/assets/js/main.js?v=1dkz2m5" defer></script>
 </body>
 </html>
