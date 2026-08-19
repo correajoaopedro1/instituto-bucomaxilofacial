@@ -379,6 +379,7 @@
   (function () {
     var comps = d.querySelectorAll(".image-compare");
     if (!comps.length) return;
+    var medidores = [];
 
     Array.prototype.forEach.call(comps, function (comp) {
       var range = comp.querySelector(".compare-range");
@@ -394,12 +395,59 @@
       range.addEventListener("input", pintar);
       pintar();
       medir();
+      medidores.push(medir);
 
       if ("ResizeObserver" in w) {
         new w.ResizeObserver(medir).observe(comp);
       } else {
         w.addEventListener("resize", medir);
       }
+    });
+
+    /* Comparador dentro de painel escondido tem clientWidth 0, entao
+       --compare-w sairia zerado e a imagem da frente colapsaria no
+       instante em que a aba abrisse. As abas chamam isto depois de
+       trocar de painel. */
+    w.__remedirComparadores = function () {
+      for (var i = 0; i < medidores.length; i++) medidores[i]();
+    };
+  })();
+
+  /* =================================================================
+     ABAS DE TIPO DE CASO
+     Cada aba mostra um painel e esconde os outros. O primeiro painel ja
+     vem visivel do HTML, entao sem JS a secao ainda mostra um caso.
+  ================================================================= */
+  (function () {
+    var grupos = d.querySelectorAll("[data-compare-tabs]");
+    if (!grupos.length) return;
+
+    Array.prototype.forEach.call(grupos, function (grupo) {
+      var abas = grupo.querySelectorAll(".compare-tab");
+
+      function abrir(alvo) {
+        Array.prototype.forEach.call(abas, function (aba) {
+          var painel = d.getElementById(aba.getAttribute("aria-controls"));
+          var ativa = aba === alvo;
+          aba.setAttribute("aria-selected", ativa ? "true" : "false");
+          aba.setAttribute("tabindex", ativa ? "0" : "-1");
+          if (painel) painel.hidden = !ativa;
+        });
+        // os comparadores do painel que acabou de abrir precisam remedir:
+        // enquanto estavam hidden, clientWidth era 0
+        if (w.__remedirComparadores) w.__remedirComparadores();
+      }
+
+      Array.prototype.forEach.call(abas, function (aba, i) {
+        aba.addEventListener("click", function () { abrir(aba); });
+        aba.addEventListener("keydown", function (e) {
+          var n = null;
+          if (e.key === "ArrowRight") n = abas[(i + 1) % abas.length];
+          if (e.key === "ArrowLeft") n = abas[(i - 1 + abas.length) % abas.length];
+          if (!n) return;
+          e.preventDefault(); abrir(n); n.focus();
+        });
+      });
     });
   })();
 
