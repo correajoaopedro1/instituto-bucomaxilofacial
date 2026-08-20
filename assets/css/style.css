@@ -947,9 +947,12 @@ img.img-token[src^="data:"]{
 .image-compare{
   position:relative;
   /* [ALTERADO 18/08/2026] Era 4/3. As imagens de antes/depois chegam em
-     850x1280 -- retrato, como toda foto de face. Em 4:3 elas seriam
+     retrato. [ALTERADO 20/08] Era 850/1280, mas os rostos das montagens
+     novas tem ate 878px de largura em 1080 de altura: em 850x1280 o nariz
+     era cortado nas fotos de perfil. Em 850x1000 a escala fica 0,926 e o
+     sujeito mais largo dá 813px, com folga. Nada e cortado.
      cortadas no queixo e na testa, que e justamente o que se compara. */
-  aspect-ratio:850/1280;
+  aspect-ratio:850/1000;
   overflow:hidden;
   background:var(--cor-borda);
   --pos:50%;
