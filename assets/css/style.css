@@ -595,7 +595,13 @@ img.img-token[src^="data:"]{
   width:100%;height:100%;object-fit:cover;display:block;
 }
 .cover .overlay{position:absolute;inset:0;background:var(--contrast);opacity:.5;z-index:-1}
-.cover .overlay.dim-70{opacity:.7}
+/* [ALTERADO 21/08/2026] Era .7. O cliente leu a secao como "pouco
+   contraste". Medindo, o texto branco ja passava folgado -- 8,2:1 nas
+   areas mais claras, contra 4,5:1 do AA. Nao era ilegibilidade: era a
+   imagem competindo com o texto. Subir para .8 acalma o fundo sem
+   apagar a ponte. Usado so na secao de paciente de fora, uma vez por
+   pagina. */
+.cover .overlay.dim-70{opacity:.8}
 .cover .overlay.dim-0{opacity:0}
 .cover-inner{width:min(90%,var(--content));margin-inline:auto;padding-block:60px;z-index:1}
 
@@ -952,7 +958,7 @@ img.img-token[src^="data:"]{
      era cortado nas fotos de perfil. Em 850x1000 a escala fica 0,926 e o
      sujeito mais largo dá 813px, com folga. Nada e cortado.
      cortadas no queixo e na testa, que e justamente o que se compara. */
-  aspect-ratio:850/1000;
+  aspect-ratio:850/1280;
   overflow:hidden;
   background:var(--cor-borda);
   --pos:50%;
@@ -1623,8 +1629,8 @@ address{font-style:normal}
 
 /* Em faixa escura ou sobre foto, a placa branca cegaria. */
 .band-dark .checklist li,.cover .checklist li{
-  background:rgb(255 255 255 / .07);
-  border-color:rgb(231 232 234 / .3);
+  background:rgb(255 255 255 / .10);
+  border-color:rgb(231 232 234 / .45);
   border-left-color:var(--tertiary);
 }
 .band-dark .checklist li::before,.cover .checklist li::before{background:var(--tertiary)}
