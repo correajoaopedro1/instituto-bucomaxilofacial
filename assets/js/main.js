@@ -397,6 +397,62 @@
       medir();
       medidores.push(medir);
 
+      /* ---------------------------------------------------------------
+         ARRASTO POR PONTEIRO
+         [NOVO 20/08/2026] O <input type="range"> sozinho nao respondia ao
+         toque no celular: o dedo sobre a imagem era interpretado como
+         rolagem antes de o range receber o gesto, e o comparador ficava
+         parado. Pointer Events resolvem os tres casos -- dedo, mouse e
+         caneta -- com o mesmo codigo.
+
+         O range CONTINUA no HTML e continua sendo a fonte da posicao: e
+         ele que da teclado e leitor de tela. Aqui so escrevemos nele.
+      --------------------------------------------------------------- */
+      var arrastando = false;
+
+      function posicionar(clientX) {
+        var r = comp.getBoundingClientRect();
+        if (!r.width) return;
+        var p = ((clientX - r.left) / r.width) * 100;
+        p = p < 0 ? 0 : p > 100 ? 100 : p;
+        range.value = p;
+        pintar();
+      }
+
+      comp.addEventListener("pointerdown", function (e) {
+        if (e.pointerType === "mouse" && e.button !== 0) return;
+        arrastando = true;
+        if (comp.setPointerCapture) {
+          try { comp.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+        posicionar(e.clientX);
+      });
+
+      comp.addEventListener("pointermove", function (e) {
+        if (!arrastando) return;
+        /* Sem isto o Chrome do Android tenta rolar a pagina no meio do
+           arrasto e o movimento fica engasgado. */
+        if (e.cancelable) e.preventDefault();
+        posicionar(e.clientX);
+      });
+
+      function soltar(e) {
+        if (!arrastando) return;
+        arrastando = false;
+        if (comp.releasePointerCapture) {
+          try { comp.releasePointerCapture(e.pointerId); } catch (err) {}
+        }
+      }
+      comp.addEventListener("pointerup", soltar);
+      comp.addEventListener("pointercancel", soltar);
+      comp.addEventListener("pointerleave", soltar);
+
+      /* A imagem e arrastavel por padrao no desktop; sem isto o navegador
+         inicia o drag-and-drop nativo e o comparador para no meio. */
+      Array.prototype.forEach.call(comp.querySelectorAll("img"), function (im) {
+        im.addEventListener("dragstart", function (ev) { ev.preventDefault(); });
+      });
+
       if ("ResizeObserver" in w) {
         new w.ResizeObserver(medir).observe(comp);
       } else {
