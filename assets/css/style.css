@@ -1633,8 +1633,14 @@ address{font-style:normal}
      obrigava a escurecer a imagem inteira para o texto aparecer -- e ai a
      foto virava mancha. Dando COR e corpo a caixa, o texto para de depender
      do fundo: a imagem clareou, ganhou contraste e voltou a ter detalhe. */
-  background:rgb(14 123 162 / .30);
-  border-color:rgb(79 170 203 / .55);
+  /* [ALTERADO 21/08/2026] Tentei azul da marca a 30% e ficou berrante --
+     o site inteiro usa azul como acento pontual, nao como preenchimento.
+     O que a caixa precisava era CORPO, nao cor: grafite escuro semiopaco
+     resolve a legibilidade e some no fundo. O azul ficou so no filete da
+     esquerda, que e onde ele funciona como acento. */
+  background:rgb(28 27 28 / .48);
+  border-color:rgb(231 232 234 / .28);
+  border-left:2px solid var(--brand-blue);
   backdrop-filter:blur(2px);
   border-left-color:var(--tertiary);
 }
