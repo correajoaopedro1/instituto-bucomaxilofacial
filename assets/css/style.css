@@ -601,7 +601,7 @@ img.img-token[src^="data:"]{
    imagem competindo com o texto. Subir para .8 acalma o fundo sem
    apagar a ponte. Usado so na secao de paciente de fora, uma vez por
    pagina. */
-.cover .overlay.dim-70{opacity:.8}
+.cover .overlay.dim-70{opacity:.62}
 .cover .overlay.dim-0{opacity:0}
 .cover-inner{width:min(90%,var(--content));margin-inline:auto;padding-block:60px;z-index:1}
 
@@ -1629,8 +1629,13 @@ address{font-style:normal}
 
 /* Em faixa escura ou sobre foto, a placa branca cegaria. */
 .band-dark .checklist li,.cover .checklist li{
-  background:rgb(255 255 255 / .10);
-  border-color:rgb(231 232 234 / .45);
+  /* [ALTERADO 21/08/2026] Eram branco a 10% com borda cinza a 45%, o que
+     obrigava a escurecer a imagem inteira para o texto aparecer -- e ai a
+     foto virava mancha. Dando COR e corpo a caixa, o texto para de depender
+     do fundo: a imagem clareou, ganhou contraste e voltou a ter detalhe. */
+  background:rgb(14 123 162 / .30);
+  border-color:rgb(79 170 203 / .55);
+  backdrop-filter:blur(2px);
   border-left-color:var(--tertiary);
 }
 .band-dark .checklist li::before,.cover .checklist li::before{background:var(--tertiary)}
