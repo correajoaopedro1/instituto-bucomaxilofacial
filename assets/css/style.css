@@ -605,14 +605,22 @@ img.img-token[src^="data:"]{
 .cover .overlay.dim-0{opacity:0}
 .cover-inner{width:min(90%,var(--content));margin-inline:auto;padding-block:60px;z-index:1}
 
-.hero{min-height:100vh;align-items:flex-end;justify-content:flex-end}
+/* [ALTERADO 01/09/2026] Era flex-end (texto encostado na direita). O cliente
+   pediu esquerda -- o letreiro do prédio na foto fica na metade de cima da
+   imagem, não compete com o bloco de texto, que fica ancorado embaixo. */
+.hero{min-height:100vh;align-items:flex-end;justify-content:flex-start}
 .hero > img{object-position:23% 91%}
 .hero .hero-inner{
   color:var(--quaternary);
-  margin-right:12vw;
+  margin-left:12vw;
   padding-bottom:clamp(60px,12vh,140px);
   z-index:1;
 }
+/* [NOVO 01/09/2026] Overlay do hero .1 mais escuro que o .overlay padrão
+   (.5 -> .6, mesmo salto que o dim-70 já usa em "paciente de fora").
+   Escopado ao hero para não escurecer o rodapé, que reusa a classe base
+   .overlay sem modificador e já está calibrado para os retratos P&B. */
+.hero .overlay{opacity:.6}
 .hero h1{font-size:var(--fs-x-large)}
 .hero h1 .credentials{white-space:nowrap}
 .hero h2{
