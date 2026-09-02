@@ -715,7 +715,7 @@ img.img-token[src^="data:"]{
 
 .office-grid,.split{display:flex;gap:var(--gap-columns);align-items:flex-end}
 .office-grid .col-img,.split .col-img{flex:0 0 55%}
-.office-grid .col-img img,.split .col-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.office-grid .col-img img,.split .col-img img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px}
 .office-grid figcaption,.split figcaption{
   font-family:var(--font-nav);
   font-size:var(--fs-xx-small);
@@ -1330,8 +1330,8 @@ address{font-style:normal}
    Some sozinho (via .is-filled, aplicado no main.js) quando o src
    deixa de ser o placeholder data:. Mesmas bordas e tipografia do
    .pending-note — nenhum estilo novo. */
-.slot{position:relative;display:block;margin:0;background:var(--tertiary);overflow:hidden}
-.slot img{width:100%;height:100%;display:block;object-fit:cover}
+.slot{position:relative;display:block;margin:0;background:var(--tertiary);overflow:hidden;border-radius:8px}
+.slot img{width:100%;height:100%;display:block;object-fit:cover;border-radius:8px}
 .slot[data-slot]::after{
   content:attr(data-slot);
   position:absolute;inset:0;
